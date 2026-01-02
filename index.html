@@ -42,7 +42,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 80px;
+            padding: 14px 80px;
             max-width: 100%;
             margin: 0;
         }
@@ -236,6 +236,42 @@
             border-radius: 5px;
         }
 
+        /* Subheading Banner Style - 상단 이미지 배너 스타일 */
+        .subheading-banner {
+            width: 100%;
+            height: 20vh; /* 세로 화면의 20% 높이 */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .subheading-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* 텍스트 가독성을 위한 어두운 오버레이 */
+        }
+
+        .subheading-banner h2 {
+            position: relative;
+            z-index: 1;
+            color: white;
+            font-size: 36px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            background-color: transparent; /* 기존 노란색 배경 제거 */
+            padding: 0;
+            margin: 0;
+            border-radius: 0;
+        }
+
         /* Product Grid */
         .product-grid {
             display: grid;
@@ -275,28 +311,57 @@
 
         /* Company Info Grid */
         .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 80px; /* 카드 간 간격을 넓게 설정 */
         }
 
         .info-card {
+            display: flex;
+            flex-direction: column;
             background: var(--color-surface);
-            padding: 30px;
             border-radius: 8px;
-            border-left: 4px solid var(--color-primary);
+            border: 1px solid var(--color-border);
+            overflow: hidden;
+            min-height: 60vh; /* 화면 높이의 약 2/3 정도 차지 */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
-        .info-card h3 {
+        /* 데스크탑에서는 이미지와 텍스트를 좌우로 배치 (지그재그) */
+        @media (min-width: 768px) {
+            .info-card {
+                flex-direction: row;
+            }
+            .info-card:nth-child(even) {
+                flex-direction: row-reverse; /* 짝수 번째 카드는 반대 방향 */
+            }
+        }
+
+        .info-card-image {
+            flex: 1;
+            background-size: cover;
+            background-position: center;
+            min-height: 300px; /* 모바일에서 최소 이미지 높이 */
+        }
+
+        .info-card-content {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .info-card-content h3 {
             color: var(--color-primary);
-            margin-bottom: 15px;
-            font-size: 18px;
+            margin-bottom: 20px;
+            font-size: 24px;
         }
 
-        .info-card p {
+        .info-card-content p {
             color: var(--color-text-light);
-            font-size: 14px;
-            line-height: 1.6;
+            font-size: 16px;
+            line-height: 1.8;
         }
 
         /* Form */
@@ -637,44 +702,56 @@
     </section>
 
     <!-- Company Section -->
-    <section class="section-content" id="company">
-        <div class="container">
+    <section class="section-content" id="company" style="padding-top: 0;">
+        <div class="subheading-banner" style="background-image: url('assets/images/Subheading1.png');">
             <h2>회사소개</h2>
+        </div>
+        <div class="container">
             <div class="info-grid">
                 <div class="info-card">
-                    <h3>인사말</h3>
-                    <p>DSC는 50년 이상의 역사와 경험을 바탕으로 산업용 에어졸 제품의 선두주자로서의 위치를 확립했습니다. 혁신과 신뢰를 경영 철학으로 삼아 전 세계 고객에게 최고의 가치를 제공하고 있습니다.</p>
+                    <div class="info-card-image" style="background-image: url('assets/images/BGI_DongSuh1.png');"></div>
+                    <div class="info-card-content">
+                        <h3>인사말</h3>
+                        <p>DSC는 50년 이상의 역사와 경험을 바탕으로 산업용 에어졸 제품의 선두주자로서의 위치를 확립했습니다.<br><br>혁신과 신뢰를 경영 철학으로 삼아 전 세계 고객에게 최고의 가치를 제공하고 있습니다. 끊임없는 연구개발을 통해 고객의 기대를 뛰어넘는 제품을 선보이겠습니다.</p>
+                    </div>
                 </div>
                 <div class="info-card">
-                    <h3>경영이념</h3>
-                    <p>친환경 제품 개발과 지속가능한 생산으로 사회적 책임을 다하며, 환경과 미래를 창조하는 기업으로 나아갑니다. 정도(正道) 경영 및 사회적 책임 수행을 통해 신뢰받는 기업이 되겠습니다.</p>
+                    <div class="info-card-image" style="background-image: url('assets/images/Subheading3.png');"></div>
+                    <div class="info-card-content">
+                        <h3>경영이념</h3>
+                        <p><strong>친환경 미래 창조</strong><br>친환경 제품 개발과 지속가능한 생산으로 사회적 책임을 다하며, 환경과 미래를 창조하는 기업으로 나아갑니다.<br><br><strong>정도(正道) 경영</strong><br>투명하고 공정한 경영을 통해 고객과 사회로부터 신뢰받는 기업이 되겠습니다.</p>
+                    </div>
                 </div>
                 <div class="info-card">
-                    <h3>회사 연혁</h3>
-                    <p><strong>1968년</strong> 회사 설립<br>
-                    <strong>1990년</strong> ISO 9001 취득<br>
-                    <strong>2010년</strong> 글로벌 생산 기지 확장<br>
-                    <strong>2020년</strong> ESG 경영 시작</p>
+                    <div class="info-card-image" style="background-image: url('assets/images/Subheading4.png');"></div>
+                    <div class="info-card-content">
+                        <h3>회사 연혁</h3>
+                        <p>
+                            <strong>1968년</strong> 회사 설립<br>
+                            <strong>1990년</strong> ISO 9001 품질경영시스템 인증 취득<br>
+                            <strong>2010년</strong> 글로벌 생산 기지 확장 (베트남, 중국)<br>
+                            <strong>2020년</strong> ESG 경영 선포 및 친환경 설비 도입<br>
+                            <strong>2024년</strong> 스마트 팩토리 고도화
+                        </p>
+                    </div>
                 </div>
                 <div class="info-card">
-                    <h3>사업장</h3>
-                    <p><strong>본사:</strong> 서울 강남구<br>
-                    <strong>생산 시설:</strong> 인천, 광주<br>
-                    <strong>해외:</strong> 중국, 베트남 법인</p>
+                    <div class="info-card-image" style="background-image: url('assets/images/BGI_DongSuh1.png');"></div>
+                    <div class="info-card-content">
+                        <h3>사업장 안내</h3>
+                        <p><strong>본사</strong><br>서울 강남구 테헤란로 123<br><br>
+                        <strong>생산 시설</strong><br>인천 제1공장, 광주 제2공장<br><br>
+                        <strong>해외 법인</strong><br>중국 상해, 베트남 호치민</p>
+                    </div>
                 </div>
-                <div class="info-card" style="grid-column: span 1; padding: 30px; cursor: pointer;" onclick="navigateTo('certificates')" onmouseover="this.style.borderColor='#008B8B'; this.style.transform='translateY(-5px)'" onmouseout="this.style.borderColor='#008B8B'; this.style.transform='translateY(0)'">
-                    <h3 style="margin-bottom: 25px; color: #008B8B;">📜 상표 및 인증</h3>
-                    <p style="color: var(--color-primary); font-weight: 600; margin-bottom: 20px; font-size: 15px;">
-                        보유 상표 & 인증 보기 →
-                    </p>
-                </div>
-                <div class="info-card">
-                    <h3>오시는 길</h3>
-                    <p><strong>본사 주소:</strong><br>
-                    서울 강남구 테헤란로 123<br>
-                    <br>
-                    <strong>연락처:</strong><br>
-                    02-XXX-XXXX</p>
+                
+                <!-- 상표 및 인증 바로가기 카드 (스타일 유지하되 레이아웃 맞춤) -->
+                <div class="info-card" style="min-height: auto; cursor: pointer; border-left: 5px solid var(--color-primary);" onclick="navigateTo('certificates')">
+                    <div class="info-card-content" style="align-items: center; text-align: center; padding: 60px;">
+                        <h3 style="margin-bottom: 15px; font-size: 28px;">📜 상표 및 인증 현황</h3>
+                        <p style="margin-bottom: 0;">동서화학이 보유한 특허, 상표권 및 각종 인증서를 확인하세요.</p>
+                        <span style="margin-top: 20px; color: var(--color-primary); font-weight: bold; font-size: 18px;">보유 상표 & 인증 보기 →</span>
+                    </div>
                 </div>
             </div>
 
@@ -712,9 +789,11 @@
     </section>
 
     <!-- Products Section -->
-    <section class="section-content" id="products">
-        <div class="container">
+    <section class="section-content" id="products" style="padding-top: 0;">
+        <div class="subheading-banner" style="background-image: url('assets/images/Subheading2.png');">
             <h2>제품소개</h2>
+        </div>
+        <div class="container">
             <div class="product-grid">
                 <div class="product-card" onclick="showProductDetail('동서 락카', '금속, 플라스틱, 목재 등 다양한 재질의 표면 도장용 프리미엄 에어졸 제품. 빠른 건조와 우수한 광택감을 제공합니다.')">
                     <h3>동서 락카</h3>
@@ -741,9 +820,11 @@
     </section>
 
     <!-- 자료실 (MSDS & 카탈로그) - Google Drive 통합 -->
-    <section class="section-content" id="msds">
-        <div class="container">
+    <section class="section-content" id="msds" style="padding-top: 0;">
+        <div class="subheading-banner" style="background-image: url('assets/images/Subheading3.png');">
             <h2>자료실</h2>
+        </div>
+        <div class="container">
             <p style="text-align: center; color: #666666; margin-bottom: 40px; font-size: 16px;">
                 제품의 안전 데이터 시트(MSDS)와 성능 인증서를 다운로드하세요.
             </p>
@@ -816,21 +897,32 @@
     </section>
 
     <!-- Support Section -->
-    <section class="section-content" id="support">
-        <div class="container">
+    <section class="section-content" id="support" style="padding-top: 0;">
+        <div class="subheading-banner" style="background-image: url('assets/images/Subheading4.png');">
             <h2>고객지원</h2>
-            <div class="product-grid">
-                <div class="product-card" onclick="alert('공지사항: 신제품 출시, 이벤트, 유지보수 안내 등을 확인하세요.')">
-                    <h3>공지사항</h3>
-                    <p>신제품, 이벤트, 공지사항</p>
+        </div>
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-card" onclick="alert('공지사항: 신제품 출시, 이벤트, 유지보수 안내 등을 확인하세요.')" style="cursor: pointer;">
+                    <div class="info-card-image" style="background-image: url('assets/images/Subheading4.png');"></div>
+                    <div class="info-card-content">
+                        <h3>공지사항</h3>
+                        <p>동서화학의 최신 소식과 이벤트를 확인하세요.<br><br>신제품 출시 정보, 전시회 참가 소식, 그리고 중요 유지보수 안내 등을 가장 빠르게 전달해 드립니다.</p>
+                    </div>
                 </div>
-                <div class="product-card" onclick="alert('FAQ: 자주 묻는 질문에 대한 답변을 확인하세요.')">
-                    <h3>FAQ</h3>
-                    <p>자주 묻는 질문 답변</p>
+                <div class="info-card" onclick="alert('FAQ: 자주 묻는 질문에 대한 답변을 확인하세요.')" style="cursor: pointer;">
+                    <div class="info-card-image" style="background-image: url('assets/images/Subheading3.png');"></div>
+                    <div class="info-card-content">
+                        <h3>자주 묻는 질문 (FAQ)</h3>
+                        <p>제품 사용법, 대량 구매, 기술 지원 등 고객님들이 자주 묻는 질문들을 모았습니다.<br><br>궁금한 점이 있으시다면 먼저 FAQ를 확인해 보세요. 빠르고 정확한 답변을 찾으실 수 있습니다.</p>
+                    </div>
                 </div>
-                <div class="product-card" onclick="navigateTo('contact')">
-                    <h3>문의 / 연락처</h3>
-                    <p>온라인 문의 및 연락처 확인</p>
+                <div class="info-card" onclick="navigateTo('contact')" style="cursor: pointer;">
+                    <div class="info-card-image" style="background-image: url('assets/images/BGI_DongSuh1.png');"></div>
+                    <div class="info-card-content">
+                        <h3>문의 및 연락처</h3>
+                        <p>추가적인 도움이 필요하신가요?<br><br>온라인 문의 양식을 통해 질문을 남기시거나, 본사 고객센터로 직접 연락 주시면 담당자가 친절하게 안내해 드리겠습니다.</p>
+                    </div>
                 </div>
             </div>
         </div>
