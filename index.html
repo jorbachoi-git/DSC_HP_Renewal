@@ -10,10 +10,14 @@
     <!-- MSDS Popup -->
     <div class="msds-popup-overlay" id="msdsPopupOverlay"></div>
     <div class="msds-popup" id="msdsPopup">
-      <h2>📋 자료실 안내</h2>
+      <h2>📋 MSDS 안내</h2>
       <p>
-        MSDS 및 제품 카탈로그는<br /><strong>자료실</strong>에서 다운로드
-        받으세요!
+        MSDS 및 제품 카탈로그는<strong>자료실</strong>에서 <br />다운로드 받을
+        수 있습니다. <br />
+        또는 문의를 남기시면 e-mail로 답변드리겠습니다. <br /><br />
+        <span style="font-size: 14px; color: #666"
+          >문의전화 : 032 -1234 -1234</span
+        >
       </p>
       <div class="msds-popup-buttons">
         <button
@@ -34,6 +38,24 @@
     <!-- Header -->
     <header>
       <div class="header-top">
+        <!-- 햄버거 버튼 (모바일용) -->
+        <button class="hamburger-btn" onclick="openMobileMenu()">
+          <svg
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            stroke="currentColor"
+            stroke-width="2"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
         <div class="logo" onclick="navigateTo('home')">
           <img src="images/DongSuh_Logo.png" alt="동서화학 로고" />
           <span>동서화학(주)</span>
@@ -47,6 +69,25 @@
         <button class="language-toggle" onclick="toggleLanguage()">EN</button>
       </div>
     </header>
+
+    <!-- Mobile Menu (Side Navigation) -->
+    <div
+      class="mobile-menu-overlay"
+      id="mobileMenuOverlay"
+      onclick="closeMobileMenu()"
+    ></div>
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="mobile-menu-header">
+        <span class="mobile-menu-title">MENU</span>
+        <button class="mobile-menu-close" onclick="closeMobileMenu()">✕</button>
+      </div>
+      <nav class="mobile-nav-list">
+        <a onclick="navigateTo('company'); closeMobileMenu()">회사소개</a>
+        <a onclick="navigateTo('products'); closeMobileMenu()">제품소개</a>
+        <a onclick="navigateTo('msds'); closeMobileMenu()">자료실</a>
+        <a onclick="navigateTo('support'); closeMobileMenu()">고객지원</a>
+      </nav>
+    </div>
 
     <!-- Hero Section with Carousel -->
     <section class="hero section-content active" id="home">
@@ -107,67 +148,78 @@
         <h2>회사소개</h2>
       </div>
       <div class="container">
-        <div class="info-grid">
-          <div class="info-card">
+        <div class="feature-section">
+          <!-- CEO 인사말 -->
+          <div class="feature-block">
             <div
-              class="info-card-image"
+              class="feature-image"
               style="background-image: url('images/BGI_DongSuh1.png')"
             ></div>
-            <div class="info-card-content">
-              <h3>인사말</h3>
+            <div class="feature-content">
+              <h3>CEO 인사말</h3>
               <p>
+                <strong>50년의 혁신, 미래를 향한 동서화학의 약속</strong
+                ><br /><br />
                 DSC는 50년 이상의 역사와 경험을 바탕으로 산업용 에어졸 제품의
-                선두주자로서의 위치를 확립했습니다.<br /><br />혁신과 신뢰를
-                경영 철학으로 삼아 고객에게 최고의 가치를 제공하고 있습니다.
-                끊임없는 연구개발을 통해 고객의 기대를 뛰어넘는 제품을
-                선보이겠습니다.
+                선두주자로서의 위치를 확립했습니다. 혁신과 신뢰를 경영 철학으로
+                삼아 고객에게 최고의 가치를 제공하고 있습니다. 끊임없는
+                연구개발을 통해 고객의 기대를 뛰어넘는 제품을 선보이겠습니다.
+              </p>
+              <p style="text-align: right; margin-top: 20px">
+                동서화학(주) 대표이사 <strong>김동서</strong>
               </p>
             </div>
           </div>
-          <div class="info-card">
+
+          <!-- 경영이념 -->
+          <div class="feature-block">
             <div
-              class="info-card-image"
+              class="feature-image"
               style="background-image: url('images/Subheading3.png')"
             ></div>
-            <div class="info-card-content">
+            <div class="feature-content">
               <h3>경영이념</h3>
               <p>
                 <strong>친환경 미래 창조</strong><br />친환경 제품 개발과
                 지속가능한 생산으로 사회적 책임을 다하며, 환경과 미래를 창조하는
-                기업으로 나아갑니다.<br /><br /><strong>정도(正道) 경영</strong
-                ><br />투명하고 공정한 경영을 통해 고객과 사회로부터 신뢰받는
-                기업이 되겠습니다.
+                기업으로 나아갑니다.
+              </p>
+              <p>
+                <strong>정도(正道) 경영</strong><br />투명하고 공정한 경영을
+                통해 고객과 사회로부터 신뢰받는 기업이 되겠습니다.
               </p>
             </div>
           </div>
-          <div class="info-card">
+
+          <!-- 회사 연혁 -->
+          <div class="feature-block">
             <div
-              class="info-card-image"
+              class="feature-image"
               style="background-image: url('images/Subheading4.png')"
             ></div>
-            <div class="info-card-content">
+            <div class="feature-content">
               <h3>회사 연혁</h3>
+              <p><strong>1975년</strong> 회사 설립</p>
+              <p><strong>1990년</strong> ISO 9001 품질경영시스템 인증 취득</p>
               <p>
-                <strong>1975년</strong> 회사 설립<br />
-                <strong>1990년</strong> ISO 9001 품질경영시스템 인증 취득<br />
-                <strong>2010년</strong> 글로벌 생산 기지 확장 (베트남, 중국)<br />
-                <strong>2020년</strong> ESG 경영 선포 및 친환경 설비 도입<br />
-                <strong>2024년</strong> 스마트 팩토리 고도화
+                <strong>2010년</strong> 글로벌 생산 기지 확장 (베트남, 중국)
               </p>
+              <p><strong>2020년</strong> ESG 경영 선포 및 친환경 설비 도입</p>
+              <p><strong>2024년</strong> 스마트 팩토리 고도화</p>
             </div>
           </div>
-          <div class="info-card">
+
+          <!-- 사업장 안내 -->
+          <div class="feature-block">
             <div
-              class="info-card-image"
-              style="background-image: url('images/BGI_DongSuh1.png')"
+              class="feature-image"
+              style="background-image: url('images/BGI_DongSuh2.png')"
             ></div>
-            <div class="info-card-content">
+            <div class="feature-content">
               <h3>사업장 안내</h3>
-              <p>
-                <strong>본사</strong><br />서울 강남구 테헤란로 123<br /><br />
-                <strong>생산 시설</strong><br />인천 제1공장, 광주 제2공장<br /><br />
-                <strong>해외 법인</strong><br />중국 상해, 베트남 호치민
-              </p>
+              <p><strong>본사</strong><br />서울 강남구 테헤란로 123</p>
+              <p><strong>생산 시설</strong><br />인천 제1공장, 광주 제2공장</p>
+              <p><strong>해외 법인</strong><br />중국 상해, 베트남 호치민</p>
             </div>
           </div>
         </div>
@@ -380,58 +432,63 @@
         <h2>고객지원</h2>
       </div>
       <div class="container">
-        <div class="info-grid">
+        <div class="feature-section">
+          <!-- 공지사항 -->
           <div
-            class="info-card"
+            class="feature-block cursor-pointer"
             onclick="alert('공지사항: 신제품 출시, 이벤트, 유지보수 안내 등을 확인하세요.')"
-            class="info-card cursor-pointer"
           >
             <div
-              class="info-card-image"
+              class="feature-image"
               style="background-image: url('images/Subheading4.png')"
             ></div>
-            <div class="info-card-content">
+            <div class="feature-content">
               <h3>공지사항</h3>
+              <p>동서화학의 최신 소식과 이벤트를 확인하세요.</p>
               <p>
-                동서화학의 최신 소식과 이벤트를 확인하세요.<br /><br />신제품
-                출시 정보, 전시회 참가 소식, 그리고 중요 유지보수 안내 등을 가장
-                빠르게 전달해 드립니다.
+                신제품 출시 정보, 전시회 참가 소식, 그리고 중요 유지보수 안내
+                등을 가장 빠르게 전달해 드립니다.
               </p>
             </div>
           </div>
+
+          <!-- FAQ -->
           <div
-            class="info-card"
+            class="feature-block cursor-pointer"
             onclick="alert('FAQ: 자주 묻는 질문에 대한 답변을 확인하세요.')"
-            class="info-card cursor-pointer"
           >
             <div
-              class="info-card-image"
+              class="feature-image"
               style="background-image: url('images/Subheading3.png')"
             ></div>
-            <div class="info-card-content">
+            <div class="feature-content">
               <h3>자주 묻는 질문 (FAQ)</h3>
               <p>
                 제품 사용법, 대량 구매, 기술 지원 등 고객님들이 자주 묻는
-                질문들을 모았습니다.<br /><br />궁금한 점이 있으시다면 먼저
-                FAQ를 확인해 보세요. 빠르고 정확한 답변을 찾으실 수 있습니다.
+                질문들을 모았습니다.
+              </p>
+              <p>
+                궁금한 점이 있으시다면 먼저 FAQ를 확인해 보세요. 빠르고 정확한
+                답변을 찾으실 수 있습니다.
               </p>
             </div>
           </div>
+
+          <!-- 문의 및 연락처 -->
           <div
-            class="info-card"
+            class="feature-block cursor-pointer"
             onclick="navigateTo('contact')"
-            class="info-card cursor-pointer"
           >
             <div
-              class="info-card-image"
+              class="feature-image"
               style="background-image: url('images/BGI_DongSuh1.png')"
             ></div>
-            <div class="info-card-content">
+            <div class="feature-content">
               <h3>문의 및 연락처</h3>
+              <p>추가적인 도움이 필요하신가요?</p>
               <p>
-                추가적인 도움이 필요하신가요?<br /><br />온라인 문의 양식을 통해
-                질문을 남기시거나, 본사 고객센터로 직접 연락 주시면 담당자가
-                친절하게 안내해 드리겠습니다.
+                온라인 문의 양식을 통해 질문을 남기시거나, 본사 고객센터로 직접
+                연락 주시면 담당자가 친절하게 안내해 드리겠습니다.
               </p>
             </div>
           </div>
@@ -753,6 +810,17 @@
       function closeMsdsPopup() {
         document.getElementById("msdsPopupOverlay").classList.remove("active");
         document.getElementById("msdsPopup").classList.remove("active");
+      }
+
+      // 모바일 메뉴 제어
+      function openMobileMenu() {
+        document.getElementById("mobileMenuOverlay").classList.add("active");
+        document.getElementById("mobileMenu").classList.add("active");
+      }
+
+      function closeMobileMenu() {
+        document.getElementById("mobileMenuOverlay").classList.remove("active");
+        document.getElementById("mobileMenu").classList.remove("active");
       }
 
       window.addEventListener("load", function () {
