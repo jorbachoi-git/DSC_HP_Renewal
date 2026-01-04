@@ -145,6 +145,45 @@ header {
     }
   }
 
+  // Dropdown Menu Styles
+  .nav-item {
+    position: relative;
+    padding-bottom: 15px; // 호버 영역 확장
+    margin-bottom: -15px;
+
+    &:hover .dropdown-menu {
+      display: block;
+    }
+  }
+
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: $white;
+    min-width: 220px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 8px 0;
+    border: 1px solid #eee;
+    z-index: 1100;
+
+    a {
+      display: block;
+      padding: 12px 20px;
+      font-size: 0.85rem;
+      font-weight: 400;
+      white-space: nowrap;
+
+      &:hover {
+        background: $bg-color;
+        color: $primary-color;
+      }
+    }
+  }
+
   .language-toggle {
     padding: 5px 10px;
     border: 1px solid $border-color;
@@ -894,4 +933,146 @@ footer {
 }
 .max-w-600 {
   max-width: 600px;
+}
+
+// Inquiry System Styles (New)
+.inquiry-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  background: $white;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid #d0d0d0;
+}
+
+.inquiry-section-title {
+  color: $text-color;
+  margin: 0 0 25px 0;
+  padding-bottom: 15px;
+  border-bottom: 2px solid $primary-color;
+  font-size: 1.4rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+.form-group {
+  margin-bottom: 20px;
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: $text-color;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all $transition-speed;
+    background-color: #fff;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 250px;
+  }
+
+  small {
+    display: block;
+    margin-top: 6px;
+    color: $text-light;
+    font-size: 0.85rem;
+  }
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  background-color: $primary-color;
+  color: $white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color $transition-speed;
+  margin-top: 10px;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+
+  &:active {
+    transform: scale(0.99);
+  }
+}
+
+.divider {
+  margin: 50px 0;
+  border: none;
+  border-top: 1px solid #eee;
+}
+
+.inquiry-card {
+  border: 1px solid $border-color;
+  border-radius: 6px;
+  padding: 20px;
+  background-color: #fafafa;
+  margin-bottom: 15px;
+  transition: transform $transition-speed;
+
+  &:hover {
+    background-color: $white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  h3 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    color: $text-color;
+  }
+
+  .meta {
+    font-size: 0.85rem;
+    color: $text-light;
+    margin-bottom: 12px;
+  }
+
+  .reply-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 8px;
+
+    &.pending {
+      background-color: #eee;
+      color: #666;
+    }
+    &.completed {
+      background-color: rgba($primary-color, 0.1);
+      color: $primary-color;
+    }
+  }
 }

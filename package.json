@@ -1,0 +1,15 @@
+{
+  "name": "dsc-hp",
+  "version": "1.0.0",
+  "description": "DSC HP Website with Inquiry System",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "sass scss/style.scss style.css"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "@neondatabase/serverless": "^0.6.0",
+    "dotenv": "^16.3.1",
+    "sass": "^1.70.0"
+  }
+}

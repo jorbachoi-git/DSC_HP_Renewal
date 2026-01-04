@@ -86,6 +86,11 @@
         <a onclick="navigateTo('products'); closeMobileMenu()">제품소개</a>
         <a onclick="navigateTo('msds'); closeMobileMenu()">자료실</a>
         <a onclick="navigateTo('support'); closeMobileMenu()">고객지원</a>
+        <a
+          onclick="navigateTo('contact'); closeMobileMenu()"
+          style="padding-left: 35px; font-size: 0.85rem; color: #666"
+          >└ 제품 문의 및 자료요청</a
+        >
       </nav>
     </div>
 
@@ -493,6 +498,12 @@
                 온라인 문의 양식을 통해 질문을 남기시거나, 본사 고객센터로 직접
                 연락 주시면 담당자가 친절하게 안내해 드리겠습니다.
               </p>
+              <button
+                class="btn"
+                style="margin-top: 15px; background-color: #008b8b; color: #fff"
+              >
+                제품문의 및 자료요청
+              </button>
             </div>
           </div>
         </div>
@@ -503,37 +514,192 @@
     <section class="section-content" id="contact">
       <div class="container">
         <h2>문의 & 연락처</h2>
-        <div class="contact-grid">
-          <div>
-            <h3>연락처 정보</h3>
-            <p><strong>회사명:</strong> 동서화학(주)</p>
-            <p>
-              <strong>본사 주소:</strong> 인천시 서구 길주로 45번길 17-2(석남동)
-            </p>
-            <p><strong>대표 전화:</strong> 032-571-6010</p>
-            <p><strong>대표 이메일:</strong> dsspray1@naver.com</p>
-            <p><strong>팩스:</strong> 032-574-6344</p>
-            <p class="mb-20 mt-20">
-              <strong>영업시간:</strong> 월~금 09:00~18:00 (토일 휴무)
-            </p>
-          </div>
-          <div>
-            <h3>온라인 문의 및 주문</h3>
+
+        <!-- 새로운 문의 시스템 -->
+        <div class="inquiry-wrapper mb-50">
+          <!-- 1. 문의 등록 섹션 -->
+          <section id="inquiry-section">
+            <h3 class="inquiry-section-title">📝 제품 문의 및 자료 요청</h3>
+            <form id="inquiryForm">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name">성명 (필수)</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="성명을 입력하세요"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="email">이메일 (필수)</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="example@domain.com"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="phone">연락처</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  placeholder="010-xxxx-xxxx"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="message">문의 내용 (필수)</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  placeholder="제품명, 수량, 요청 자료 등 상세 내용을 입력해 주세요."
+                  required
+                ></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="password">비밀번호 (필수)</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="답글 확인용 비밀번호 (4자리 이상)"
+                  required
+                />
+                <small
+                  >※ 추후 답변을 확인하거나 문의를 수정/삭제할 때
+                  필요합니다.</small
+                >
+              </div>
+
+              <button type="submit" class="btn-submit">문의 등록하기</button>
+            </form>
+            <div id="submitStatus" class="status-message"></div>
+          </section>
+
+          <hr class="divider" />
+
+          <!-- 2. 공개 문의 목록 섹션 -->
+          <section id="public-list-section">
+            <h3 class="inquiry-section-title">📢 공개 문의 목록</h3>
+            <div id="publicList" class="list-container">
+              <!-- 샘플 데이터 (나중에 JS로 대체됨) -->
+              <div class="inquiry-card">
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                  "
+                >
+                  <h3>
+                    동서 락카 대량 구매 견적 문의
+                    <span class="reply-badge completed">답변완료</span>
+                  </h3>
+                </div>
+                <div class="meta">김** | 2024-01-04</div>
+              </div>
+              <div class="inquiry-card">
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                  "
+                >
+                  <h3>
+                    MSDS 자료 요청합니다
+                    <span class="reply-badge pending">대기중</span>
+                  </h3>
+                </div>
+                <div class="meta">이** | 2024-01-03</div>
+              </div>
+            </div>
+          </section>
+
+          <hr class="divider" />
+
+          <!-- 3. 내 문의 확인 섹션 -->
+          <section id="verify-section">
+            <h3 class="inquiry-section-title">🔒 내 문의 확인</h3>
             <p class="text-light mb-20 text-sm">
-              아래 양식에 정보를 입력하고 전송하시면 저희가 빠르게
-              응답하겠습니다.
+              작성하신 문의의 답변을 확인하려면 문의 번호와 비밀번호를
+              입력하세요.
             </p>
-            <iframe
-              id="googleForm"
-              src="https://docs.google.com/forms/d/e/1FAIpQLSf9PBKbeE4ImrpGxcjiELY0EVQtaUA3DG8uUmEe8BAe6eH7NQ/viewform?embedded=true"
-              width="100%"
-              height="744"
-              frameborder="0"
-              marginheight="0"
-              marginwidth="0"
-            >
-              로딩 중...
-            </iframe>
+            <form id="verifyForm">
+              <div class="form-group">
+                <label for="inquiryId">문의 번호</label>
+                <input
+                  type="number"
+                  id="inquiryId"
+                  name="inquiryId"
+                  placeholder="문의 번호 입력"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="verifyPassword">비밀번호</label>
+                <input
+                  type="password"
+                  id="verifyPassword"
+                  name="verifyPassword"
+                  placeholder="비밀번호 입력"
+                  required
+                />
+              </div>
+              <button
+                type="submit"
+                class="btn-submit"
+                style="background-color: #666"
+              >
+                확인하기
+              </button>
+            </form>
+            <div id="verifyStatus" class="status-message"></div>
+            <div id="inquiryDetails" class="details-container"></div>
+          </section>
+        </div>
+
+        <!-- 연락처 정보 (하단 배치) -->
+        <div
+          class="contact-info-box"
+          style="
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+          "
+        >
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+              gap: 20px;
+            "
+          >
+            <div>
+              <h4 style="color: #008b8b; margin-bottom: 10px">📍 주소</h4>
+              <p class="text-light">인천시 서구 길주로 45번길 17-2</p>
+            </div>
+            <div>
+              <h4 style="color: #008b8b; margin-bottom: 10px">
+                📞 전화 & 팩스
+              </h4>
+              <p class="text-light">Tel: 032-571-6010</p>
+              <p class="text-light">Fax: 032-574-6344</p>
+            </div>
+            <div>
+              <h4 style="color: #008b8b; margin-bottom: 10px">✉️ 이메일</h4>
+              <p class="text-light">dsspray1@naver.com</p>
+            </div>
           </div>
         </div>
       </div>
