@@ -5,6 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DSC - 전문 에어졸 충전 업체</title>
     <link rel="stylesheet" href="css/style.css" />
+    <style>
+      /* JS 동적 제어를 위한 필수 스타일 */
+      .status-message { margin-top: 10px; font-size: 0.9rem; font-weight: bold; }
+      .status-message.success { color: #2ecc71; } /* 성공 시 녹색 */
+      .status-message.error { color: #e74c3c; }   /* 실패 시 빨간색 */
+
+      /* 내 문의 확인 상세 영역 (기본 숨김) */
+      .details-container { display: none; margin-top: 20px; padding: 20px; background: #f9f9f9; border-radius: 8px; border: 1px solid #ddd; }
+      .details-container.show { display: block; } /* JS가 show 클래스를 추가하면 보임 */
+
+      /* 관리자 답변 스타일 */
+      .reply { margin-top: 15px; padding: 15px; background: #e8f6f3; border-radius: 5px; border-left: 4px solid #008b8b; }
+      .reply-label { font-weight: bold; color: #008b8b; margin-bottom: 5px; font-size: 0.9em; }
+      
+      /* 공개 목록 스타일 보완 */
+      .inquiry-card { background: #fff; border: 1px solid #eee; padding: 15px; margin-bottom: 10px; border-radius: 8px; }
+      .inquiry-card h3 { margin: 0 0 5px 0; font-size: 1rem; color: #333; }
+      .inquiry-card .meta { font-size: 0.8rem; color: #888; margin-bottom: 10px; }
+      .inquiry-card .message { color: #555; font-size: 0.95rem; }
+    </style>
   </head>
   <body>
     <!-- MSDS Popup -->
