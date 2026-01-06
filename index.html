@@ -7,23 +7,103 @@
     <link rel="stylesheet" href="css/style.css" />
     <style>
       /* JS 동적 제어를 위한 필수 스타일 */
-      .status-message { margin-top: 10px; font-size: 0.9rem; font-weight: bold; }
-      .status-message.success { color: #2ecc71; } /* 성공 시 녹색 */
-      .status-message.error { color: #e74c3c; }   /* 실패 시 빨간색 */
+      .status-message {
+        margin-top: 10px;
+        font-size: 0.9rem;
+        font-weight: bold;
+      }
+      .status-message.success {
+        color: #2ecc71;
+      } /* 성공 시 녹색 */
+      .status-message.error {
+        color: #e74c3c;
+      } /* 실패 시 빨간색 */
 
       /* 내 문의 확인 상세 영역 (기본 숨김) */
-      .details-container { display: none; margin-top: 20px; padding: 20px; background: #f9f9f9; border-radius: 8px; border: 1px solid #ddd; }
-      .details-container.show { display: block; } /* JS가 show 클래스를 추가하면 보임 */
+      .details-container {
+        display: none;
+        margin-top: 20px;
+        padding: 20px;
+        background: #f9f9f9;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+      }
+      .details-container.show {
+        display: block;
+      } /* JS가 show 클래스를 추가하면 보임 */
 
       /* 관리자 답변 스타일 */
-      .reply { margin-top: 15px; padding: 15px; background: #e8f6f3; border-radius: 5px; border-left: 4px solid #008b8b; }
-      .reply-label { font-weight: bold; color: #008b8b; margin-bottom: 5px; font-size: 0.9em; }
-      
+      .reply {
+        margin-top: 15px;
+        padding: 15px;
+        background: #e8f6f3;
+        border-radius: 5px;
+        border-left: 4px solid #008b8b;
+      }
+      .reply-label {
+        font-weight: bold;
+        color: #008b8b;
+        margin-bottom: 5px;
+        font-size: 0.9em;
+      }
+
       /* 공개 목록 스타일 보완 */
-      .inquiry-card { background: #fff; border: 1px solid #eee; padding: 15px; margin-bottom: 10px; border-radius: 8px; }
-      .inquiry-card h3 { margin: 0 0 5px 0; font-size: 1rem; color: #333; }
-      .inquiry-card .meta { font-size: 0.8rem; color: #888; margin-bottom: 10px; }
-      .inquiry-card .message { color: #555; font-size: 0.95rem; }
+      .inquiry-card {
+        background: #fff;
+        border: 1px solid #eee;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+      }
+      .inquiry-card h3 {
+        margin: 0 0 5px 0;
+        font-size: 1rem;
+        color: #333;
+      }
+      .inquiry-card .meta {
+        font-size: 0.8rem;
+        color: #888;
+        margin-bottom: 10px;
+      }
+      .inquiry-card .message {
+        color: #555;
+        font-size: 0.95rem;
+      }
+
+      /* 레이아웃 스타일 강제 적용 */
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      /* 문의 내용(textarea)을 한 줄 전체로 설정 */
+      .form-group.full-width {
+        grid-column: 1 / -1;
+      }
+
+      /* 입력창 너비를 부모 요소에 꽉 차게(반응형) 설정 */
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+      }
+
+      /* 문의 내용 입력창 높이 확대 */
+      .form-group textarea {
+        min-height: 200px;
+      }
+
+      @media (max-width: 768px) {
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Contact 섹션 상단 패딩 제거 (서브헤딩 배너를 위해) */
+      #contact,
+      #certificates {
+        padding-top: 0;
+      }
     </style>
   </head>
   <body>
@@ -256,8 +336,16 @@
 
     <!-- 상표 및 인증 페이지 (별도) -->
     <section class="section-content" id="certificates">
+      <div
+        class="subheading-banner"
+        style="background-image: url('images/Subheading1.png')"
+      >
+        <h2>상표 및 인증</h2>
+      </div>
       <div class="container">
-        <h2>🏆 동서화학이 보유하고 있는 상표 및 인증</h2>
+        <h3 class="text-center mb-20" style="color: #008b8b">
+          🏆 동서화학이 보유하고 있는 상표 및 인증
+        </h3>
         <p class="text-center text-light mb-50 mx-auto max-w-600">
           국제 표준과 규격을 충족하는 엄격한 기준으로 인증받은 동서화학의
           전문성과 신뢰성을 확인하세요.
@@ -532,18 +620,23 @@
 
     <!-- Contact Section -->
     <section class="section-content" id="contact">
+      <div
+        class="subheading-banner"
+        style="background-image: url('images/Subheading4.png')"
+      >
+        <h2>고객지원</h2>
+      </div>
       <div class="container">
-        <h2>문의 & 연락처</h2>
-
         <!-- 새로운 문의 시스템 -->
         <div class="inquiry-wrapper mb-50">
           <!-- 1. 문의 등록 섹션 -->
           <section id="inquiry-section">
             <h3 class="inquiry-section-title">📝 제품 문의 및 자료 요청</h3>
             <form id="inquiryForm">
-              <div class="form-row">
+              <div class="form-grid">
+                <!-- 1행: 성명 / 업체명 -->
                 <div class="form-group">
-                  <label for="name">성명 (필수)</label>
+                  <label for="name">성명 <span class="required">*</span></label>
                   <input
                     type="text"
                     id="name"
@@ -552,9 +645,21 @@
                     required
                   />
                 </div>
-
                 <div class="form-group">
-                  <label for="email">이메일 (필수)</label>
+                  <label for="company">업체명</label>
+                  <input
+                    type="text"
+                    id="company"
+                    name="company"
+                    placeholder="업체명을 입력하세요"
+                  />
+                </div>
+
+                <!-- 2행: 이메일 / 연락처 -->
+                <div class="form-group">
+                  <label for="email"
+                    >이메일 <span class="required">*</span></label
+                  >
                   <input
                     type="email"
                     id="email"
@@ -563,44 +668,52 @@
                     required
                   />
                 </div>
+                <div class="form-group">
+                  <label for="phone">연락처</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="010-xxxx-xxxx"
+                  />
+                </div>
+
+                <!-- 3행: 문의내용 (Full Width) -->
+                <div class="form-group full-width">
+                  <label for="message"
+                    >문의 내용 <span class="required">*</span></label
+                  >
+                  <textarea
+                    id="message"
+                    name="message"
+                    placeholder="제품명, 수량, 요청 자료 등 상세 내용을 입력해 주세요."
+                    required
+                  ></textarea>
+                </div>
+
+                <!-- 4행: 파일첨부 (Full Width) -->
+                <div class="form-group full-width">
+                  <label for="file">파일 첨부</label>
+                  <input type="file" id="file" name="file" class="file-input" />
+                </div>
               </div>
 
-              <div class="form-group">
-                <label for="phone">연락처</label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  placeholder="010-xxxx-xxxx"
-                />
+              <!-- 5행: 비밀번호 / 전송버튼 -->
+              <div class="form-footer">
+                <div class="form-group password-group">
+                  <label for="password"
+                    >비밀번호 <span class="required">*</span></label
+                  >
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="비밀번호 (4자리 이상)"
+                    required
+                  />
+                </div>
+                <button type="submit" class="btn-submit">문의 등록하기</button>
               </div>
-
-              <div class="form-group">
-                <label for="message">문의 내용 (필수)</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  placeholder="제품명, 수량, 요청 자료 등 상세 내용을 입력해 주세요."
-                  required
-                ></textarea>
-              </div>
-
-              <div class="form-group">
-                <label for="password">비밀번호 (필수)</label>
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  placeholder="답글 확인용 비밀번호 (4자리 이상)"
-                  required
-                />
-                <small
-                  >※ 추후 답변을 확인하거나 문의를 수정/삭제할 때
-                  필요합니다.</small
-                >
-              </div>
-
-              <button type="submit" class="btn-submit">문의 등록하기</button>
             </form>
             <div id="submitStatus" class="status-message"></div>
           </section>
@@ -610,53 +723,50 @@
           <!-- 2. 공개 문의 목록 섹션 -->
           <section id="public-list-section">
             <h3 class="inquiry-section-title">📢 공개 문의 목록</h3>
-            <div id="publicList" class="list-container">
-              <!-- 샘플 데이터 (나중에 JS로 대체됨) -->
-              <div class="inquiry-card">
-                <div
-                  style="
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: flex-start;
-                  "
-                >
-                  <h3>
-                    동서 락카 대량 구매 견적 문의
-                    <span class="reply-badge completed">답변완료</span>
-                  </h3>
-                </div>
-                <div class="meta">김** | 2024-01-04</div>
-              </div>
-              <div class="inquiry-card">
-                <div
-                  style="
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: flex-start;
-                  "
-                >
-                  <h3>
-                    MSDS 자료 요청합니다
-                    <span class="reply-badge pending">대기중</span>
-                  </h3>
-                </div>
-                <div class="meta">이** | 2024-01-03</div>
-              </div>
+            <div class="table-responsive">
+              <table class="inquiry-table">
+                <thead>
+                  <tr>
+                    <th style="width: 10%">번호</th>
+                    <th style="width: 50%">제목</th>
+                    <th style="width: 15%">작성자</th>
+                    <th style="width: 15%">등록일</th>
+                    <th style="width: 10%">상태</th>
+                  </tr>
+                </thead>
+                <tbody id="publicList">
+                  <!-- 샘플 데이터 -->
+                  <tr>
+                    <td>2</td>
+                    <td class="text-left">동서 락카 대량 구매 견적 문의</td>
+                    <td>김**</td>
+                    <td>2024-01-04</td>
+                    <td><span class="reply-badge completed">답변완료</span></td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td class="text-left">MSDS 자료 요청합니다</td>
+                    <td>이**</td>
+                    <td>2024-01-03</td>
+                    <td><span class="reply-badge pending">대기중</span></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </section>
 
           <hr class="divider" />
 
           <!-- 3. 내 문의 확인 섹션 -->
-          <section id="verify-section">
+          <section id="verify-section" class="verify-box">
             <h3 class="inquiry-section-title">🔒 내 문의 확인</h3>
             <p class="text-light mb-20 text-sm">
               작성하신 문의의 답변을 확인하려면 문의 번호와 비밀번호를
               입력하세요.
             </p>
-            <form id="verifyForm">
+            <form id="verifyForm" class="verify-form">
               <div class="form-group">
-                <label for="inquiryId">문의 번호</label>
+                <!-- <label for="inquiryId">문의 번호</label> -->
                 <input
                   type="number"
                   id="inquiryId"
@@ -666,7 +776,7 @@
                 />
               </div>
               <div class="form-group">
-                <label for="verifyPassword">비밀번호</label>
+                <!-- <label for="verifyPassword">비밀번호</label> -->
                 <input
                   type="password"
                   id="verifyPassword"
@@ -675,19 +785,14 @@
                   required
                 />
               </div>
-              <button
-                type="submit"
-                class="btn-submit"
-                style="background-color: #666"
-              >
-                확인하기
-              </button>
+              <button type="submit" class="btn-verify">확인하기</button>
             </form>
             <div id="verifyStatus" class="status-message"></div>
             <div id="inquiryDetails" class="details-container"></div>
           </section>
         </div>
 
+        <h2 class="mb-20">문의 & 연락처</h2>
         <!-- 연락처 정보 (하단 배치) -->
         <div
           class="contact-info-box"
