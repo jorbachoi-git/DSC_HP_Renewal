@@ -104,6 +104,21 @@
       #certificates {
         padding-top: 0;
       }
+
+      /* 제품 카드 이미지 스타일 추가 */
+      .product-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 4px;
+        margin-bottom: 15px;
+      }
+
+      /* 모바일 메뉴 간격 좁히기 */
+      .mobile-nav-list a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
     </style>
   </head>
   <body>
@@ -183,9 +198,44 @@
       </div>
       <nav class="mobile-nav-list">
         <a onclick="navigateTo('company'); closeMobileMenu()">회사소개</a>
+        <a
+          onclick="navigateTo('company'); closeMobileMenu()"
+          style="padding-left: 35px; font-size: 0.85rem; color: #666"
+          >└ CEO 인사말</a
+        >
+        <a
+          onclick="navigateTo('company'); closeMobileMenu()"
+          style="padding-left: 35px; font-size: 0.85rem; color: #666"
+          >└ 경영이념</a
+        >
+        <a
+          onclick="navigateTo('company'); closeMobileMenu()"
+          style="padding-left: 35px; font-size: 0.85rem; color: #666"
+          >└ 회사연혁</a
+        >
+        <a
+          onclick="navigateTo('certificates'); closeMobileMenu()"
+          style="padding-left: 35px; font-size: 0.85rem; color: #666"
+          >└ 상표 및 인증현황</a
+        >
+        <a
+          onclick="navigateTo('company'); closeMobileMenu()"
+          style="padding-left: 35px; font-size: 0.85rem; color: #666"
+          >└ 사업장안내</a
+        >
         <a onclick="navigateTo('products'); closeMobileMenu()">제품소개</a>
         <a onclick="navigateTo('msds'); closeMobileMenu()">자료실</a>
         <a onclick="navigateTo('support'); closeMobileMenu()">고객지원</a>
+        <a
+          onclick="navigateTo('support'); closeMobileMenu()"
+          style="padding-left: 35px; font-size: 0.85rem; color: #666"
+          >└ 공지사항</a
+        >
+        <a
+          onclick="navigateTo('support'); closeMobileMenu()"
+          style="padding-left: 35px; font-size: 0.85rem; color: #666"
+          >└ 자주 묻는 질문(FAQ)</a
+        >
         <a
           onclick="navigateTo('contact'); closeMobileMenu()"
           style="padding-left: 35px; font-size: 0.85rem; color: #666"
@@ -312,6 +362,34 @@
             </div>
           </div>
 
+          <!-- 상표 및 인증 현황 (Moved from Products) -->
+          <div
+            class="feature-block cursor-pointer"
+            onclick="navigateTo('certificates')"
+          >
+            <div
+              class="feature-image"
+              style="background-image: url('images/Subheading1.png')"
+            ></div>
+            <div class="feature-content">
+              <h3>상표 및 인증 현황</h3>
+              <p>
+                동서화학이 보유한 특허, 상표권 및 각종 인증서를 확인하세요. 국제
+                표준과 규격을 충족하는 엄격한 기준으로 인증받은 전문성을
+                확인하실 수 있습니다.
+              </p>
+              <span
+                style="
+                  color: #008b8b;
+                  font-weight: bold;
+                  margin-top: 10px;
+                  display: inline-block;
+                "
+                >보유 상표 & 인증 보기 →</span
+              >
+            </div>
+          </div>
+
           <!-- 사업장 안내 -->
           <div class="feature-block">
             <div
@@ -389,6 +467,7 @@
             class="product-card"
             onclick="showProductDetail('동서 락카', '금속, 플라스틱, 목재 등 다양한 재질의 표면 도장용 프리미엄 에어졸 제품. 빠른 건조와 우수한 광택감을 제공합니다.')"
           >
+            <img src="images/prod_01.png" alt="동서 락카" />
             <h3>동서 락카</h3>
             <p>프리미엄 에어졸 도장제</p>
           </div>
@@ -396,6 +475,7 @@
             class="product-card"
             onclick="showProductDetail('DS 락카', '산업용 에어졸 도장제로 다양한 도장 환경에 적용 가능한 제품입니다. 뛰어난 부착성과 내구성을 자랑합니다.')"
           >
+            <img src="images/prod_02.png" alt="DS 락카" />
             <h3>DS 락카</h3>
             <p>산업용 도장 솔루션</p>
           </div>
@@ -403,6 +483,7 @@
             class="product-card"
             onclick="showProductDetail('아연(ZINC SILVER)', '금속 부식 방지를 위한 아연 코팅제입니다. 자동차 및 기계 산업에서 높은 신뢰도를 가지고 있습니다.')"
           >
+            <img src="images/prod_03.png" alt="아연(ZINC SILVER)" />
             <h3>아연(ZINC SILVER)</h3>
             <p>방청 코팅제</p>
           </div>
@@ -410,26 +491,25 @@
             class="product-card"
             onclick="showProductDetail('이형제', '금형 및 성형 제품의 이형 작용에 우수한 에어졸 제품입니다. 깔끔한 이형과 재사용성이 뛰어납니다.')"
           >
+            <img src="images/prod_04.png" alt="이형제" />
             <h3>이형제</h3>
             <p>금형 이형 에어졸</p>
           </div>
           <div
             class="product-card"
+            onclick="showProductDetail('방청제', '금속 표면의 부식을 방지하고 장기간 보관을 가능하게 하는 고성능 방청제입니다. 침투력이 우수하여 미세한 틈새까지 보호합니다.')"
+          >
+            <img src="images/prod_05.png" alt="방청제" />
+            <h3>방청제</h3>
+            <p>강력한 녹 방지 솔루션</p>
+          </div>
+          <div
+            class="product-card"
             onclick="showProductDetail('충전서비스', 'DSC의 전문 에어졸 충전 서비스입니다. 고객의 맞춤형 제품 제조 및 충전을 지원합니다.')"
           >
+            <img src="images/prod_06.png" alt="충전서비스" />
             <h3>충전서비스</h3>
             <p>맞춤형 에어졸 제조</p>
-          </div>
-          <!-- 상표 및 인증 바로가기 카드 -->
-          <div
-            class="info-card certificate-link"
-            onclick="navigateTo('certificates')"
-          >
-            <div class="info-card-content">
-              <h3>📜 상표 및 인증 현황</h3>
-              <p>동서화학이 보유한 특허, 상표권 및 각종 인증서를 확인하세요.</p>
-              <span class="link-text">보유 상표 & 인증 보기 →</span>
-            </div>
           </div>
         </div>
       </div>
@@ -549,6 +629,25 @@
       </div>
       <div class="container">
         <div class="feature-section">
+          <!-- 제품문의 및 자료요청 -->
+          <div
+            class="feature-block cursor-pointer"
+            onclick="navigateTo('contact')"
+          >
+            <div
+              class="feature-image"
+              style="background-image: url('images/BGI_DongSuh1.png')"
+            ></div>
+            <div class="feature-content">
+              <h3>제품문의 및 자료요청</h3>
+              <p>추가적인 도움이 필요하신가요?</p>
+              <p>
+                온라인 문의 양식을 통해 질문을 남기시거나, 본사 고객센터로 직접
+                연락 주시면 담당자가 친절하게 안내해 드리겠습니다.
+              </p>
+            </div>
+          </div>
+
           <!-- 공지사항 -->
           <div
             class="feature-block cursor-pointer"
@@ -587,31 +686,6 @@
                 궁금한 점이 있으시다면 먼저 FAQ를 확인해 보세요. 빠르고 정확한
                 답변을 찾으실 수 있습니다.
               </p>
-            </div>
-          </div>
-
-          <!-- 문의 및 연락처 -->
-          <div
-            class="feature-block cursor-pointer"
-            onclick="navigateTo('contact')"
-          >
-            <div
-              class="feature-image"
-              style="background-image: url('images/BGI_DongSuh1.png')"
-            ></div>
-            <div class="feature-content">
-              <h3>문의 및 연락처</h3>
-              <p>추가적인 도움이 필요하신가요?</p>
-              <p>
-                온라인 문의 양식을 통해 질문을 남기시거나, 본사 고객센터로 직접
-                연락 주시면 담당자가 친절하게 안내해 드리겠습니다.
-              </p>
-              <button
-                class="btn"
-                style="margin-top: 15px; background-color: #008b8b; color: #fff"
-              >
-                제품문의 및 자료요청
-              </button>
             </div>
           </div>
         </div>
@@ -901,6 +975,11 @@
       // 향후 이미지 URL을 변경하면 자동으로 업데이트됩니다
       const certificates = [
         {
+          title: "상표권 등록증 0",
+          description: "상표권 페이지 0",
+          imageUrl: "images/trademark_00.png",
+        },
+        {
           title: "상표권 등록증 1",
           description: "상표권 페이지 1",
           imageUrl: "images/trademark_01.png",
@@ -944,7 +1023,7 @@
 
         card.innerHTML = `
                 <div class="cert-img-wrapper">
-                    <img src="${cert.imageUrl}" alt="${cert.title}" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img src="${cert.imageUrl}" alt="${cert.title}" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
                 <div class="cert-content">
                     <h4>${cert.title}</h4>
