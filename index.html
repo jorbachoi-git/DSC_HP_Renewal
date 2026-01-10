@@ -93,6 +93,21 @@
         min-height: 200px;
       }
 
+      /* 입력창 높이 및 폰트 크기 확대 (시니어 배려) */
+      .form-group input {
+        height: 50px; /* 기존 대비 약 2배 확대 */
+        font-size: 18px; /* 약 14pt 크기 */
+        padding: 0 20px;
+      }
+      .form-group textarea {
+        font-size: 18px;
+      }
+
+      /* Label 폰트 크기 확대 (요청: 24pt 정도) */
+      .form-group label {
+        font-size: 18px;
+      }
+
       @media (max-width: 768px) {
         .form-grid {
           grid-template-columns: 1fr;
@@ -338,7 +353,7 @@
       }
 
       .required-text {
-        font-size: 0.8rem;
+        font-size: 15px;
         color: #1e90ff;
         margin-left: 5px;
       }
@@ -1163,10 +1178,10 @@
                   />
                 </div>
                 <div class="form-group">
-                  <label for="company">업체명</label>
+                  <label for="companyName">업체명</label>
                   <input
                     type="text"
-                    id="company"
+                    id="companyName"
                     name="company"
                     placeholder="업체명을 입력하세요"
                   />
