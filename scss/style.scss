@@ -66,7 +66,37 @@ button {
   &#products,
   &#msds,
   &#support {
-    padding-top: 0;
+    padding-top: 70px;
+  }
+}
+
+// Components: Logo
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+
+  img {
+    height: auto;
+    max-height: 40px;
+    width: auto;
+    max-width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    img {
+      max-height: 30px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    span {
+      display: none;
+    }
   }
 }
 
@@ -98,32 +128,8 @@ header {
   }
 
   .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: bold;
-    font-size: 1.2rem;
-    cursor: pointer;
-
     img {
-      height: auto;
-      max-height: 40px;
-      width: auto;
-      max-width: 100%;
       margin-left: 10px;
-    }
-
-    @media (max-width: 768px) {
-      font-size: 1rem;
-      img {
-        max-height: 30px;
-      }
-    }
-
-    @media (max-width: 600px) {
-      span {
-        display: none;
-      }
     }
   }
 
@@ -406,6 +412,11 @@ header {
     color: $white;
     font-size: 2.5rem;
     z-index: 1;
+    text-align: center;
+    width: 100%;
+    padding: 0 20px;
+    margin: 0;
+    line-height: 1.2;
   }
 }
 
@@ -755,6 +766,19 @@ footer {
       &:hover {
         color: $primary-color;
       }
+    }
+  }
+
+  // Footer Logo
+  .logo {
+    justify-content: center;
+    margin-top: 10px;
+    color: #ccc;
+
+    img {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 5px;
+      border-radius: 4px;
     }
   }
 }
