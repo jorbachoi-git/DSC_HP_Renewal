@@ -119,6 +119,149 @@
         padding-top: 10px;
         padding-bottom: 10px;
       }
+
+      /* 공개 문의 목록 테이블 스타일 개선 */
+      .inquiry-table {
+        width: 100%;
+        table-layout: fixed; /* 말줄임 처리를 위해 필수 */
+        border-collapse: collapse;
+      }
+      .inquiry-table th,
+      .inquiry-table td {
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+        text-align: center;
+        font-size: 0.95rem;
+      }
+      .inquiry-table th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+        color: #333;
+      }
+      /* 말줄임 클래스 */
+      .truncate-text {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        text-align: left;
+        color: #555;
+      }
+      /* 더보기 버튼 스타일 */
+      .load-more-container {
+        text-align: center;
+        margin-top: 20px;
+      }
+      .btn-load-more {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        padding: 8px 25px;
+        border-radius: 20px;
+        color: #666;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .btn-load-more:hover {
+        background-color: #f1f1f1;
+        border-color: #ccc;
+        color: #333;
+      }
+
+      /* --- 아코디언 상세 내용 스타일 추가 --- */
+      .detail-row {
+        background-color: #f9f9f9;
+      }
+      .detail-cell {
+        padding: 0 !important;
+        border-bottom: 1px solid #eee;
+      }
+      .detail-content {
+        padding: 20px 30px;
+        text-align: left;
+        border-left: 4px solid #008b8b; /* 강조 선 */
+      }
+
+      /* 인라인 비밀번호 입력 박스 */
+      .inline-verify-box {
+        max-width: 400px;
+        margin: 10px auto;
+        text-align: center;
+        padding: 20px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+      .inline-verify-box p {
+        margin-bottom: 15px;
+        color: #555;
+        font-size: 0.9rem;
+      }
+      .inline-verify-box form {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+      }
+      .inline-verify-box input {
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 150px;
+      }
+      .inline-verify-box button {
+        padding: 8px 16px;
+        background-color: #008b8b;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .inline-verify-box button:hover {
+        background-color: #007a7a;
+      }
+
+      /* 상세 내용 표시 스타일 */
+      .inquiry-full-details .detail-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+      }
+      .inquiry-full-details .detail-body {
+        min-height: 80px;
+        margin-bottom: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      .inquiry-full-details .detail-meta {
+        font-size: 0.85rem;
+        color: #777;
+        background: #fff;
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+      }
+      .inquiry-full-details .reply-box {
+        background-color: #e8f6f3;
+        padding: 15px;
+        border-radius: 5px;
+        border: 1px solid #d1e7dd;
+      }
+      .inquiry-full-details .reply-label {
+        color: #008b8b;
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+      .inquiry-full-details .no-reply {
+        color: #999;
+        font-style: italic;
+        padding: 10px;
+        background: #f1f1f1;
+        border-radius: 4px;
+        text-align: center;
+      }
     </style>
   </head>
   <body>
@@ -688,6 +831,26 @@
               </p>
             </div>
           </div>
+
+          <!-- 문의 & 연락처 (이동됨) -->
+          <div class="feature-block">
+            <div
+              class="feature-image"
+              style="background-image: url('images/BGI_DongSuh2.png')"
+            ></div>
+            <div class="feature-content">
+              <h3>문의 & 연락처</h3>
+              <p>
+                <strong>📍 주소</strong><br />
+                인천시 서구 길주로 45번길 17-2
+              </p>
+              <p>
+                <strong>📞 전화 & 팩스</strong><br />
+                Tel: 032-571-6010 / Fax: 032-574-6344
+              </p>
+              <p><strong>✉️ 이메일</strong><br />dsspray1@naver.com</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -801,105 +964,25 @@
               <table class="inquiry-table">
                 <thead>
                   <tr>
-                    <th style="width: 10%">번호</th>
-                    <th style="width: 50%">제목</th>
-                    <th style="width: 15%">작성자</th>
-                    <th style="width: 15%">등록일</th>
-                    <th style="width: 10%">상태</th>
+                    <th style="width: 60%">문의내용</th>
+                    <th style="width: 20%">성명</th>
+                    <th style="width: 20%">등록일</th>
                   </tr>
                 </thead>
                 <tbody id="publicList">
-                  <!-- 샘플 데이터 -->
-                  <tr>
-                    <td>2</td>
-                    <td class="text-left">동서 락카 대량 구매 견적 문의</td>
-                    <td>김**</td>
-                    <td>2024-01-04</td>
-                    <td><span class="reply-badge completed">답변완료</span></td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td class="text-left">MSDS 자료 요청합니다</td>
-                    <td>이**</td>
-                    <td>2024-01-03</td>
-                    <td><span class="reply-badge pending">대기중</span></td>
-                  </tr>
+                  <!-- 데이터가 로드됩니다 -->
                 </tbody>
               </table>
             </div>
+            <!-- 더보기 버튼 -->
+            <div
+              id="loadMoreContainer"
+              class="load-more-container"
+              style="display: none"
+            >
+              <button id="btnLoadMore" class="btn-load-more">더보기 ▾</button>
+            </div>
           </section>
-
-          <hr class="divider" />
-
-          <!-- 3. 내 문의 확인 섹션 -->
-          <section id="verify-section" class="verify-box">
-            <h3 class="inquiry-section-title">🔒 내 문의 확인</h3>
-            <p class="text-light mb-20 text-sm">
-              작성하신 문의의 답변을 확인하려면 문의 번호와 비밀번호를
-              입력하세요.
-            </p>
-            <form id="verifyForm" class="verify-form">
-              <div class="form-group">
-                <!-- <label for="inquiryId">문의 번호</label> -->
-                <input
-                  type="number"
-                  id="inquiryId"
-                  name="inquiryId"
-                  placeholder="문의 번호 입력"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <!-- <label for="verifyPassword">비밀번호</label> -->
-                <input
-                  type="password"
-                  id="verifyPassword"
-                  name="verifyPassword"
-                  placeholder="비밀번호 입력"
-                  required
-                />
-              </div>
-              <button type="submit" class="btn-verify">확인하기</button>
-            </form>
-            <div id="verifyStatus" class="status-message"></div>
-            <div id="inquiryDetails" class="details-container"></div>
-          </section>
-        </div>
-
-        <h2 class="mb-20">문의 & 연락처</h2>
-        <!-- 연락처 정보 (하단 배치) -->
-        <div
-          class="contact-info-box"
-          style="
-            background: #f9f9f9;
-            padding: 30px;
-            border-radius: 8px;
-            text-align: center;
-          "
-        >
-          <div
-            style="
-              display: grid;
-              grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-              gap: 20px;
-            "
-          >
-            <div>
-              <h4 style="color: #008b8b; margin-bottom: 10px">📍 주소</h4>
-              <p class="text-light">인천시 서구 길주로 45번길 17-2</p>
-            </div>
-            <div>
-              <h4 style="color: #008b8b; margin-bottom: 10px">
-                📞 전화 & 팩스
-              </h4>
-              <p class="text-light">Tel: 032-571-6010</p>
-              <p class="text-light">Fax: 032-574-6344</p>
-            </div>
-            <div>
-              <h4 style="color: #008b8b; margin-bottom: 10px">✉️ 이메일</h4>
-              <p class="text-light">dsspray1@naver.com</p>
-            </div>
-          </div>
         </div>
       </div>
     </section>

@@ -68,11 +68,14 @@ exports.handler = async (event) => {
 
     // DB 연결 (로컬 테스트용 하드코딩 포함)
     if (!process.env.DATABASE_URL) {
-      console.warn(
-        "Warning: .env 로드 실패. 로컬 테스트용 하드코딩된 연결 문자열을 사용합니다."
-      );
-      process.env.DATABASE_URL =
-        "postgresql://neondb_owner:npg_KYtBn18uRmeq@ep-cool-cell-a17n46fn-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require";
+      console.error("Error: DATABASE_URL is missing");
+      return {
+        statusCode: 500,
+        headers,
+        body: JSON.stringify({
+          error: "Server Configuration Error: Missing Database Connection",
+        }),
+      };
     }
 
     const sql = neon(process.env.DATABASE_URL);

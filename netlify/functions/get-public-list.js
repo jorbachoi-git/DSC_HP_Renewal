@@ -25,25 +25,13 @@ exports.handler = async (event) => {
 
   try {
     const sql = neon(process.env.DATABASE_URL);
-    const { getAll } = event.queryStringParameters || {};
-    let rows;
 
-    if (getAll === "true") {
-      // 관리자용: 모든 문의 조회 (미답변 포함)
-      rows = await sql`
-        SELECT id, name, message, reply, created_at 
-        FROM inquiries 
-        ORDER BY created_at DESC
-      `;
-    } else {
-      // 일반 공개용: 답변이 완료된(reply가 있는) 항목만 조회
-      rows = await sql`
-        SELECT id, name, message, reply, created_at 
-        FROM inquiries 
-        WHERE reply IS NOT NULL
-        ORDER BY created_at DESC
-      `;
-    }
+    // 모든 문의 조회 (미답변 포함)
+    const rows = await sql`
+      SELECT id, name, message, reply, created_at 
+      FROM inquiries 
+      ORDER BY created_at DESC
+    `;
 
     // 클라이언트 측 이름 마스킹: 첫글자*처리 (예: "김**")
     const maskedRows = rows.map((row) => ({

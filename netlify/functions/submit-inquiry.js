@@ -1,4 +1,4 @@
-const { Client } = require("@neondatabase/serverless");
+const { neon } = require("@neondatabase/serverless");
 const bcrypt = require("bcryptjs");
 const path = require("path");
 
@@ -49,38 +49,38 @@ exports.handler = async (event, context) => {
 
     // 5. DB 연결
     if (!process.env.DATABASE_URL) {
-      console.warn(
-        "Warning: .env 로드 실패. 로컬 테스트용 하드코딩된 연결 문자열을 사용합니다."
-      );
-      // [대안] 로컬 테스트를 위해 .env 로드 실패 시 직접 값을 할당합니다.
-      // 주의: 이 코드는 로컬 디버깅용이며, GitHub 등에 커밋되지 않도록 주의하세요.
-      process.env.DATABASE_URL =
-        "postgresql://neondb_owner:npg_KYtBn18uRmeq@ep-cool-cell-a17n46fn-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require";
+      console.error("Error: DATABASE_URL is missing");
+      return {
+        statusCode: 500,
+        headers,
+        body: JSON.stringify({
+          error: "Server Configuration Error: Missing Database Connection",
+        }),
+      };
     }
 
-    const client = new Client(process.env.DATABASE_URL);
-    await client.connect();
+    // 5. DB 연결 (HTTP Driver 사용 - Stateless)
+    const sql = neon(process.env.DATABASE_URL);
 
     // 6. 비밀번호 해싱 (보안)
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
     // 7. 데이터 삽입 쿼리 실행
-    const insertQuery =
-      "INSERT INTO inquiries (name, email, phone, message, password_hash, created_at) VALUES ($1, $2, $3, $4, $5, NOW()) RETURNING id";
-
-    // phone 값이 undefined이거나 빈 문자열이면 null로 처리
-    const values = [name, email, phone || null, message, hashedPassword];
-
-    const res = await client.query(insertQuery, values);
-    await client.end(); // 연결 종료
+    const rows = await sql`
+      INSERT INTO inquiries (name, email, phone, message, password_hash, created_at)
+      VALUES (${name}, ${email}, ${
+      phone || null
+    }, ${message}, ${hashedPassword}, NOW())
+      RETURNING id
+    `;
 
     return {
       statusCode: 200,
       headers,
       body: JSON.stringify({
         message: "문의가 성공적으로 등록되었습니다.",
-        id: res.rows[0].id,
+        id: rows[0].id,
       }),
     };
   } catch (error) {
