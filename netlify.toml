@@ -1,5 +1,5 @@
 [build]
-  command = "echo 'No build step'"
+  command = "run npm build"
   functions = "netlify/functions"
   publish = "."
 
