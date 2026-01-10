@@ -262,6 +262,53 @@
         border-radius: 4px;
         text-align: center;
       }
+
+      /* 문의 등록 버튼 및 하단 영역 스타일 개선 */
+      .form-footer {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 20px;
+        margin-bottom: 20px; /* 버튼 하단 여백 추가 */
+      }
+
+      .form-footer .password-group {
+        width: 100%;
+        margin-bottom: 0;
+      }
+
+      .btn-submit {
+        width: 100%;
+        background-color: #008b8b;
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 4px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        height: 45px; /* 인풋 높이와 유사하게 맞춤 */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn-submit:hover {
+        background-color: #007a7a;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      .required-text {
+        font-size: 0.8rem;
+        color: #1e90ff;
+        margin-left: 5px;
+      }
+
+      /* 섹션 구분선 스타일 (공개 문의 목록과의 간격 확보) */
+      .divider {
+        margin: 20px 0;
+        border: 0;
+        border-top: 1px solid #e0e0e0;
+      }
     </style>
   </head>
   <body>
@@ -342,17 +389,17 @@
       <nav class="mobile-nav-list">
         <a onclick="navigateTo('company'); closeMobileMenu()">회사소개</a>
         <a
-          onclick="navigateTo('company'); closeMobileMenu()"
+          onclick="navigateTo('company', 'ceo-message'); closeMobileMenu()"
           style="padding-left: 35px; font-size: 0.85rem; color: #666"
           >└ CEO 인사말</a
         >
         <a
-          onclick="navigateTo('company'); closeMobileMenu()"
+          onclick="navigateTo('company', 'philosophy'); closeMobileMenu()"
           style="padding-left: 35px; font-size: 0.85rem; color: #666"
           >└ 경영이념</a
         >
         <a
-          onclick="navigateTo('company'); closeMobileMenu()"
+          onclick="navigateTo('company', 'history'); closeMobileMenu()"
           style="padding-left: 35px; font-size: 0.85rem; color: #666"
           >└ 회사연혁</a
         >
@@ -362,7 +409,7 @@
           >└ 상표 및 인증현황</a
         >
         <a
-          onclick="navigateTo('company'); closeMobileMenu()"
+          onclick="navigateTo('company', 'location'); closeMobileMenu()"
           style="padding-left: 35px; font-size: 0.85rem; color: #666"
           >└ 사업장안내</a
         >
@@ -370,19 +417,24 @@
         <a onclick="navigateTo('msds'); closeMobileMenu()">자료실</a>
         <a onclick="navigateTo('support'); closeMobileMenu()">고객지원</a>
         <a
-          onclick="navigateTo('support'); closeMobileMenu()"
+          onclick="navigateTo('contact'); closeMobileMenu()"
+          style="padding-left: 35px; font-size: 0.85rem; color: #666"
+          >└ 제품 문의 및 자료요청</a
+        >
+        <a
+          onclick="navigateTo('support', 'notice'); closeMobileMenu()"
           style="padding-left: 35px; font-size: 0.85rem; color: #666"
           >└ 공지사항</a
         >
         <a
-          onclick="navigateTo('support'); closeMobileMenu()"
+          onclick="navigateTo('support', 'faq'); closeMobileMenu()"
           style="padding-left: 35px; font-size: 0.85rem; color: #666"
           >└ 자주 묻는 질문(FAQ)</a
         >
         <a
-          onclick="navigateTo('contact'); closeMobileMenu()"
+          onclick="navigateTo('support', 'contact-info'); closeMobileMenu()"
           style="padding-left: 35px; font-size: 0.85rem; color: #666"
-          >└ 제품 문의 및 자료요청</a
+          >└ 문의 & 연락처</a
         >
       </nav>
     </div>
@@ -454,7 +506,7 @@
               style="background-image: url('images/BGI_DongSuh1.png')"
             ></div>
             <div class="feature-content">
-              <h3>CEO 인사말</h3>
+              <h3 id="ceo-message">CEO 인사말</h3>
               <p>
                 <strong>50년의 혁신, 미래를 향한 동서화학의 약속</strong
                 ><br /><br />
@@ -476,7 +528,7 @@
               style="background-image: url('images/Subheading3.png')"
             ></div>
             <div class="feature-content">
-              <h3>경영이념</h3>
+              <h3 id="philosophy">경영이념</h3>
               <p>
                 <strong>친환경 미래 창조</strong><br />친환경 제품 개발과
                 지속가능한 생산으로 사회적 책임을 다하며, 환경과 미래를 창조하는
@@ -496,7 +548,7 @@
               style="background-image: url('images/Subheading4.png')"
             ></div>
             <div class="feature-content">
-              <h3>회사 연혁</h3>
+              <h3 id="history">회사 연혁</h3>
               <p><strong>1975년</strong> 동도화학(영등포 공장)으로 출발</p>
               <p>
                 <strong>1980년</strong> 동서화학으로 상호변경, 인천공장 이전
@@ -540,7 +592,7 @@
               style="background-image: url('images/BGI_DongSuh2.png')"
             ></div>
             <div class="feature-content">
-              <h3>사업장 안내</h3>
+              <h3 id="location">사업장 안내</h3>
               <p>
                 <strong>본사</strong><br />인천시 서구 길주로 45번길
                 17-2(석남동)
@@ -670,6 +722,23 @@
         <p class="text-center text-light mb-40">
           제품의 안전 데이터 시트(MSDS)와 성능 인증서를 다운로드하세요.
         </p>
+        <div
+          style="
+            max-width: 600px;
+            margin: 0 auto 40px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            text-align: center;
+          "
+        >
+          <p style="margin: 0; color: #666; font-size: 0.95rem">
+            💡 <strong>안내 :</strong> 다운로드 버튼을 클릭 하시면 바로 다운로드
+            됩니다.<br />
+            문제가 있으면 고객지원 섹션의 온라인 문의를 이용해 주세요.
+          </p>
+        </div>
         <div class="product-grid">
           <div class="product-card">
             <h3>동서 락카</h3>
@@ -734,6 +803,7 @@
           <p class="mb-20 text-light">
             모든 제품의 정보를 포함한 카탈로그를 다운로드하세요.
           </p>
+
           <div class="download-buttons">
             <a href="docs/DSC_Prod_Cat1.pdf" class="btn download-btn" download>
               <span class="download-icon">📄</span>
@@ -754,10 +824,6 @@
               영문 MSDS ZIP
             </button>
           </div>
-          <p class="info-box">
-            💡 <strong> 안내 :</strong> 클릭 하시면 바로 다운로드 됩니다<br />
-            문제가 있으면 고객지원 섹션의 온라인 문의를 이용해 주세요.
-          </p>
         </div>
       </div>
     </section>
@@ -788,6 +854,13 @@
                 온라인 문의 양식을 통해 질문을 남기시거나, 본사 고객센터로 직접
                 연락 주시면 담당자가 친절하게 안내해 드리겠습니다.
               </p>
+              <button
+                class="hero-btn"
+                style="margin-top: 15px; font-size: 1rem; padding: 10px 25px"
+                onclick="navigateTo('contact'); event.stopPropagation();"
+              >
+                문의 및 자료요청 바로가기
+              </button>
             </div>
           </div>
 
@@ -801,7 +874,7 @@
               style="background-image: url('images/Subheading4.png')"
             ></div>
             <div class="feature-content">
-              <h3>공지사항</h3>
+              <h3 id="notice">공지사항</h3>
               <p>동서화학의 최신 소식과 이벤트를 확인하세요.</p>
               <p>
                 신제품 출시 정보, 전시회 참가 소식, 그리고 중요 유지보수 안내
@@ -820,7 +893,7 @@
               style="background-image: url('images/Subheading3.png')"
             ></div>
             <div class="feature-content">
-              <h3>자주 묻는 질문 (FAQ)</h3>
+              <h3 id="faq">자주 묻는 질문 (FAQ)</h3>
               <p>
                 제품 사용법, 대량 구매, 기술 지원 등 고객님들이 자주 묻는
                 질문들을 모았습니다.
@@ -839,7 +912,7 @@
               style="background-image: url('images/BGI_DongSuh2.png')"
             ></div>
             <div class="feature-content">
-              <h3>문의 & 연락처</h3>
+              <h3 id="contact-info">문의 & 연락처</h3>
               <p>
                 <strong>📍 주소</strong><br />
                 인천시 서구 길주로 45번길 17-2
@@ -869,11 +942,31 @@
           <!-- 1. 문의 등록 섹션 -->
           <section id="inquiry-section">
             <h3 class="inquiry-section-title">📝 제품 문의 및 자료 요청</h3>
+            <div
+              style="
+                font-size: 0.85rem;
+                color: #666;
+                margin-bottom: 20px;
+                line-height: 1.6;
+              "
+            >
+              <div>
+                ※ 문의내용를 남겨주시면 빠른 시일내에 답변 드리겠습니다.
+              </div>
+              <div>
+                ※ (필수)항목은 반드시 입력해주셔야 문의 등록이 가능합니다.
+              </div>
+              <div>
+                ※ 하단 목록에서, 등록된 문의와 답변 내용을 확인하실 수 있습니다.
+              </div>
+            </div>
             <form id="inquiryForm">
               <div class="form-grid">
                 <!-- 1행: 성명 / 업체명 -->
                 <div class="form-group">
-                  <label for="name">성명 <span class="required">*</span></label>
+                  <label for="name"
+                    >성명 <span class="required-text">(필수)</span></label
+                  >
                   <input
                     type="text"
                     id="name"
@@ -895,7 +988,7 @@
                 <!-- 2행: 이메일 / 연락처 -->
                 <div class="form-group">
                   <label for="email"
-                    >이메일 <span class="required">*</span></label
+                    >이메일 <span class="required-text">(필수)</span></label
                   >
                   <input
                     type="email"
@@ -918,7 +1011,7 @@
                 <!-- 3행: 문의내용 (Full Width) -->
                 <div class="form-group full-width">
                   <label for="message"
-                    >문의 내용 <span class="required">*</span></label
+                    >문의 내용 <span class="required-text">(필수)</span></label
                   >
                   <textarea
                     id="message"
@@ -939,7 +1032,7 @@
               <div class="form-footer">
                 <div class="form-group password-group">
                   <label for="password"
-                    >비밀번호 <span class="required">*</span></label
+                    >비밀번호 <span class="required-text">(필수)</span></label
                   >
                   <input
                     type="password"
@@ -960,6 +1053,19 @@
           <!-- 2. 공개 문의 목록 섹션 -->
           <section id="public-list-section">
             <h3 class="inquiry-section-title">📢 공개 문의 목록</h3>
+            <div
+              style="
+                font-size: 0.85rem;
+                color: #666;
+                margin-bottom: 20px;
+                line-height: 1.6;
+              "
+            >
+              <div>
+                ※ 문의내용을 선택하고, 등록시 사용한 비밀번호를 입력하시면,
+                문의와 답변 내용을 확인하실 수 있습니다.
+              </div>
+            </div>
             <div class="table-responsive">
               <table class="inquiry-table">
                 <thead>
@@ -993,31 +1099,26 @@
         <div class="footer-content">
           <div class="footer-section">
             <h4>회사소개</h4>
-            <a href="#" onclick="navigateTo('company'); return false;"
-              >회사소개</a
-            >
+            <a href="#" onclick="navigateTo('company', 'ceo-message'); return false;">CEO 인사말</a>
+            <a href="#" onclick="navigateTo('company', 'philosophy'); return false;">경영이념</a>
+            <a href="#" onclick="navigateTo('company', 'history'); return false;">회사연혁</a>
+            <a href="#" onclick="navigateTo('certificates'); return false;">상표 및 인증현황</a>
+            <a href="#" onclick="navigateTo('company', 'location'); return false;">사업장안내</a>
           </div>
           <div class="footer-section">
             <h4>제품소개</h4>
-            <a href="#" onclick="navigateTo('products'); return false;"
-              >제품소개</a
-            >
+            <a href="#" onclick="navigateTo('products'); return false;">제품소개</a>
           </div>
           <div class="footer-section">
             <h4>자료실</h4>
             <a href="#" onclick="navigateTo('msds'); return false;">자료실</a>
-            <p class="cert-link" onclick="navigateTo('certificates')">
-              🏆 동서화학의 보유 인증
-            </p>
           </div>
           <div class="footer-section">
             <h4>고객지원</h4>
-            <a href="#" onclick="navigateTo('support'); return false;"
-              >고객지원</a
-            >
-            <a href="#" onclick="navigateTo('contact'); return false;"
-              >문의/연락처</a
-            >
+            <a href="#" onclick="navigateTo('contact'); return false;">제품 문의 및 자료요청</a>
+            <a href="#" onclick="navigateTo('support', 'notice'); return false;">공지사항</a>
+            <a href="#" onclick="navigateTo('support', 'faq'); return false;">자주 묻는 질문(FAQ)</a>
+            <a href="#" onclick="navigateTo('support', 'contact-info'); return false;">문의 & 연락처</a>
           </div>
         </div>
       </div>
@@ -1086,16 +1187,6 @@
           title: "상표권 등록증 5",
           description: "상표권 페이지 5",
           imageUrl: "images/trademark_05.png",
-        },
-        {
-          title: "상표권 등록증 6",
-          description: "상표권 페이지 6",
-          imageUrl: "images/trademark_06.png",
-        },
-        {
-          title: "상표권 등록증 7",
-          description: "상표권 페이지 7",
-          imageUrl: "images/trademark_07.png",
         },
       ];
 
@@ -1235,14 +1326,23 @@
       }
 
       // 네비게이션
-      function navigateTo(section) {
+      function navigateTo(section, targetId) {
         const sections = document.querySelectorAll(".section-content");
         sections.forEach((s) => s.classList.remove("active"));
 
         const selectedSection = document.getElementById(section);
         if (selectedSection) {
           selectedSection.classList.add("active");
-          window.scrollTo({ top: 0, behavior: "smooth" });
+
+          if (targetId) {
+            setTimeout(() => {
+              const element = document.getElementById(targetId);
+              if (element)
+                element.scrollIntoView({ behavior: "smooth", block: "center" });
+            }, 10);
+          } else {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }
         }
       }
 
