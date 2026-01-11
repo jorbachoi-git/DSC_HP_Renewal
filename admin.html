@@ -2,7 +2,7 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <title>Admin 대시보드</title>
+    <title>동서화학 홈페이지 Admin 대시보드</title>
     <link rel="stylesheet" href="style.css" />
     <style>
       /* Admin 전용 추가 스타일 (index.html 스타일 차용) */
@@ -62,14 +62,130 @@
       .btn-inline:hover {
         background-color: #007a7a;
       }
+      /* Admin 상단 배너 스타일 추가 */
+      .admin-banner {
+        width: 100%;
+        height: 45vh; /* 화면 높이의 45% 차지 */
+        background-image: url("images/BGI_DongSuh1.png");
+        background-size: cover;
+        background-position: center;
+        margin-bottom: 40px;
+        border-bottom: 5px solid #008b8b;
+        transition: all 0.5s ease; /* 부드러운 전환 효과 */
+      }
+      /* 로그인 후 배너 스타일 변경 */
+      .admin-banner.logged-in {
+        height: 20vh; /* 높이 20%로 축소 */
+        background-image: url("images/BGI_DongSuh2.png"); /* 이미지 변경 */
+        margin-bottom: 20px;
+      }
+      /* 커스텀 모달 팝업 스타일 */
+      .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(3px);
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+      }
+      .modal-overlay.active {
+        display: flex;
+      }
+      .custom-modal {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        width: 90%;
+        max-width: 400px;
+        text-align: center;
+        animation: popIn 0.3s ease;
+      }
+      @keyframes popIn {
+        from {
+          transform: scale(0.9);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      .custom-modal h3 {
+        margin-top: 0;
+        color: #008b8b;
+        margin-bottom: 15px;
+        font-size: 1.3rem;
+      }
+      .custom-modal p {
+        color: #555;
+        margin-bottom: 25px;
+        font-size: 1.05rem;
+        line-height: 1.5;
+      }
+      .modal-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+      }
+      .btn-modal-confirm {
+        background-color: #008b8b;
+        color: white;
+        border: none;
+        padding: 10px 25px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 1rem;
+        transition: background 0.2s;
+      }
+      .btn-modal-confirm:hover {
+        background-color: #007a7a;
+      }
+      .btn-modal-cancel {
+        background-color: #e0e0e0;
+        color: #333;
+        border: none;
+        padding: 10px 25px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 1rem;
+        transition: background 0.2s;
+      }
+      .btn-modal-cancel:hover {
+        background-color: #d0d0d0;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
     </style>
   </head>
   <body>
+    <!-- 커스텀 모달 팝업 HTML -->
+    <div id="customModalOverlay" class="modal-overlay">
+      <div class="custom-modal">
+        <h3 id="customModalTitle">알림</h3>
+        <p id="customModalMessage">메시지 내용</p>
+        <div class="modal-buttons">
+          <button id="btnModalConfirm" class="btn-modal-confirm">확인</button>
+          <button id="btnModalCancel" class="btn-modal-cancel">취소</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="admin-banner"></div>
     <div class="container">
-      <h1>Admin 대시보드</h1>
+      <h1>동서화학 홈페이지 관리자 대시보드</h1>
 
       <section id="admin-login">
-        <h2>Admin 인증</h2>
+        <h2>관리자 인증</h2>
         <form id="adminLoginForm">
           <div class="form-group">
             <label for="adminPassword">Admin 비밀번호</label>
@@ -110,6 +226,10 @@
             adminPassword = inputPassword;
             document.getElementById("admin-login").style.display = "none";
             document.getElementById("admin-panel").style.display = "block";
+
+            // 로그인 후 배너 스타일 변경 (높이 축소 및 이미지 변경)
+            document.querySelector(".admin-banner").classList.add("logged-in");
+
             loadPendingInquiries();
           } else {
             alert("관리자 비밀번호가 일치하지 않습니다.");
@@ -185,39 +305,97 @@
       }
 
       // 답변 등록 (인라인)
-      async function submitReply(id) {
+      function submitReply(id) {
         const replyText = document.getElementById(`reply-text-${id}`).value;
         if (!replyText.trim()) {
-          alert("답변 내용을 입력해주세요.");
+          showCustomAlert("답변 내용을 입력해주세요.");
           return;
         }
 
-        if (!confirm("답변을 등록하시겠습니까?")) return;
+        // 커스텀 확인 팝업 호출
+        showCustomConfirm("답변을 등록하시겠습니까?", async () => {
+          const data = {
+            id: id,
+            adminPassword,
+            reply: replyText,
+          };
 
-        const data = {
-          id: id,
-          adminPassword,
-          reply: replyText,
-        };
+          try {
+            const response = await fetch(`${API_BASE}/admin-reply`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data),
+            });
 
-        try {
-          const response = await fetch(`${API_BASE}/admin-reply`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-          });
+            const result = await response.json();
 
-          const result = await response.json();
-
-          if (response.ok) {
-            alert("✓ 답글이 등록되었습니다");
-            loadPendingInquiries();
-          } else {
-            alert(`✗ ${result.error}`);
+            if (response.ok) {
+              // 성공 시 커스텀 알림 팝업
+              showCustomAlert("답변이 정상적으로 등록되었습니다", () => {
+                loadPendingInquiries();
+              });
+            } else {
+              showCustomAlert(`✗ ${result.error}`);
+            }
+          } catch (error) {
+            showCustomAlert(`✗ 오류: ${error.message}`);
           }
-        } catch (error) {
-          alert(`✗ 오류: ${error.message}`);
-        }
+        });
+      }
+
+      // --- 커스텀 모달 관련 함수 ---
+      function showCustomConfirm(message, onConfirm) {
+        const overlay = document.getElementById("customModalOverlay");
+        const title = document.getElementById("customModalTitle");
+        const msg = document.getElementById("customModalMessage");
+        const btnConfirm = document.getElementById("btnModalConfirm");
+        const btnCancel = document.getElementById("btnModalCancel");
+
+        title.textContent = "확인";
+        msg.textContent = message;
+        btnCancel.style.display = "inline-block"; // 취소 버튼 보이기
+
+        // 이벤트 리스너 초기화 (중복 방지)
+        const newConfirmBtn = btnConfirm.cloneNode(true);
+        const newCancelBtn = btnCancel.cloneNode(true);
+        btnConfirm.parentNode.replaceChild(newConfirmBtn, btnConfirm);
+        btnCancel.parentNode.replaceChild(newCancelBtn, btnCancel);
+
+        newConfirmBtn.addEventListener("click", () => {
+          closeCustomModal();
+          if (onConfirm) onConfirm();
+        });
+        newCancelBtn.addEventListener("click", closeCustomModal);
+
+        overlay.classList.add("active");
+      }
+
+      function showCustomAlert(message, onOk) {
+        const overlay = document.getElementById("customModalOverlay");
+        const title = document.getElementById("customModalTitle");
+        const msg = document.getElementById("customModalMessage");
+        const btnConfirm = document.getElementById("btnModalConfirm");
+        const btnCancel = document.getElementById("btnModalCancel");
+
+        title.textContent = "알림";
+        msg.textContent = message;
+        btnCancel.style.display = "none"; // 취소 버튼 숨기기
+
+        const newConfirmBtn = btnConfirm.cloneNode(true);
+        btnConfirm.parentNode.replaceChild(newConfirmBtn, btnConfirm);
+
+        newConfirmBtn.addEventListener("click", () => {
+          closeCustomModal();
+          if (onOk) onOk();
+        });
+
+        overlay.classList.add("active");
+      }
+
+      function closeCustomModal() {
+        document
+          .getElementById("customModalOverlay")
+          .classList.remove("active");
       }
 
       // 유틸리티: HTML 살균 (XSS 방지)
