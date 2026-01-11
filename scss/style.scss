@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // Variables
 $primary-color: #008b8b;
 $text-color: #333;
@@ -345,7 +347,7 @@ header {
   transition: background $transition-speed;
 
   &:hover {
-    background: darken($primary-color, 10%);
+    background: color.adjust($primary-color, $lightness: -10%);
   }
 }
 
@@ -551,9 +553,12 @@ header {
   padding: 30px;
   border-radius: 8px;
   text-align: center;
-  border: 2px solid #666;
+  border: 2px solid #aaa;
   transition: all $transition-speed;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
   &:hover {
     border-color: $primary-color;
@@ -573,6 +578,10 @@ header {
   p {
     color: $text-light;
     margin-bottom: 20px;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -581,9 +590,12 @@ header {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 20px;
+  padding: 0 20px;
+  height: 45px;
   border-radius: 4px;
   font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.5;
   transition: all $transition-speed;
 
   .product-card & {
@@ -591,7 +603,7 @@ header {
   }
 
   &.download-btn {
-    background: #f0f0f0;
+    background: #cccccc;
     color: $text-color;
     gap: 8px;
 
@@ -616,6 +628,7 @@ header {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-height: 1.2rem; /* 내용이 없어도 한 줄 높이 확보 */
   transition: color $transition-speed;
 }
 
@@ -864,7 +877,7 @@ footer {
       color: $white;
 
       &:hover {
-        background: darken($primary-color, 10%);
+        background: color.adjust($primary-color, $lightness: -10%);
       }
     }
 
@@ -1077,7 +1090,7 @@ footer {
   margin-top: 10px;
 
   &:hover {
-    background-color: darken($primary-color, 10%);
+    background-color: color.adjust($primary-color, $lightness: -10%);
   }
 
   &:active {
