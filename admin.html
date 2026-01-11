@@ -104,12 +104,16 @@
         .getElementById("adminLoginForm")
         .addEventListener("submit", async (e) => {
           e.preventDefault();
-          adminPassword = document.getElementById("adminPassword").value;
+          const inputPassword = document.getElementById("adminPassword").value;
 
-          // 임시 검증 (실제로는 서버에서 검증)
-          document.getElementById("admin-login").style.display = "none";
-          document.getElementById("admin-panel").style.display = "block";
-          loadPendingInquiries();
+          if (inputPassword === "admin1234") {
+            adminPassword = inputPassword;
+            document.getElementById("admin-login").style.display = "none";
+            document.getElementById("admin-panel").style.display = "block";
+            loadPendingInquiries();
+          } else {
+            alert("관리자 비밀번호가 일치하지 않습니다.");
+          }
         });
 
       // 미답변 문의 조회
