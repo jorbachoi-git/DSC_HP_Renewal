@@ -454,6 +454,51 @@
           grid-template-columns: 1fr;
         }
       }
+
+      /* 카카오맵 및 버튼 스타일 */
+      .map-container {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        width: 100%;
+        background-color: #eee;
+      }
+      .map-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+        flex-wrap: wrap;
+      }
+      .btn-kakao, .btn-share {
+        padding: 10px 20px;
+        background: #FEE500;
+        color: #000;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: bold;
+        font-size: 0.9rem;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        transition: transform 0.2s, background-color 0.2s;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+      }
+      .btn-kakao:hover, .btn-share:hover {
+        transform: translateY(-2px);
+        background: #FFEB00;
+      }
+      @media (max-width: 768px) {
+        .map-buttons {
+          justify-content: center;
+        }
+      }
+
+      /* 카카오맵 반응형 강제 적용 (지도 퍼가기 스크립트 대응) */
+      .root_daum_roughmap {
+        width: 100% !important;
+        max-width: 100% !important;
+      }
     </style>
   </head>
   <body>
@@ -791,13 +836,57 @@
             <div class="feature-content">
               <h3 id="location">사업장 안내</h3>
               <p>
-                <strong>본사</strong><br />인천시 서구 길주로 45번길
-                17-2(석남동)
+                <strong>본사 및 공장</strong><br />인천시 서구 길주로 45번길 17-2(석남동)
               </p>
               <p>
-                <strong>공장</strong><br />인천시 서구 길주로 45번길
-                17-2(석남동)
+                <strong>전화 & 팩스</strong> Tel:032-571-6010 / Fax:032-574-6344
               </p>
+              <p>
+                <strong>이메일</strong>dsspray1@naver.com 
+              </p>  
+            </div>
+            <!-- 지도 및 버튼 추가 -->
+            <div class="location-map-wrapper">
+              <div class="map-container">
+                <!-- * 카카오맵 - 지도퍼가기 -->
+                <!-- 1. 지도 노드 -->
+                <div id="daumRoughmapContainer1768134156625" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+
+                <!--
+                  2. 설치 스크립트
+                  * 지도 퍼가기 서비스를 2개 이상 넣을 경우, 설치 스크립트는 하나만 삽입합니다.
+                -->
+                <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
+
+                <!-- 3. 실행 스크립트 -->
+                <script charset="UTF-8">
+                  var isMapRendered = false;
+                  function renderKakaoMap() {
+                    if (!isMapRendered && document.getElementById('daumRoughmapContainer1768134156625')) {
+                      new daum.roughmap.Lander({
+                        "timestamp" : "1768134156625",
+                        "key" : "fg6df9gygjm",
+                        "mapWidth" : "100%",
+                        "mapHeight" : "360"
+                      }).render();
+                      isMapRendered = true;
+                    }
+                  }
+                </script>
+              </div>
+              <div class="map-buttons">
+                <a href="https://map.kakao.com/link/search/인천시 서구 길주로 45번길 17-2" 
+                   class="btn-kakao" 
+                   target="_blank" 
+                   rel="noopener">
+                  📍 카카오맵으로 길찾기
+                </a>
+                <a href="https://map.kakao.com/link/search/인천시 서구 길주로 45번길 17-2" 
+                   class="btn-share" 
+                   onclick="window.open(this.href, 'kakaomap', 'width=600,height=800'); return false;">
+                  🔗 지도 공유하기
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -1634,6 +1723,11 @@
         const selectedSection = document.getElementById(section);
         if (selectedSection) {
           selectedSection.classList.add("active");
+
+          // 회사소개 섹션이 보일 때 지도 렌더링 (초기화 문제 해결)
+          if (section === 'company' && typeof renderKakaoMap === 'function') {
+            setTimeout(renderKakaoMap, 100);
+          }
 
           if (targetId) {
             setTimeout(() => {
