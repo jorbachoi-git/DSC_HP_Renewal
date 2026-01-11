@@ -4,6 +4,65 @@
     <meta charset="UTF-8" />
     <title>Admin 대시보드</title>
     <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Admin 전용 추가 스타일 (index.html 스타일 차용) */
+      .inquiry-table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+        margin-bottom: 20px;
+        background: #fff;
+      }
+      .inquiry-table th,
+      .inquiry-table td {
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+        text-align: center;
+      }
+      .inquiry-table th {
+        background-color: #f8f9fa;
+        color: #333;
+        font-weight: 600;
+      }
+      .truncate-text {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: left;
+      }
+      .detail-row {
+        display: none;
+        background-color: #f9f9f9;
+      }
+      .detail-cell {
+        padding: 0 !important;
+        border-bottom: 1px solid #ddd;
+      }
+      .detail-content {
+        padding: 20px;
+        text-align: left;
+        border-left: 4px solid #008b8b;
+      }
+      .reply-textarea {
+        width: 100%;
+        min-height: 100px;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      .btn-inline {
+        padding: 8px 16px;
+        background-color: #008b8b;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .btn-inline:hover {
+        background-color: #007a7a;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -22,21 +81,17 @@
 
       <section id="admin-panel" style="display: none">
         <h2>미답변 문의 목록</h2>
-        <div id="pendingList" class="list-container"></div>
-
-        <h2>답글 작성</h2>
-        <form id="replyForm">
-          <div class="form-group">
-            <label for="replyId">문의 ID</label>
-            <input type="number" id="replyId" required />
-          </div>
-          <div class="form-group">
-            <label for="replyContent">답글 내용</label>
-            <textarea id="replyContent" rows="5" required></textarea>
-          </div>
-          <button type="submit" class="btn-submit">답글 등록</button>
-        </form>
-        <div id="replyStatus" class="status-message"></div>
+        <table class="inquiry-table">
+          <thead>
+            <tr>
+              <th style="width: 10%">ID</th>
+              <th style="width: 50%">문의내용</th>
+              <th style="width: 20%">작성자</th>
+              <th style="width: 20%">작성일</th>
+            </tr>
+          </thead>
+          <tbody id="pendingListBody"></tbody>
+        </table>
       </section>
     </div>
 
@@ -66,72 +121,100 @@
           const inquiries = await response.json();
 
           const pending = inquiries.filter((q) => !q.reply);
-          const container = document.getElementById("pendingList");
+          const tbody = document.getElementById("pendingListBody");
+          tbody.innerHTML = "";
 
           if (pending.length === 0) {
-            container.innerHTML = "<p>미답변 문의가 없습니다</p>";
+            tbody.innerHTML =
+              '<tr><td colspan="4" style="padding:20px;">미답변 문의가 없습니다</td></tr>';
             return;
           }
 
-          container.innerHTML = pending
-            .map(
-              (q) => `
-          <div class="inquiry-card">
-            <h3>#${q.id}: ${q.name}</h3>
-            <div class="meta">
-              ${new Date(q.created_at).toLocaleDateString("ko-KR")}
-            </div>
-            <div class="message">${sanitizeHTML(q.message)}</div>
-            <button type="button" onclick="selectInquiry(${
-              q.id
-            })" style="margin-top:10px; cursor:pointer;">답변하기</button>
-          </div>
-        `
-            )
-            .join("");
+          pending.forEach((q) => {
+            // 1. 요약 행
+            const tr = document.createElement("tr");
+            tr.style.cursor = "pointer";
+            tr.onclick = () => toggleDetail(q.id);
+            tr.innerHTML = `
+              <td>${q.id}</td>
+              <td><div class="truncate-text">${sanitizeHTML(
+                q.message
+              )}</div></td>
+              <td>${q.name}</td>
+              <td>${new Date(q.created_at).toLocaleDateString("ko-KR")}</td>
+            `;
+            tbody.appendChild(tr);
+
+            // 2. 상세 및 답변 작성 행
+            const detailTr = document.createElement("tr");
+            detailTr.id = `detail-${q.id}`;
+            detailTr.className = "detail-row";
+            detailTr.innerHTML = `
+              <td colspan="4" class="detail-cell">
+                <div class="detail-content">
+                  <p><strong>📝 문의 상세 내용:</strong></p>
+                  <div style="margin: 10px 0; white-space: pre-wrap; color: #333;">${sanitizeHTML(
+                    q.message
+                  )}</div>
+                  <hr style="margin: 15px 0; border: 0; border-top: 1px solid #eee;">
+                  <p><strong>💬 답변 작성:</strong></p>
+                  <textarea id="reply-text-${
+                    q.id
+                  }" class="reply-textarea" placeholder="답변 내용을 입력하세요..."></textarea>
+                  <button class="btn-inline" onclick="submitReply(${
+                    q.id
+                  })">답변 등록</button>
+                </div>
+              </td>
+            `;
+            tbody.appendChild(detailTr);
+          });
         } catch (error) {
           console.error("Error:", error);
         }
       }
 
-      // 답글 등록
-      document
-        .getElementById("replyForm")
-        .addEventListener("submit", async (e) => {
-          e.preventDefault();
+      // 상세 토글
+      function toggleDetail(id) {
+        const row = document.getElementById(`detail-${id}`);
+        row.style.display = row.style.display === "none" ? "table-row" : "none";
+      }
 
-          const data = {
-            id: parseInt(document.getElementById("replyId").value),
-            adminPassword,
-            reply: document.getElementById("replyContent").value,
-          };
+      // 답변 등록 (인라인)
+      async function submitReply(id) {
+        const replyText = document.getElementById(`reply-text-${id}`).value;
+        if (!replyText.trim()) {
+          alert("답변 내용을 입력해주세요.");
+          return;
+        }
 
-          try {
-            const response = await fetch(`${API_BASE}/admin-reply`, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(data),
-            });
+        if (!confirm("답변을 등록하시겠습니까?")) return;
 
-            const result = await response.json();
+        const data = {
+          id: id,
+          adminPassword,
+          reply: replyText,
+        };
 
-            if (response.ok) {
-              alert("✓ 답글이 등록되었습니다");
-              document.getElementById("replyForm").reset();
-              loadPendingInquiries();
-            } else {
-              alert(`✗ ${result.error}`);
-            }
-          } catch (error) {
-            alert(`✗ 오류: ${error.message}`);
+        try {
+          const response = await fetch(`${API_BASE}/admin-reply`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+            alert("✓ 답글이 등록되었습니다");
+            loadPendingInquiries();
+          } else {
+            alert(`✗ ${result.error}`);
           }
-        });
-
-      // 유틸리티: 문의 선택
-      window.selectInquiry = (id) => {
-        document.getElementById("replyId").value = id;
-        document.getElementById("replyContent").focus();
-      };
+        } catch (error) {
+          alert(`✗ 오류: ${error.message}`);
+        }
+      }
 
       // 유틸리티: HTML 살균 (XSS 방지)
       function sanitizeHTML(text) {
