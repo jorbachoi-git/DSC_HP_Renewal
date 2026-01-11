@@ -551,8 +551,7 @@ header {
   padding: 30px;
   border-radius: 8px;
   text-align: center;
-  border: 1px solid #eee;
-  transition: all $transition-speed;
+  border: on: all $transition-speed;
   cursor: pointer;
 
   &:hover {
@@ -586,6 +585,10 @@ header {
   font-weight: 500;
   transition: all $transition-speed;
 
+  .product-card & {
+    width: 100%;
+  }
+
   &.download-btn {
     background: #f0f0f0;
     color: $text-color;
@@ -594,8 +597,25 @@ header {
     &:hover {
       background: $primary-color;
       color: $white;
+
+      .download-file-info {
+        color: $white;
+      }
     }
   }
+}
+
+.download-file-info {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.7rem;
+  color: $text-light;
+  text-align: center;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color $transition-speed;
 }
 
 // Page Specific: Certificates

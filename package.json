@@ -4,7 +4,8 @@
   "description": "DSC HP Website with Inquiry System",
   "scripts": {
     "dev": "netlify dev",
-    "build": "sass scss/style.scss style.css"
+    "build": "sass scss/style.scss style.css",
+    "watch": "sass --watch scss/style.scss style.css"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
