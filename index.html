@@ -511,12 +511,12 @@
           <span>동서화학(주)</span>
         </div>
         <nav class="nav">
-          <a onclick="navigateTo('company')">회사소개</a>
-          <a onclick="navigateTo('products')">제품소개</a>
-          <a onclick="navigateTo('msds')">자료실</a>
-          <a onclick="navigateTo('support')">고객지원</a>
+          <a onclick="navigateTo('company')" data-i18n="nav_company">회사소개</a>
+          <a onclick="navigateTo('products')" data-i18n="nav_products">제품소개</a>
+          <a onclick="navigateTo('msds')" data-i18n="nav_msds">자료실</a>
+          <a onclick="navigateTo('support')" data-i18n="nav_support">고객지원</a>
         </nav>
-        <button class="language-toggle" onclick="toggleLanguage()">EN</button>
+        <button class="language-toggle" onclick="toggleLanguage()">ENG</button>
       </div>
     </header>
 
@@ -538,7 +538,7 @@
             class="mobile-nav-header"
             onclick="toggleMobileSubmenu('sub-company', this)"
           >
-            <span>회사소개</span>
+            <span data-i18n="nav_company">회사소개</span>
             <span class="arrow-icon">▼</span>
           </div>
           <div id="sub-company" class="mobile-nav-sub">
@@ -566,7 +566,7 @@
             class="mobile-nav-header"
             onclick="toggleMobileSubmenu('sub-products', this)"
           >
-            <span>제품소개</span>
+            <span data-i18n="nav_products">제품소개</span>
             <span class="arrow-icon">▼</span>
           </div>
           <div id="sub-products" class="mobile-nav-sub">
@@ -600,7 +600,7 @@
             class="mobile-nav-header"
             onclick="toggleMobileSubmenu('sub-msds', this)"
           >
-            <span>자료실</span>
+            <span data-i18n="nav_msds">자료실</span>
             <span class="arrow-icon">▼</span>
           </div>
           <div id="sub-msds" class="mobile-nav-sub">
@@ -620,7 +620,7 @@
             class="mobile-nav-header"
             onclick="toggleMobileSubmenu('sub-support', this)"
           >
-            <span>고객지원</span>
+            <span data-i18n="nav_support">고객지원</span>
             <span class="arrow-icon">▼</span>
           </div>
           <div id="sub-support" class="mobile-nav-sub">
@@ -946,6 +946,7 @@
                     <span class="download-icon">📥</span>
                     자료 다운로드
                   </a>
+                  <div class="download-file-info" title="DSC_MSDS_DongSuh_Kor.pdf (PDF, 1.5MB)">DSC_MSDS_DongSuh_Kor.pdf (PDF, 1.5MB)</div>
                 </div>
                 <div class="product-card">
                   <h3>DS 락카</h3>
@@ -1000,32 +1001,44 @@
               <h3 id="catalog-content">카탈로그</h3>
                 <p>모든 제품의 정보를 포함한 카탈로그를 다운로드하세요.<br /><br /></p>
               </div>
-              <div
-                class="download-buttons"
-                style="display: flex; gap: 15px; flex-wrap: wrap"
-              >
-                <a
-                  href="docs/DSC_Prod_Cat1.pdf"
-                  class="btn download-btn"
-                  download
-                >
-                  <span class="download-icon">📄</span>
-                  상품 카탈로그
-                </a>
-                <button
-                  class="btn download-btn"
-                  onclick="downloadPDF('MSDS_ZIP_KO_ID', '전체 MSDS ZIP')"
-                >
-                  <span class="download-icon">📦</span>
-                  전체 MSDS ZIP
-                </button>
-                <button
-                  class="btn download-btn"
-                  onclick="downloadPDF('MSDS_ZIP_EN_ID', '영문 MSDS ZIP')"
-                >
-                  <span class="download-icon">📦</span>
-                  영문 MSDS ZIP
-                </button>
+              <div class="product-grid">
+                <div class="product-card">
+                  <h3>상품 카탈로그</h3>
+                  <p>전체 제품 소개서</p>
+                  <a
+                    href="docs/DSC_Prod_Cat1.pdf"
+                    class="btn download-btn"
+                    download
+                  >
+                    <span class="download-icon">📄</span>
+                    자료 다운로드
+                  </a>
+                  <div class="download-file-info" title="DSC_Prod_Cat1.pdf (PDF, 5.2MB)">DSC_Prod_Cat1.pdf (PDF, 5.2MB)</div>
+                </div>
+                <div class="product-card">
+                  <h3>전체 MSDS ZIP</h3>
+                  <p>국문 MSDS 일괄 다운로드</p>
+                  <button
+                    class="btn download-btn"
+                    onclick="downloadPDF('MSDS_ZIP_KO_ID', '전체 MSDS ZIP')"
+                  >
+                    <span class="download-icon">📦</span>
+                    자료 다운로드
+                  </button>
+                  <div class="download-file-info" title="DSC_MSDS_All_KO.zip (ZIP, 12MB)">DSC_MSDS_All_KO.zip (ZIP, 12MB)</div>
+                </div>
+                <div class="product-card">
+                  <h3>영문 MSDS ZIP</h3>
+                  <p>English MSDS Bundle</p>
+                  <button
+                    class="btn download-btn"
+                    onclick="downloadPDF('MSDS_ZIP_EN_ID', '영문 MSDS ZIP')"
+                  >
+                    <span class="download-icon">📦</span>
+                    자료 다운로드
+                  </button>
+                  <div class="download-file-info" title="DSC_MSDS_All_EN.zip (ZIP, 10MB)">DSC_MSDS_All_EN.zip (ZIP, 10MB)</div>
+                </div>
               </div>
             </div>
           </div>
@@ -1646,8 +1659,34 @@
         document.getElementById("productModal").classList.remove("active");
       }
 
+      // 다국어 설정
+      const translations = {
+        ko: {
+          nav_company: "회사소개",
+          nav_products: "제품소개",
+          nav_msds: "자료실",
+          nav_support: "고객지원",
+        },
+        en: {
+          nav_company: "Company",
+          nav_products: "Products",
+          nav_msds: "Resources",
+          nav_support: "Support",
+        },
+      };
+
+      let currentLang = "ko";
+
       function toggleLanguage() {
-        alert("다국어 지원: 실제 구현 시 한글/영문 전환 기능 추가");
+        currentLang = currentLang === "ko" ? "en" : "ko";
+        document.querySelector(".language-toggle").textContent =
+          currentLang === "ko" ? "ENG" : "KOR";
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+          const key = el.getAttribute("data-i18n");
+          if (translations[currentLang][key]) {
+            el.textContent = translations[currentLang][key];
+          }
+        });
       }
 
       function showMsdsPopup() {
