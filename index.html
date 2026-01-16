@@ -1038,28 +1038,69 @@
                   <div class="download-file-info" title="DSC_MSDS_DongSuh_Kor.pdf (PDF, 1.5MB)">DSC_MSDS_DongSuh_Kor.pdf (PDF, 1.5MB)</div>
                 </div>
                 <div class="product-card">
-                  <h3>DS 락카</h3>
+                  <h3>동서 사비</h3>
                   <p>MSDS 및 기술 자료</p>
-                  <button
+                  <a
+                    href="docs/동서사비MSDS.pdf"
                     class="btn download-btn"
-                    onclick="downloadPDF('DS_LACQUER_ID', 'DS 락카')"
+                    download
                   >
                     <span class="download-icon">📥</span>
                     자료 다운로드
-                  </button>
-                  <div class="download-file-info"></div>
+                  </a>
+                  <div class="download-file-info" title="동서사비MSDS.pdf (PDF, 1.5MB)">동서사비MSDS.pdf (PDF, 1.5MB)</div>
+                </div>
+                <div class="product-card">
+                  <h3>동서 은색</h3>
+                  <p>MSDS 및 기술 자료</p>
+                  <a
+                    href="docs/동서은색MSDS(2025).pdf"
+                    class="btn download-btn"
+                    download
+                  >
+                    <span class="download-icon">📥</span>
+                    자료 다운로드
+                  </a>
+                  <div class="download-file-info" title="동서은색MSDS(2025).pdf (PDF, 1.5MB)">동서은색MSDS(2025).pdf (PDF, 1.5MB)</div>
+                </div>
+                <div class="product-card">
+                  <h3>DSI 락카</h3>
+                  <p>MSDS 및 기술 자료</p>
+                  <a
+                    href="docs/DSI락카MSDS(2025).pdf"
+                    class="btn download-btn"
+                    download
+                  >
+                    <span class="download-icon">📥</span>
+                    자료 다운로드
+                  </a>
+                  <div class="download-file-info" title="DSI락카MSDS(2025).pdf (PDF, 1.5MB)">DSI락카MSDS(2025).pdf (PDF, 1.5MB)</div>
+                </div>
+                <div class="product-card">
+                  <h3>DSI 락카 은색</h3>
+                  <p>MSDS 및 기술 자료</p>
+                  <a
+                    href="docs/DSI락카은색(2025).pdf"
+                    class="btn download-btn"
+                    download
+                  >
+                    <span class="download-icon">📥</span>
+                    자료 다운로드
+                  </a>
+                  <div class="download-file-info" title="DSI락카은색(2025).pdf (PDF, 1.5MB)">DSI락카은색(2025).pdf (PDF, 1.5MB)</div>
                 </div>
                 <div class="product-card">
                   <h3>아연(ZINC SILVER)</h3>
                   <p>MSDS 및 기술 자료</p>
-                  <button
+                  <a
+                    href="docs/ZINC100MSDS(2024).pdf"
                     class="btn download-btn"
-                    onclick="downloadPDF('ZINC_SILVER_ID', '아연')"
+                    download
                   >
                     <span class="download-icon">📥</span>
                     자료 다운로드
-                  </button>
-                  <div class="download-file-info"></div>
+                  </a>
+                  <div class="download-file-info" title="ZINC100MSDS(2024).pdf">ZINC100MSDS(2024).pdf</div>
                 </div>
                 <div class="product-card">
                   <h3>이형제</h3>
@@ -1071,7 +1112,7 @@
                     <span class="download-icon">📥</span>
                     자료 다운로드
                   </button>
-                  <div class="download-file-info"></div>
+                  <div class="download-file-info">파일 없음</div>
                 </div>
                 <div class="product-card">
                   <h3>충전서비스</h3>
@@ -1083,7 +1124,7 @@
                     <span class="download-icon">📥</span>
                     자료 다운로드
                   </button>
-                  <div class="download-file-info"></div>
+                  <div class="download-file-info">파일 없음</div>
                 </div>
               </div>
             </div>
@@ -1825,6 +1866,29 @@
       window.addEventListener("load", function () {
         initSlides();
         initCertificateGallery();
+        initCertificateGalleryFull();
+        setTimeout(function () {
+          showMsdsPopup();
+        }, 2000);
+      });
+
+      document
+        .getElementById("msdsPopupOverlay")
+        .addEventListener("click", function () {
+          closeMsdsPopup();
+        });
+
+      document
+        .getElementById("productModal")
+        .addEventListener("click", function (event) {
+          if (event.target === this) {
+            closeModal();
+          }
+        });
+    </script>
+    <script src="src/script.js"></script>
+  </body>
+</html>
         initCertificateGalleryFull();
         setTimeout(function () {
           showMsdsPopup();
