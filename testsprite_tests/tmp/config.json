@@ -1,0 +1,16 @@
+{
+  "status": "commited",
+  "type": "frontend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:8888",
+  "executionArgs": {
+    "projectName": "DSC_HP_01",
+    "projectPath": "C:\\Users\\jaeeu\\Documents\\Dev\\DSC_HP_01",
+    "testIds": [],
+    "additionalInstruction": "",
+    "envs": {
+      "API_KEY": "sk-user-Q7vRWOhKWSo0txHUwrR7WfRbFsaUW-cF80imsciihl3joBVaPHqNbxx2cABLFzTss-Iq0Vqsj3Bk3TxhxGvuO0-4Wh06gDxy_l-HlY76rZIjhbsErJ162K7LnqaZU0ROg4k"
+    }
+  },
+  "proxy": "http://d209e341-7bdb-4ba2-ba63-6349b6b5aa71:QS2fImJSVmOG4INUvi87VQHlF6K8zFSl@tun.testsprite.com:8080"
+}

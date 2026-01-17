@@ -1,0 +1,502 @@
+[
+  {
+    "id": "TC001",
+    "title": "Inquiry Form Submission with Valid Inputs",
+    "description": "Verify that the inquiry form accepts valid inputs, submits asynchronously, and displays success feedback.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to main landing page"
+      },
+      {
+        "type": "action",
+        "description": "Fill in all required inquiry form fields with valid data"
+      },
+      {
+        "type": "action",
+        "description": "Submit the inquiry form"
+      },
+      {
+        "type": "assertion",
+        "description": "Check that the form submission API call returns success"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify UI shows confirmation message indicating successful submission"
+      }
+    ]
+  },
+  {
+    "id": "TC002",
+    "title": "Inquiry Form Submission with Missing Required Fields",
+    "description": "Verify that submitting the inquiry form with missing mandatory fields prevents submission and shows appropriate validation messages.",
+    "category": "error handling",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to main landing page"
+      },
+      {
+        "type": "action",
+        "description": "Leave one or more required fields empty in the inquiry form"
+      },
+      {
+        "type": "action",
+        "description": "Submit the inquiry form"
+      },
+      {
+        "type": "assertion",
+        "description": "Check that no API submission request is made"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify validation messages are shown near respective empty fields"
+      }
+    ]
+  },
+  {
+    "id": "TC003",
+    "title": "Inquiry Form Submission with Invalid Data Formats",
+    "description": "Verify that the form validation detects and rejects invalid input formats (e.g., invalid email) and shows error messages.",
+    "category": "error handling",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to main landing page"
+      },
+      {
+        "type": "action",
+        "description": "Fill inquiry form fields with invalid data formats (e.g., incorrect email format)"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to submit the form"
+      },
+      {
+        "type": "assertion",
+        "description": "Validate that the form does not submit and error messages appear for invalid inputs"
+      }
+    ]
+  },
+  {
+    "id": "TC004",
+    "title": "Public Inquiry List Loading on Page Load",
+    "description": "Verify the public inquiry list is fetched from backend and displayed correctly on page load.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to public inquiry listing section on landing page"
+      },
+      {
+        "type": "assertion",
+        "description": "Check that an API request to get-public-list is made and returns inquiries"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the inquiries are rendered correctly in the list"
+      }
+    ]
+  },
+  {
+    "id": "TC005",
+    "title": "Public Inquiry List Displays 'No Inquiries' if Empty",
+    "description": "Confirm that if no public inquiries exist, the listing area shows the appropriate 'No inquiries' message.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Ensure backend returns an empty inquiry list"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to public inquiry listing section"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify that the message 'No inquiries' is displayed instead of an empty list"
+      }
+    ]
+  },
+  {
+    "id": "TC006",
+    "title": "Incremental Loading of Public Inquiries via 'Load More' Button",
+    "description": "Verify that clicking the 'Load More' button fetches additional inquiries and appends them to the list.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to public inquiry listing section"
+      },
+      {
+        "type": "action",
+        "description": "Click on repeatedly the 'Load More' button"
+      },
+      {
+        "type": "assertion",
+        "description": "Check that subsequent API calls fetch the next inquiries pages"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify that the new inquiries are appended rather than replacing existing list"
+      }
+    ]
+  },
+  {
+    "id": "TC007",
+    "title": "Password Verification for Inquiry Detail Viewing Success",
+    "description": "Check that entering the correct password allows viewing detailed inquiry and admin reply.",
+    "category": "security",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "From public inquiry list, select an inquiry requiring password"
+      },
+      {
+        "type": "action",
+        "description": "Enter the correct password in the verification prompt"
+      },
+      {
+        "type": "action",
+        "description": "Submit the password for verification"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify backend verifies password and returns inquiry and admin reply details"
+      },
+      {
+        "type": "assertion",
+        "description": "Check that detailed view is displayed with correct content"
+      }
+    ]
+  },
+  {
+    "id": "TC008",
+    "title": "Password Verification for Inquiry Detail Viewing Failure",
+    "description": "Verify that incorrect password entry prevents access to inquiry details and shows error message.",
+    "category": "security",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Select a password-protected inquiry from the list"
+      },
+      {
+        "type": "action",
+        "description": "Input an incorrect password in the verification prompt"
+      },
+      {
+        "type": "action",
+        "description": "Submit the password"
+      },
+      {
+        "type": "assertion",
+        "description": "Ensure backend returns authentication failure response"
+      },
+      {
+        "type": "assertion",
+        "description": "Check UI displays error message about incorrect password and denies access"
+      }
+    ]
+  },
+  {
+    "id": "TC009",
+    "title": "Admin Login and Viewing Inquiry List",
+    "description": "Verify that the admin can access the dashboard, load the list of inquiries, and see data correctly.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the admin dashboard page"
+      },
+      {
+        "type": "action",
+        "description": "Perform admin login if authentication is required"
+      },
+      {
+        "type": "assertion",
+        "description": "Check that the inquiry list is loaded via admin page API"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the listings show correct inquiry data"
+      }
+    ]
+  },
+  {
+    "id": "TC010",
+    "title": "Admin Sends Reply to Inquiry",
+    "description": "Verify that admin can input a reply to an inquiry, submit it successfully, and see updated data in dashboard.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "In admin dashboard, select an inquiry to reply"
+      },
+      {
+        "type": "action",
+        "description": "Enter a reply message into the reply interface"
+      },
+      {
+        "type": "action",
+        "description": "Submit the reply"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify backend admin-reply API responds with success"
+      },
+      {
+        "type": "assertion",
+        "description": "Check that the inquiry record updates with the new reply in the admin dashboard"
+      }
+    ]
+  },
+  {
+    "id": "TC011",
+    "title": "Localization Toggle Between English and Korean",
+    "description": "Verify that toggling the language setting updates all relevant UI text between English and Korean correctly.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to any page with visible text (e.g., main page)"
+      },
+      {
+        "type": "action",
+        "description": "Toggle the language selector from English to Korean"
+      },
+      {
+        "type": "assertion",
+        "description": "Validate all text elements update to their Korean translations"
+      },
+      {
+        "type": "action",
+        "description": "Toggle the language selector back to English"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm all text switches back to English correctly"
+      }
+    ]
+  },
+  {
+    "id": "TC012",
+    "title": "UI Interactions: Open and Close Product Detail Modal",
+    "description": "Verify that clicking on product details opens the modal, and that the modal can be closed properly without layout issues.",
+    "category": "ui",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "On main page, click a product detail link or button"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm the product detail modal opens with correct content"
+      },
+      {
+        "type": "action",
+        "description": "Close the modal via close button or overlay click"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the modal closes cleanly and no UI artifacts remain"
+      }
+    ]
+  },
+  {
+    "id": "TC013",
+    "title": "UI Interactions: MSDS Popup Display and Close",
+    "description": "Verify that the MSDS popup can be triggered and dismissed without visual glitches or errors.",
+    "category": "ui",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Trigger the MSDS popup by clicking the relevant UI element"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the MSDS popup is displayed with correct content"
+      },
+      {
+        "type": "action",
+        "description": "Close the MSDS popup"
+      },
+      {
+        "type": "assertion",
+        "description": "Ensure the popup closes without layout or script errors"
+      }
+    ]
+  },
+  {
+    "id": "TC014",
+    "title": "UI Interactions: Hero Carousel Slider Functionality",
+    "description": "Verify that the hero carousel slider cycles through slides, responds to navigation controls, and loops correctly.",
+    "category": "ui",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "On landing page, observe the hero carousel slider auto-advance"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm slides change automatically at expected intervals"
+      },
+      {
+        "type": "action",
+        "description": "Use navigation arrows or controls to manually switch slides"
+      },
+      {
+        "type": "assertion",
+        "description": "Check slides respond correctly to controls and loop from last to first"
+      }
+    ]
+  },
+  {
+    "id": "TC015",
+    "title": "Responsive Design: Mobile Menu Toggle and Accordion Submenus",
+    "description": "Verify that on narrow viewports, the mobile menu toggles open and closed, and accordion submenus expand and collapse correctly.",
+    "category": "ui",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Resize viewport to mobile width breakpoint"
+      },
+      {
+        "type": "action",
+        "description": "Click mobile menu toggle button to open menu"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the mobile menu panel slides in and is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click submenu accordion headers"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm submenus expand and collapse correctly"
+      },
+      {
+        "type": "action",
+        "description": "Toggle menu closed"
+      },
+      {
+        "type": "assertion",
+        "description": "Check menu closes and is hidden cleanly"
+      }
+    ]
+  },
+  {
+    "id": "TC016",
+    "title": "Company Introduction Section: Kakao Map Loading and Rendering",
+    "description": "Verify that the embedded Kakao Map loads successfully and displays without errors or visual glitches when the company introduction section is accessed.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to company introduction section"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm Kakao Map triggers load and renders on the page"
+      },
+      {
+        "type": "assertion",
+        "description": "Check for no visible errors or broken map elements"
+      }
+    ]
+  },
+  {
+    "id": "TC017",
+    "title": "Backend Functions Handle API Errors Gracefully",
+    "description": "Verify backend serverless functions respond correctly under failure scenarios (e.g., invalid input, backend error) and UI shows appropriate error feedback.",
+    "category": "error handling",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Simulate API call failures for inquiry submission, get-public-list, get-inquiry-detail, admin-reply, and verify-password endpoints"
+      },
+      {
+        "type": "assertion",
+        "description": "Ensure backend returns meaningful error responses"
+      },
+      {
+        "type": "assertion",
+        "description": "Check that frontend UI shows user-friendly error messages without crashing"
+      }
+    ]
+  },
+  {
+    "id": "TC018",
+    "title": "No Broken Images or Invalid Paths on UI",
+    "description": "Verify that all images load correctly on main and admin pages, with no broken image icons or 404 errors in network logs.",
+    "category": "ui",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Load main and admin pages fully"
+      },
+      {
+        "type": "assertion",
+        "description": "Inspect all images to confirm they render and no broken image placeholders are present"
+      },
+      {
+        "type": "assertion",
+        "description": "Review browser network logs for any 404 or resource loading errors"
+      }
+    ]
+  },
+  {
+    "id": "TC019",
+    "title": "UI Scripts Execute Without Runtime Errors",
+    "description": "Verify that no JavaScript runtime errors occur during normal user interactions across main and admin pages.",
+    "category": "error handling",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Interact with various UI elements including form inputs, buttons, modals, popups, carousels, and language toggles"
+      },
+      {
+        "type": "assertion",
+        "description": "Check browser console logs to confirm no uncaught exceptions or runtime errors"
+      }
+    ]
+  },
+  {
+    "id": "TC020",
+    "title": "Backend API Response Times Within Acceptable Thresholds",
+    "description": "Verify that backend serverless functions respond promptly under typical load, meeting performance criteria for responsiveness.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Measure response time for API calls to submit-inquiry, get-public-list, get-inquiry-detail, admin-reply, and verify-password"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm each response time is within the acceptable performance threshold as defined by project standards"
+      }
+    ]
+  }
+]

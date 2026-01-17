@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DSC - 전문 에어졸 충전 업체</title>
+    <title>동서화학 - 50년 전통의 에어졸 전문기업</title>
     <link rel="stylesheet" href="style.css" />
     <style>
       /* JS 동적 제어를 위한 필수 스타일 */
@@ -499,31 +499,41 @@
         width: 100% !important;
         max-width: 100% !important;
       }
+
+      /* 파일 없음 버튼 비활성화 스타일 */
+      .btn.download-btn:disabled,
+      .btn.download-btn[disabled] {
+        background-color: #e0e0e0 !important;
+        color: #a0a0a0 !important;
+        cursor: not-allowed !important;
+        pointer-events: none; /* 클릭 및 호버 효과 방지 */
+        box-shadow: none !important;
+      }
     </style>
   </head>
   <body>
     <!-- MSDS Popup -->
     <div class="msds-popup-overlay" id="msdsPopupOverlay"></div>
     <div class="msds-popup" id="msdsPopup">
-      <h2>📋 MSDS 안내</h2>
+      <h2 data-i18n="popup_msds_title">📋 MSDS 안내</h2>
       <p>
-        MSDS 및 제품 카탈로그는<strong>자료실</strong>에서 <br />다운로드 받을
-        수 있습니다. <br />
-        또는 문의를 남기시면 e-mail로 답변드리겠습니다. <br /><br />
+        <span data-i18n="popup_msds_desc">MSDS 및 제품 카탈로그는 자료실에서 다운로드 받을 수 있습니다. 또는 문의를 남기시면 e-mail로 답변드리겠습니다.</span><br /><br />
         <span style="font-size: 14px; color: #666"
-          >문의전화 : 032-571-6344</span
+          data-i18n="popup_contact">문의전화 : 032-571-6344</span
         >
       </p>
       <div class="msds-popup-buttons">
         <button
           class="msds-popup-btn msds-popup-btn-primary"
           onclick="closeMsdsPopup(); navigateTo('msds');"
+          data-i18n="popup_btn_go"
         >
           자료실 가기
         </button>
         <button
           class="msds-popup-btn msds-popup-btn-secondary"
           onclick="closeMsdsPopup();"
+          data-i18n="popup_btn_close"
         >
           닫기
         </button>
@@ -553,7 +563,7 @@
 
         <div class="logo" onclick="navigateTo('home')">
           <img src="images/DongSuh_Logo.png" alt="동서화학 로고" />
-          <span>동서화학(주)</span>
+          <span data-i18n="company_name">동서화학(주)</span>
         </div>
         <nav class="nav">
           <a onclick="navigateTo('company')" data-i18n="nav_company">회사소개</a>
@@ -587,19 +597,19 @@
             <span class="arrow-icon">▼</span>
           </div>
           <div id="sub-company" class="mobile-nav-sub">
-            <a onclick="navigateTo('company', 'ceo-message'); closeMobileMenu()"
+            <a onclick="navigateTo('company', 'ceo-message'); closeMobileMenu()" data-i18n="ceo_title"
               >CEO 인사말</a
             >
-            <a onclick="navigateTo('company', 'philosophy'); closeMobileMenu()"
+            <a onclick="navigateTo('company', 'philosophy'); closeMobileMenu()" data-i18n="philosophy_title"
               >경영이념</a
             >
-            <a onclick="navigateTo('company', 'history'); closeMobileMenu()"
+            <a onclick="navigateTo('company', 'history'); closeMobileMenu()" data-i18n="history_title"
               >회사연혁</a
             >
-            <a onclick="navigateTo('certificates'); closeMobileMenu()"
+            <a onclick="navigateTo('certificates'); closeMobileMenu()" data-i18n="cert_title"
               >상표 및 인증현황</a
             >
-            <a onclick="navigateTo('company', 'location'); closeMobileMenu()"
+            <a onclick="navigateTo('company', 'location'); closeMobileMenu()" data-i18n="loc_title"
               >사업장안내</a
             >
           </div>
@@ -616,24 +626,24 @@
           </div>
           <div id="sub-products" class="mobile-nav-sub">
             <a
-              onclick="navigateTo('products', 'prod-dongsuh'); closeMobileMenu()"
+              onclick="navigateTo('products', 'prod-dongsuh'); closeMobileMenu()" data-i18n="prod_dongsuh_title"
               >동서 락카</a
             >
-            <a onclick="navigateTo('products', 'prod-ds'); closeMobileMenu()"
+            <a onclick="navigateTo('products', 'prod-ds'); closeMobileMenu()" data-i18n="prod_ds_title"
               >DS 락카</a
             >
-            <a onclick="navigateTo('products', 'prod-zinc'); closeMobileMenu()"
+            <a onclick="navigateTo('products', 'prod-zinc'); closeMobileMenu()" data-i18n="prod_zinc_title"
               >아연(ZINC SILVER)</a
             >
             <a
-              onclick="navigateTo('products', 'prod-release'); closeMobileMenu()"
+              onclick="navigateTo('products', 'prod-release'); closeMobileMenu()" data-i18n="prod_release_title"
               >이형제</a
             >
-            <a onclick="navigateTo('products', 'prod-rust'); closeMobileMenu()"
+            <a onclick="navigateTo('products', 'prod-rust'); closeMobileMenu()" data-i18n="prod_rust_title"
               >방청제</a
             >
             <a
-              onclick="navigateTo('products', 'prod-filling'); closeMobileMenu()"
+              onclick="navigateTo('products', 'prod-filling'); closeMobileMenu()" data-i18n="prod_filling_title"
               >충전서비스</a
             >
           </div>
@@ -649,11 +659,11 @@
             <span class="arrow-icon">▼</span>
           </div>
           <div id="sub-msds" class="mobile-nav-sub">
-            <a onclick="navigateTo('msds', 'msds-content'); closeMobileMenu()"
+            <a onclick="navigateTo('msds', 'msds-content'); closeMobileMenu()" data-i18n="menu_msds"
               >MSDS</a
             >
             <a
-              onclick="navigateTo('msds', 'catalog-content'); closeMobileMenu()"
+              onclick="navigateTo('msds', 'catalog-content'); closeMobileMenu()" data-i18n="cat_title"
               >카탈로그</a
             >
           </div>
@@ -669,17 +679,17 @@
             <span class="arrow-icon">▼</span>
           </div>
           <div id="sub-support" class="mobile-nav-sub">
-            <a onclick="navigateTo('contact'); closeMobileMenu()"
+            <a onclick="navigateTo('contact'); closeMobileMenu()" data-i18n="contact_title"
               >제품 문의 및 자료요청</a
             >
-            <a onclick="navigateTo('support', 'notice'); closeMobileMenu()"
+            <a onclick="navigateTo('support', 'notice'); closeMobileMenu()" data-i18n="notice_title"
               >공지사항</a
             >
-            <a onclick="navigateTo('support', 'faq'); closeMobileMenu()"
+            <a onclick="navigateTo('support', 'faq'); closeMobileMenu()" data-i18n="faq_title"
               >자주 묻는 질문(FAQ)</a
             >
             <a
-              onclick="navigateTo('support', 'contact-info'); closeMobileMenu()"
+              onclick="navigateTo('support', 'contact-info'); closeMobileMenu()" data-i18n="contact_info_title"
               >문의 & 연락처</a
             >
           </div>
@@ -695,12 +705,12 @@
           style="background-image: url('images/BGI_DongSuh1.png')"
         >
           <div class="hero-content">
-            <h1>50년 기술력, 락카 스프레이 명가</h1>
-            <p>
+            <h1 data-i18n="hero_1_title">50년 기술력, 락카 스프레이 명가</h1>
+            <p data-i18n="hero_1_desc">
               혁신적인 기술개발과 신뢰를 바탕으로 고객에게 최고 품질의 락카
               스프레이 제품을 공급합니다.
             </p>
-            <button class="hero-btn" onclick="navigateTo('products')">
+            <button class="hero-btn" onclick="navigateTo('products')" data-i18n="hero_btn">
               제품 보기
             </button>
           </div>
@@ -710,9 +720,9 @@
           style="background-image: url('images/BGI_DongSuh2.png')"
         >
           <div class="hero-content">
-            <h1>최고의 품질, 우수한 제품</h1>
-            <p>인증 기준을 충족하는 우수한 제품으로 시장을 선도합니다.</p>
-            <button class="hero-btn" onclick="navigateTo('products')">
+            <h1 data-i18n="hero_2_title">최고의 품질, 우수한 제품</h1>
+            <p data-i18n="hero_2_desc">인증 기준을 충족하는 우수한 제품으로 시장을 선도합니다.</p>
+            <button class="hero-btn" onclick="navigateTo('products')" data-i18n="hero_btn">
               제품 보기
             </button>
           </div>
@@ -722,9 +732,9 @@
           style="background-image: url('images/Background_image4.png')"
         >
           <div class="hero-content">
-            <h1>신뢰할 수 있는 파트너</h1>
-            <p>고객의 요구를 만족하는 맞춤형 솔루션을 제공합니다.</p>
-            <button class="hero-btn" onclick="navigateTo('products')">
+            <h1 data-i18n="hero_3_title">신뢰할 수 있는 파트너</h1>
+            <p data-i18n="hero_3_desc">고객의 요구를 만족하는 맞춤형 솔루션을 제공합니다.</p>
+            <button class="hero-btn" onclick="navigateTo('products')" data-i18n="hero_btn">
               제품 보기
             </button>
           </div>
@@ -743,24 +753,20 @@
         class="subheading-banner"
         style="background-image: url('images/Subheading1.png')"
       >
-        <h2>회사소개</h2>
+        <h2 data-i18n="section_company">회사소개</h2>
       </div>
       <div class="container">
         <div class="feature-section">
           <!-- CEO 인사말 -->
           <div class="feature-block">
             <div class="feature-content">
-              <h3 id="ceo-message">CEO 인사말</h3>
+              <h3 id="ceo-message" data-i18n="ceo_title">CEO 인사말</h3>
               <p>
-                <strong>50년의 혁신, 미래를 향한 동서화학의 약속</strong
-                ><br /><br />
-                동서화학(주)는 50년 이상의 역사와 경험을 바탕으로 산업용 에어졸
-                제품의 선두주자로서의 위치를 확립했습니다. 혁신과 신뢰를 경영
-                철학으로 삼아 고객에게 최고의 가치를 제공하고 있습니다. 끊임없는
-                연구개발을 통해 고객의 기대를 뛰어넘는 제품을 선보이겠습니다.
+                <strong data-i18n="ceo_strong">50년의 혁신, 미래를 향한 동서화학의 약속</strong><br /><br />
+                <span data-i18n="ceo_desc">동서화학(주)는 50년 이상의 역사와 경험을 바탕으로 산업용 에어졸 제품의 선두주자로서의 위치를 확립했습니다. 혁신과 신뢰를 경영 철학으로 삼아 고객에게 최고의 가치를 제공하고 있습니다. 끊임없는 연구개발을 통해 고객의 기대를 뛰어넘는 제품을 선보이겠습니다.</span>
               </p>
               <p style="text-align: right; margin-top: 20px">
-                동서화학(주) 대표이사 <strong>이상민</strong>
+                <span data-i18n="ceo_sign">동서화학(주) 대표이사 <strong>이상민</strong></span>
               </p>
             </div>
             <div
@@ -772,15 +778,14 @@
           <!-- 경영이념 -->
           <div class="feature-block">
             <div class="feature-content">
-              <h3 id="philosophy">경영이념</h3>
+              <h3 id="philosophy" data-i18n="philosophy_title">경영이념</h3>
               <p>
-                <strong>친환경 미래 창조</strong><br />친환경 제품 개발과
-                지속가능한 생산으로 사회적 책임을 다하며, 환경과 미래를 창조하는
-                기업으로 나아갑니다.
+                <strong data-i18n="phil_1_title">친환경 미래 창조</strong><br />
+                <span data-i18n="phil_1_desc">친환경 제품 개발과 지속가능한 생산으로 사회적 책임을 다하며, 환경과 미래를 창조하는 기업으로 나아갑니다.</span>
               </p>
               <p>
-                <strong>정도(正道) 경영</strong><br />투명하고 공정한 경영을
-                통해 고객과 사회로부터 신뢰받는 기업이 되겠습니다.
+                <strong data-i18n="phil_2_title">정도(正道) 경영</strong><br />
+                <span data-i18n="phil_2_desc">투명하고 공정한 경영을 통해 고객과 사회로부터 신뢰받는 기업이 되겠습니다.</span>
               </p>
             </div>
             <div
@@ -796,12 +801,10 @@
               style="background-image: url('images/Subheading3.png')"
             ></div>
             <div class="feature-content">
-              <h3 id="history">회사 연혁</h3>
-              <p><strong>1975년</strong> 동도화학(영등포 공장)으로 출발</p>
-              <p>
-                <strong>1980년</strong> 동서화학으로 상호변경, 인천공장 이전
-              </p>
-              <p><strong>1997년</strong> 법인(주식회사) 전환, 인천공장 확장</p>
+              <h3 id="history" data-i18n="history_title">회사 연혁</h3>
+              <p data-i18n="hist_1"><strong>1975년</strong> 동도화학(영등포 공장)으로 출발</p>
+              <p data-i18n="hist_2"><strong>1980년</strong> 동서화학으로 상호변경, 인천공장 이전</p>
+              <p data-i18n="hist_3"><strong>1997년</strong> 법인(주식회사) 전환, 인천공장 확장</p>
             </div>
           </div>
 
@@ -815,16 +818,15 @@
               style="background-image: url('images/Subheading2.png')"
             ></div>
             <div class="feature-content">
-              <h3>상표 및 인증 현황</h3>
-              <p>
-                동서화학이 보유한 특허, 상표권 및 각종 인증서를 확인하세요. 국제
-                표준과 규격을 충족하는 엄격한 기준으로 인증받은 전문성을
-                확인하실 수 있습니다.
+              <h3 data-i18n="cert_title">상표 및 인증 현황</h3>
+              <p data-i18n="cert_desc">
+                동서화학이 보유한 특허, 상표권 및 각종 인증서를 확인하세요. 국제 표준과 규격을 충족하는 엄격한 기준으로 인증받은 전문성을 확인하실 수 있습니다.
               </p>
               <button
                 class="hero-btn"
                 style="margin-top: 15px; font-size: 1rem; padding: 10px 25px"
                 onclick="navigateTo('certificates'); event.stopPropagation();"
+                data-i18n="btn_cert"
               >
                 보유 상표 & 인증 보기
               </button>
@@ -834,15 +836,15 @@
           <!-- 사업장 안내 -->
           <div class="feature-block">
             <div class="feature-content">
-              <h3 id="location">사업장 안내</h3>
+              <h3 id="location" data-i18n="loc_title">사업장 안내</h3>
               <p>
-                <strong>본사 및 공장</strong><br />인천시 서구 길주로 45번길 17-2(석남동)
+                <strong data-i18n="loc_addr_title">본사 및 공장</strong><br /><span data-i18n="loc_addr">인천시 서구 길주로 45번길 17-2(석남동)</span>
               </p>
               <p>
-                <strong>전화 & 팩스</strong> Tel:032-571-6010 / Fax:032-574-6344
+                <strong data-i18n="loc_tel_title">전화 & 팩스</strong> Tel:032-571-6010 / Fax:032-574-6344
               </p>
               <p>
-                <strong>이메일</strong>dsspray1@naver.com 
+                <strong data-i18n="loc_email_title">이메일</strong> dsspray1@naver.com 
               </p>  
             </div>
             <!-- 지도 및 버튼 추가 -->
@@ -878,12 +880,14 @@
                 <a href="https://map.kakao.com/link/search/인천시 서구 길주로 45번길 17-2" 
                    class="btn-kakao" 
                    target="_blank" 
-                   rel="noopener">
+                   rel="noopener"
+                   data-i18n="btn_kakaomap">
                   📍 카카오맵으로 길찾기
                 </a>
                 <a href="https://map.kakao.com/link/search/인천시 서구 길주로 45번길 17-2" 
                    class="btn-share" 
-                   onclick="window.open(this.href, 'kakaomap', 'width=600,height=800'); return false;">
+                   onclick="window.open(this.href, 'kakaomap', 'width=600,height=800'); return false;"
+                   data-i18n="btn_mapshare">
                   🔗 지도 공유하기
                 </a>
               </div>
@@ -899,13 +903,13 @@
         class="subheading-banner"
         style="background-image: url('images/Subheading1.png')"
       >
-        <h2>상표 및 인증</h2>
+        <h2 data-i18n="cert_section_title">상표 및 인증</h2>
       </div>
       <div class="container">
-        <h3 class="text-center mb-20" style="color: #008b8b">
+        <h3 class="text-center mb-20" style="color: #008b8b" data-i18n="cert_page_title">
           🏆 동서화학이 보유하고 있는 상표 및 인증
         </h3>
-        <p class="text-center text-light mb-50 mx-auto max-w-600">
+        <p class="text-center text-light mb-50 mx-auto max-w-600" data-i18n="cert_page_desc">
           국제 표준과 규격을 충족하는 엄격한 기준으로 인증받은 동서화학의
           전문성과 신뢰성을 확인하세요.
         </p>
@@ -915,20 +919,20 @@
         </div>
 
         <div class="certificate-status-box">
-          <h3>인증 현황</h3>
-          <p>
+          <h3 data-i18n="cert_status_title">인증 현황</h3>
+          <p data-i18n="cert_status_desc">
             동서화학은 국내외 주요 인증기관으로부터 다음과 같은 인증을
             취득하였으며, 표준에 맞는 제품과 서비스를 제공하고 있습니다.
           </p>
           <ul>
-            <li><strong>무사고 7000일</strong> - 품질 경영 인증</li>
+            <li><strong data-i18n="cert_item_1_strong">무사고 7000일</strong> <span data-i18n="cert_item_1_text">- 품질 경영 인증</span></li>
             <li>
-              <strong>동서 락카 스프레이 MSDS 인증 </strong> - 화학물질 안전규제
+              <strong data-i18n="cert_item_2_strong">동서 락카 스프레이 MSDS 인증 </strong> <span data-i18n="cert_item_2_text">- 화학물질 안전규제</span>
             </li>
           </ul>
           <p class="tip">
-            💡 <strong>관리 팁:</strong> 새로운 인증서 이미지는 JavaScript의
-            <code>certificates</code> 배열에 추가하면 자동으로 표시됩니다.
+            <span data-i18n="cert_tip_icon">💡</span> <strong data-i18n="cert_tip_title">관리 팁:</strong>
+            <span data-i18n="cert_tip_desc">새로운 인증서 이미지는 JavaScript의 certificates 배열에 추가하면 자동으로 표시됩니다.</span>
           </p>
         </div>
       </div>
@@ -940,63 +944,63 @@
         class="subheading-banner"
         style="background-image: url('images/Subheading2.png')"
       >
-        <h2>제품소개</h2>
+        <h2 data-i18n="section_products">제품소개</h2>
       </div>
       <div class="container">
         <div class="product-grid">
           <div
             id="prod-dongsuh"
             class="product-card"
-            onclick="showProductDetail('동서 락카', '금속, 플라스틱, 목재 등 다양한 재질의 표면 도장용 프리미엄 에어졸 제품. 빠른 건조와 우수한 광택감을 제공합니다.')"
+            onclick="showProductDetail('prod_dongsuh_title', 'prod_dongsuh_desc_long')"
           >
             <img src="images/prod_01.png" alt="동서 락카" />
-            <h3>동서 락카</h3>
-            <p>프리미엄 에어졸 도장제</p>
+            <h3 data-i18n="prod_dongsuh_title">동서 락카</h3>
+            <p data-i18n="prod_dongsuh_desc">프리미엄 에어졸 도장제</p>
           </div>
           <div
             id="prod-ds"
             class="product-card"
-            onclick="showProductDetail('DS 락카', '산업용 에어졸 도장제로 다양한 도장 환경에 적용 가능한 제품입니다. 뛰어난 부착성과 내구성을 자랑합니다.')"
+            onclick="showProductDetail('prod_ds_title', 'prod_ds_desc_long')"
           >
             <img src="images/prod_02.png" alt="DS 락카" />
-            <h3>DS 락카</h3>
-            <p>산업용 도장 솔루션</p>
+            <h3 data-i18n="prod_ds_title">DS 락카</h3>
+            <p data-i18n="prod_ds_desc">산업용 도장 솔루션</p>
           </div>
           <div
             id="prod-zinc"
             class="product-card"
-            onclick="showProductDetail('아연(ZINC SILVER)', '금속 부식 방지를 위한 아연 코팅제입니다. 자동차 및 기계 산업에서 높은 신뢰도를 가지고 있습니다.')"
+            onclick="showProductDetail('prod_zinc_title', 'prod_zinc_desc_long')"
           >
             <img src="images/prod_03.png" alt="아연(ZINC SILVER)" />
-            <h3>아연(ZINC SILVER)</h3>
-            <p>방청 코팅제</p>
+            <h3 data-i18n="prod_zinc_title">아연(ZINC SILVER)</h3>
+            <p data-i18n="prod_zinc_desc">방청 코팅제</p>
           </div>
           <div
             id="prod-release"
             class="product-card"
-            onclick="showProductDetail('이형제', '금형 및 성형 제품의 이형 작용에 우수한 에어졸 제품입니다. 깔끔한 이형과 재사용성이 뛰어납니다.')"
+            onclick="showProductDetail('prod_release_title', 'prod_release_desc_long')"
           >
             <img src="images/prod_04.png" alt="이형제" />
-            <h3>이형제</h3>
-            <p>금형 이형 에어졸</p>
+            <h3 data-i18n="prod_release_title">이형제</h3>
+            <p data-i18n="prod_release_desc">금형 이형 에어졸</p>
           </div>
           <div
             id="prod-rust"
             class="product-card"
-            onclick="showProductDetail('방청제', '금속 표면의 부식을 방지하고 장기간 보관을 가능하게 하는 고성능 방청제입니다. 침투력이 우수하여 미세한 틈새까지 보호합니다.')"
+            onclick="showProductDetail('prod_rust_title', 'prod_rust_desc_long')"
           >
             <img src="images/prod_05.png" alt="방청제" />
-            <h3>방청제</h3>
-            <p>강력한 녹 방지 솔루션</p>
+            <h3 data-i18n="prod_rust_title">방청제</h3>
+            <p data-i18n="prod_rust_desc">강력한 녹 방지 솔루션</p>
           </div>
           <div
             id="prod-filling"
             class="product-card"
-            onclick="showProductDetail('충전서비스', 'DSC의 전문 에어졸 충전 서비스입니다. 고객의 맞춤형 제품 제조 및 충전을 지원합니다.')"
+            onclick="showProductDetail('prod_filling_title', 'prod_filling_desc_long')"
           >
             <img src="images/prod_06.png" alt="충전서비스" />
-            <h3>충전서비스</h3>
-            <p>맞춤형 에어졸 제조</p>
+            <h3 data-i18n="prod_filling_title">충전서비스</h3>
+            <p data-i18n="prod_filling_desc">맞춤형 에어졸 제조</p>
           </div>
         </div>
       </div>
@@ -1008,123 +1012,122 @@
         class="subheading-banner"
         style="background-image: url('images/Subheading3.png')"
       >
-        <h2>자료실</h2>
+        <h2 data-i18n="section_msds">자료실</h2>
       </div>
       <div class="container">
         <div class="feature-section">
           <!-- 1. MSDS Block -->
           <div class="feature-block">
             <div class="feature-content">
-              <h3 id="msds-content">MSDS (물질안전보건자료)</h3>
-                <p>
-                  💡 <strong>안내 :</strong> 제품의 안전 데이터 시트(MSDS)와
-                  성능 인증서를 다운로드하세요.<br />
+              <h3 id="msds-content" data-i18n="msds_title">MSDS (물질안전보건자료)</h3>
+                <p data-i18n="msds_notice">
+                  💡 <strong>안내 :</strong> 제품의 안전 데이터 시트(MSDS)와 성능 인증서를 다운로드하세요.<br />
                   <strong>다운로드 버튼</strong>을 클릭 하시면 바로 다운로드 됩니다.<br />
-                  문제가 있으면 고객지원 섹션의 <strong>제품 문의 및 자료요청 기능</strong>을  이용해 주세요.
+                  문제가 있으면 고객지원 섹션의 <strong>제품 문의 및 자료요청 기능</strong>을 이용해 주세요.
                 </p>
               </div>
               <div class="product-grid">
                 <div class="product-card">
-                  <h3>동서 락카</h3>
-                  <p>MSDS 및 기술 자료</p>
+                  <h3 data-i18n="prod_dongsuh_title">동서 락카</h3>
+                  <p data-i18n="msds_tech_data">MSDS 및 기술 자료</p>
                   <a
                     href="docs/DSC_MSDS_DongSuh_Kor.pdf"
                     class="btn download-btn"
                     download
                   >
                     <span class="download-icon">📥</span>
-                    자료 다운로드
+                    <span data-i18n="btn_download">자료 다운로드</span>
                   </a>
                   <div class="download-file-info" title="DSC_MSDS_DongSuh_Kor.pdf (PDF, 1.5MB)">DSC_MSDS_DongSuh_Kor.pdf (PDF, 1.5MB)</div>
                 </div>
                 <div class="product-card">
-                  <h3>동서 사비</h3>
-                  <p>MSDS 및 기술 자료</p>
+                  <h3 data-i18n="prod_sabi_title">동서 사비</h3>
+                  <p data-i18n="msds_tech_data">MSDS 및 기술 자료</p>
                   <a
                     href="docs/동서사비MSDS.pdf"
                     class="btn download-btn"
                     download
                   >
                     <span class="download-icon">📥</span>
-                    자료 다운로드
+                    <span data-i18n="btn_download">자료 다운로드</span>
                   </a>
                   <div class="download-file-info" title="동서사비MSDS.pdf (PDF, 1.5MB)">동서사비MSDS.pdf (PDF, 1.5MB)</div>
                 </div>
                 <div class="product-card">
-                  <h3>동서 은색</h3>
-                  <p>MSDS 및 기술 자료</p>
+                  <h3 data-i18n="prod_silver_title">동서 은색</h3>
+                  <p data-i18n="msds_tech_data">MSDS 및 기술 자료</p>
                   <a
                     href="docs/동서은색MSDS(2025).pdf"
                     class="btn download-btn"
                     download
                   >
                     <span class="download-icon">📥</span>
-                    자료 다운로드
+                    <span data-i18n="btn_download">자료 다운로드</span>
                   </a>
                   <div class="download-file-info" title="동서은색MSDS(2025).pdf (PDF, 1.5MB)">동서은색MSDS(2025).pdf (PDF, 1.5MB)</div>
                 </div>
                 <div class="product-card">
-                  <h3>DSI 락카</h3>
-                  <p>MSDS 및 기술 자료</p>
+                  <h3 data-i18n="prod_dsi_title">DSI 락카</h3>
+                  <p data-i18n="msds_tech_data">MSDS 및 기술 자료</p>
                   <a
                     href="docs/DSI락카MSDS(2025).pdf"
                     class="btn download-btn"
                     download
                   >
                     <span class="download-icon">📥</span>
-                    자료 다운로드
+                    <span data-i18n="btn_download">자료 다운로드</span>
                   </a>
                   <div class="download-file-info" title="DSI락카MSDS(2025).pdf (PDF, 1.5MB)">DSI락카MSDS(2025).pdf (PDF, 1.5MB)</div>
                 </div>
                 <div class="product-card">
-                  <h3>DSI 락카 은색</h3>
-                  <p>MSDS 및 기술 자료</p>
+                  <h3 data-i18n="prod_dsi_silver_title">DSI 락카 은색</h3>
+                  <p data-i18n="msds_tech_data">MSDS 및 기술 자료</p>
                   <a
                     href="docs/DSI락카은색(2025).pdf"
                     class="btn download-btn"
                     download
                   >
                     <span class="download-icon">📥</span>
-                    자료 다운로드
+                    <span data-i18n="btn_download">자료 다운로드</span>
                   </a>
                   <div class="download-file-info" title="DSI락카은색(2025).pdf (PDF, 1.5MB)">DSI락카은색(2025).pdf (PDF, 1.5MB)</div>
                 </div>
                 <div class="product-card">
-                  <h3>아연(ZINC SILVER)</h3>
-                  <p>MSDS 및 기술 자료</p>
+                  <h3 data-i18n="prod_zinc_title">아연(ZINC SILVER)</h3>
+                  <p data-i18n="msds_tech_data">MSDS 및 기술 자료</p>
                   <a
                     href="docs/ZINC100MSDS(2024).pdf"
                     class="btn download-btn"
                     download
                   >
                     <span class="download-icon">📥</span>
-                    자료 다운로드
+                    <span data-i18n="btn_download">자료 다운로드</span>
                   </a>
                   <div class="download-file-info" title="ZINC100MSDS(2024).pdf">ZINC100MSDS(2024).pdf</div>
                 </div>
                 <div class="product-card">
-                  <h3>이형제</h3>
-                  <p>MSDS 및 기술 자료</p>
+                  <h3 data-i18n="prod_release_title">이형제</h3>
+                  <p data-i18n="msds_tech_data">MSDS 및 기술 자료</p>
                   <button
                     class="btn download-btn"
-                    onclick="downloadPDF('MOLD_RELEASE_ID', '이형제')"
+                    disabled
                   >
                     <span class="download-icon">📥</span>
-                    자료 다운로드
+                    <span data-i18n="btn_download">자료 다운로드</span>
                   </button>
-                  <div class="download-file-info">파일 없음</div>
+                  <div class="download-file-info" data-i18n="file_none">파일 없음</div>
                 </div>
                 <div class="product-card">
-                  <h3>충전서비스</h3>
-                  <p>기술 명세 및 안내</p>
+                  <h3 data-i18n="prod_filling_title">충전서비스</h3>
+                  <p data-i18n="msds_tech_guide">기술 명세 및 안내</p>
                   <button
                     class="btn download-btn"
-                    onclick="downloadPDF('FILLING_SERVICE_ID', '충전서비스')"
+                    disabled
                   >
                     <span class="download-icon">📥</span>
-                    자료 다운로드
+                    <span data-i18n="btn_download">자료 다운로드</span>
                   </button>
-                  <div class="download-file-info">파일 없음</div>
+                  <div class="download-file-info" data-i18n="file_none">파일 없음</div>
                 </div>
               </div>
             </div>
@@ -1132,46 +1135,46 @@
           <!-- 2. Catalog Block -->
           <div class="feature-block">
             <div class="feature-content">
-              <h3 id="catalog-content">카탈로그</h3>
-                <p>모든 제품의 정보를 포함한 카탈로그를 다운로드하세요.<br /><br /></p>
+              <h3 id="catalog-content" data-i18n="cat_title">카탈로그</h3>
+                <p data-i18n="cat_desc">모든 제품의 정보를 포함한 카탈로그를 다운로드하세요.<br /><br /></p>
               </div>
               <div class="product-grid">
                 <div class="product-card">
-                  <h3>상품 카탈로그</h3>
-                  <p>전체 제품 소개서</p>
+                  <h3 data-i18n="cat_prod_title">상품 카탈로그</h3>
+                  <p data-i18n="cat_prod_desc">전체 제품 소개서</p>
                   <a
                     href="docs/DSC_Prod_Cat1.pdf"
                     class="btn download-btn"
                     download
                   >
                     <span class="download-icon">📄</span>
-                    자료 다운로드
+                    <span data-i18n="btn_download">자료 다운로드</span>
                   </a>
                   <div class="download-file-info" title="DSC_Prod_Cat1.pdf (PDF, 5.2MB)">DSC_Prod_Cat1.pdf (PDF, 5.2MB)</div>
                 </div>
                 <div class="product-card">
-                  <h3>전체 MSDS ZIP</h3>
-                  <p>국문 MSDS 일괄 다운로드</p>
+                  <h3 data-i18n="msds_zip_ko_title">전체 MSDS ZIP</h3>
+                  <p data-i18n="msds_zip_ko_desc">국문 MSDS 일괄 다운로드</p>
                   <button
                     class="btn download-btn"
-                    onclick="downloadPDF('MSDS_ZIP_KO_ID', '전체 MSDS ZIP')"
+                    disabled
                   >
                     <span class="download-icon">📦</span>
-                    자료 다운로드
+                    <span data-i18n="btn_download">자료 다운로드</span>
                   </button>
-                  <div class="download-file-info" title="DSC_MSDS_All_KO.zip (ZIP, 12MB)">DSC_MSDS_All_KO.zip (ZIP, 12MB)</div>
+                  <div class="download-file-info" data-i18n="file_none">파일 없음</div>
                 </div>
                 <div class="product-card">
-                  <h3>영문 MSDS ZIP</h3>
-                  <p>English MSDS Bundle</p>
+                  <h3 data-i18n="msds_zip_en_title">영문 MSDS ZIP</h3>
+                  <p data-i18n="msds_zip_en_desc">English MSDS Bundle</p>
                   <button
                     class="btn download-btn"
-                    onclick="downloadPDF('MSDS_ZIP_EN_ID', '영문 MSDS ZIP')"
+                    disabled
                   >
                     <span class="download-icon">📦</span>
-                    자료 다운로드
+                    <span data-i18n="btn_download">자료 다운로드</span>
                   </button>
-                  <div class="download-file-info" title="DSC_MSDS_All_EN.zip (ZIP, 10MB)">DSC_MSDS_All_EN.zip (ZIP, 10MB)</div>
+                  <div class="download-file-info" data-i18n="file_none">파일 없음</div>
                 </div>
               </div>
             </div>
@@ -1186,7 +1189,7 @@
         class="subheading-banner"
         style="background-image: url('images/Subheading4.png')"
       >
-        <h2>고객지원</h2>
+        <h2 data-i18n="section_support">고객지원</h2>
       </div>
       <div class="container">
         <div class="feature-section">
@@ -1196,9 +1199,9 @@
             onclick="navigateTo('contact')"
           >
             <div class="feature-content">
-              <h3>제품문의 및 자료요청</h3>
-              <p>추가적인 도움이 필요하신가요?</p>
-              <p>
+              <h3 data-i18n="contact_title">제품문의 및 자료요청</h3>
+              <p data-i18n="contact_desc_1">추가적인 도움이 필요하신가요?</p>
+              <p data-i18n="contact_desc_2">
                 온라인 문의 양식을 통해 질문을 남기시거나, 본사 고객센터로 직접
                 연락 주시면 담당자가 친절하게 안내해 드리겠습니다.
               </p>
@@ -1206,6 +1209,7 @@
                 class="hero-btn"
                 style="margin-top: 15px; font-size: 1rem; padding: 10px 25px"
                 onclick="navigateTo('contact'); event.stopPropagation();"
+                data-i18n="btn_contact"
               >
                 문의 및 자료요청 바로가기
               </button>
@@ -1219,12 +1223,12 @@
           <!-- 공지사항 -->
           <div
             class="feature-block cursor-pointer"
-            onclick="alert('공지사항: 신제품 출시, 이벤트, 유지보수 안내 등을 확인하세요.')"
+            onclick="showAlert('alert_notice')"
           >
             <div class="feature-content">
-              <h3 id="notice">공지사항</h3>
-              <p>동서화학의 최신 소식과 이벤트를 확인하세요.</p>
-              <p>
+              <h3 id="notice" data-i18n="notice_title">공지사항</h3>
+              <p data-i18n="notice_desc_1">동서화학의 최신 소식과 이벤트를 확인하세요.</p>
+              <p data-i18n="notice_desc_2">
                 신제품 출시 정보, 전시회 참가 소식, 그리고 중요 유지보수 안내
                 등을 가장 빠르게 전달해 드립니다.
               </p>
@@ -1238,19 +1242,19 @@
           <!-- FAQ -->
           <div
             class="feature-block cursor-pointer"
-            onclick="alert('FAQ: 자주 묻는 질문에 대한 답변을 확인하세요.')"
+            onclick="showAlert('alert_faq')"
           >
             <div
               class="feature-image"
               style="background-image: url('images/Subheading3.png')"
             ></div>
             <div class="feature-content">
-              <h3 id="faq">자주 묻는 질문 (FAQ)</h3>
-              <p>
+              <h3 id="faq" data-i18n="faq_title">자주 묻는 질문 (FAQ)</h3>
+              <p data-i18n="faq_desc_1">
                 제품 사용법, 대량 구매, 기술 지원 등 고객님들이 자주 묻는
                 질문들을 모았습니다.
               </p>
-              <p>
+              <p data-i18n="faq_desc_2">
                 궁금한 점이 있으시다면 먼저 FAQ를 확인해 보세요. 빠르고 정확한
                 답변을 찾으실 수 있습니다.
               </p>
@@ -1260,13 +1264,13 @@
           <!-- 문의 & 연락처 (이동됨) -->
           <div class="feature-block">
             <div class="feature-content">
-              <h3 id="contact-info">문의 & 연락처</h3>
+              <h3 id="contact-info" data-i18n="contact_info_title">문의 & 연락처</h3>
               <p>
-                <strong>📍 주소</strong><br />
-                인천시 서구 길주로 45번길 17-2
+                <strong data-i18n="loc_addr_title">📍 주소</strong><br />
+                <span data-i18n="loc_addr">인천시 서구 길주로 45번길 17-2</span>
               </p>
               <p>
-                <strong>📞 전화 & 팩스</strong><br />
+                <strong data-i18n="loc_tel_title">📞 전화 & 팩스</strong><br />
                 Tel: 032-571-6010 / Fax: 032-574-6344
               </p>
               <p><strong>✉️ 이메일</strong><br />dsspray1@naver.com</p>
@@ -1282,14 +1286,14 @@
         class="subheading-banner"
         style="background-image: url('images/Subheading4.png')"
       >
-        <h2>고객지원</h2>
+        <h2 data-i18n="section_support">고객지원</h2>
       </div>
       <div class="container">
         <!-- 새로운 문의 시스템 -->
         <div class="inquiry-wrapper mb-50">
           <!-- 1. 문의 등록 섹션 -->
           <section id="inquiry-section">
-            <h3 class="inquiry-section-title">📝 제품 문의 및 자료 요청</h3>
+            <h3 class="inquiry-section-title" data-i18n="form_title">📝 제품 문의 및 자료 요청</h3>
             <div
               style="
                 font-size: 0.85rem;
@@ -1298,13 +1302,13 @@
                 line-height: 1.6;
               "
             >
-              <div>
+              <div data-i18n="form_notice_1">
                 ※ 문의내용를 남겨주시면 빠른 시일내에 답변 드리겠습니다.
               </div>
-              <div>
+              <div data-i18n="form_notice_2">
                 ※ (필수)항목은 반드시 입력해주셔야 문의 등록이 가능합니다.
               </div>
-              <div>
+              <div data-i18n="form_notice_3">
                 ※ 하단 목록에서, 등록된 문의와 답변 내용을 확인하실 수 있습니다.
               </div>
             </div>
@@ -1313,58 +1317,63 @@
                 <!-- 1행: 성명 / 업체명 -->
                 <div class="form-group">
                   <label for="name"
-                    >성명<span class="required-text">(필수)</span></label
+                    ><span data-i18n="label_name">성명</span><span class="required-text">(필수)</span></label
                   >
                   <input
                     type="text"
                     id="name"
                     name="name"
                     placeholder="성명을 입력하세요"
+                    data-i18n-placeholder="ph_name"
                     required
                   />
                 </div>
                 <div class="form-group">
-                  <label for="companyName">업체명</label>
+                  <label for="companyName" data-i18n="label_company">업체명</label>
                   <input
                     type="text"
                     id="companyName"
                     name="company"
                     placeholder="업체명을 입력하세요"
+                    data-i18n-placeholder="ph_company"
                   />
                 </div>
 
                 <!-- 2행: 이메일 / 연락처 -->
                 <div class="form-group">
                   <label for="email"
-                    >이메일<span class="required-text">(필수)</span></label
+                    ><span data-i18n="label_email">이메일</span><span class="required-text">(필수)</span></label
                   >
                   <input
                     type="email"
                     id="email"
                     name="email"
                     placeholder="example@domain.com"
+                    data-i18n-placeholder="ph_email"
                     required
                   />
                 </div>
                 <div class="form-group">
-                  <label for="phone">연락처</label>
+                  <label for="phone" data-i18n="label_phone">연락처</label>
                   <input
                     type="tel"
                     id="phone"
                     name="phone"
                     placeholder="010-xxxx-xxxx"
+                    data-i18n-placeholder="ph_phone"
                   />
                 </div>
 
                 <!-- 3행: 문의내용 (Full Width) -->
                 <div class="form-group full-width">
                   <label for="message"
-                    >문의 내용<span class="required-text">(필수)</span></label
+                    ><span data-i18n="label_message">문의 내용</span><span class="required-text">(필수)</span></label
                   >
                   <textarea
                     id="message"
                     name="message"
                     placeholder="제품명, 수량, 요청 자료 등 상세 내용을 입력해 주세요."
+                    data-i18n-placeholder="ph_message"
                     required
                   ></textarea>
                 </div>
@@ -1374,17 +1383,18 @@
               <div class="form-footer">
                 <div class="form-group password-group">
                   <label for="password"
-                    >비밀번호<span class="required-text">(필수)</span></label
+                    ><span data-i18n="label_password">비밀번호</span><span class="required-text">(필수)</span></label
                   >
                   <input
                     type="password"
                     id="password"
                     name="password"
                     placeholder="비밀번호 (4자리 이상)"
+                    data-i18n-placeholder="ph_password"
                     required
                   />
                 </div>
-                <button type="submit" class="btn-submit">문의 등록하기</button>
+                <button type="submit" class="btn-submit" data-i18n="btn_submit">문의 등록하기</button>
               </div>
             </form>
             <div id="submitStatus" class="status-message"></div>
@@ -1394,7 +1404,7 @@
 
           <!-- 2. 공개 문의 목록 섹션 -->
           <section id="public-list-section">
-            <h3 class="inquiry-section-title">📢 공개 문의 목록</h3>
+            <h3 class="inquiry-section-title" data-i18n="public_list_title">📢 공개 문의 목록</h3>
             <div
               style="
                 font-size: 0.85rem;
@@ -1403,7 +1413,7 @@
                 line-height: 1.6;
               "
             >
-              <div>
+              <div data-i18n="public_list_notice">
                 ※ 문의내용을 선택하고, 등록시 사용한 비밀번호를 입력하시면,
                 문의와 답변 내용을 확인하실 수 있습니다.
               </div>
@@ -1412,9 +1422,9 @@
               <table class="inquiry-table">
                 <thead>
                   <tr>
-                    <th style="width: 60%">문의내용</th>
-                    <th style="width: 20%">성명</th>
-                    <th style="width: 20%">등록일</th>
+                    <th style="width: 60%" data-i18n="th_message">문의내용</th>
+                    <th style="width: 20%" data-i18n="th_name">성명</th>
+                    <th style="width: 20%" data-i18n="th_date">등록일</th>
                   </tr>
                 </thead>
                 <tbody id="publicList">
@@ -1428,7 +1438,7 @@
               class="load-more-container"
               style="display: none"
             >
-              <button id="btnLoadMore" class="btn-load-more">더보기 ▾</button>
+              <button id="btnLoadMore" class="btn-load-more" data-i18n="btn_load_more">더보기 ▾</button>
             </div>
           </section>
         </div>
@@ -1440,91 +1450,90 @@
       <div class="container">
         <div class="footer-content">
           <div class="footer-section">
-            <h4>회사소개</h4>
+            <h4 data-i18n="nav_company">회사소개</h4>
             <a
               href="#"
-              onclick="navigateTo('company', 'ceo-message'); return false;"
+              onclick="navigateTo('company', 'ceo-message'); return false;" data-i18n="ceo_title"
               >CEO 인사말</a
             >
             <a
               href="#"
-              onclick="navigateTo('company', 'philosophy'); return false;"
+              onclick="navigateTo('company', 'philosophy'); return false;" data-i18n="philosophy_title"
               >경영이념</a
             >
             <a
               href="#"
-              onclick="navigateTo('company', 'history'); return false;"
+              onclick="navigateTo('company', 'history'); return false;" data-i18n="history_title"
               >회사연혁</a
             >
-            <a href="#" onclick="navigateTo('certificates'); return false;"
+            <a href="#" onclick="navigateTo('certificates'); return false;" data-i18n="cert_title"
               >상표 및 인증현황</a
             >
             <a
-              href="#"
-              onclick="navigateTo('company', 'location'); return false;"
+              onclick="navigateTo('company', 'location'); return false;" data-i18n="loc_title"
               >사업장안내</a
             >
           </div>
           <div class="footer-section">
-            <h4>제품소개</h4>
+            <h4 data-i18n="nav_products">제품소개</h4>
             <a
               href="#"
-              onclick="navigateTo('products', 'prod-dongsuh'); return false;"
+              onclick="navigateTo('products', 'prod-dongsuh'); return false;" data-i18n="prod_dongsuh_title"
               >동서 락카</a
             >
             <a
               href="#"
-              onclick="navigateTo('products', 'prod-ds'); return false;"
+              onclick="navigateTo('products', 'prod-ds'); return false;" data-i18n="prod_ds_title"
               >DS 락카</a
             >
             <a
               href="#"
-              onclick="navigateTo('products', 'prod-zinc'); return false;"
+              onclick="navigateTo('products', 'prod-zinc'); return false;" data-i18n="prod_zinc_title"
               >아연(ZINC SILVER)</a
             >
             <a
               href="#"
-              onclick="navigateTo('products', 'prod-release'); return false;"
+              onclick="navigateTo('products', 'prod-release'); return false;" data-i18n="prod_release_title"
               >이형제</a
             >
             <a
               href="#"
-              onclick="navigateTo('products', 'prod-rust'); return false;"
+              onclick="navigateTo('products', 'prod-rust'); return false;" data-i18n="prod_rust_title"
               >방청제</a
             >
             <a
               href="#"
-              onclick="navigateTo('products', 'prod-filling'); return false;"
+              onclick="navigateTo('products', 'prod-filling'); return false;" data-i18n="prod_filling_title"
               >충전서비스</a
             >
           </div>
           <div class="footer-section">
-            <h4>자료실</h4>
+            <h4 data-i18n="nav_msds">자료실</h4>
             <a
               href="#"
-              onclick="navigateTo('msds', 'msds-content'); return false;"
+              onclick="navigateTo('msds', 'msds-content'); return false;" data-i18n="menu_msds"
               >MSDS</a
             >
             <a
               href="#"
-              onclick="navigateTo('msds', 'catalog-content'); return false;"
+              onclick="navigateTo('msds', 'catalog-content'); return false;" data-i18n="cat_title"
               >카탈로그</a
             >
           </div>
           <div class="footer-section">
-            <h4>고객지원</h4>
-            <a href="#" onclick="navigateTo('contact'); return false;"
+            <h4 data-i18n="nav_support">고객지원</h4>
+            <a href="#" onclick="navigateTo('contact'); return false;" data-i18n="contact_title"
               >제품 문의 및 자료요청</a
             >
-            <a href="#" onclick="navigateTo('support', 'notice'); return false;"
+            <a href="#" onclick="navigateTo('support', 'notice'); return false;" data-i18n="notice_title"
               >공지사항</a
             >
-            <a href="#" onclick="navigateTo('support', 'faq'); return false;"
+            <a href="#" onclick="navigateTo('support', 'faq'); return false;" data-i18n="faq_title"
               >자주 묻는 질문(FAQ)</a
             >
             <a
               href="#"
-              onclick="navigateTo('support', 'contact-info'); return false;"
+              onclick="navigateTo('support', 'contact-info'); return false;" data-i18n="contact_info_title"
               >문의 & 연락처</a
             >
           </div>
@@ -1539,17 +1548,17 @@
             text-align: center;
           "
         >
-          <p style="margin-bottom: 10px; color: #ccc; font-size: 0.9rem">
+          <p style="margin-bottom: 10px; color: #ccc; font-size: 0.9rem" data-i18n="footer_company_info">
             동서화학(주) | 대표 : 이상민 | T:
             <strong style="color: #fff">032-571-6010</strong> | F:
             <strong style="color: #fff">032-574-6344</strong>
           </p>
-          <p style="margin-bottom: 30px; color: #888; font-size: 0.8rem">
+          <p style="margin-bottom: 30px; color: #888; font-size: 0.8rem" data-i18n="footer_copyright">
             COPYRIGHT 2026 DONGSUH CHEMICAL @RIGHTS RESERVED
           </p>
           <div class="logo" onclick="navigateTo('home')">
             <img src="images/DongSuh_Logo.png" alt="동서화학 로고" />
-            <span>동서화학(주)</span>
+              <span data-i18n="company_name">동서화학(주)</span>
           </div>
         </div>
       </div>
@@ -1563,7 +1572,7 @@
         <p id="modalDescription"></p>
         <div class="modal-grid">
           <div>
-            <h4>주요 특징</h4>
+            <h4 data-i18n="modal_features">주요 특징</h4>
             <ul>
               <li>우수한 성능</li>
               <li>안정성 인증</li>
@@ -1571,7 +1580,7 @@
             </ul>
           </div>
           <div>
-            <h4>적용 분야</h4>
+            <h4 data-i18n="modal_applications">적용 분야</h4>
             <ul>
               <li>자동차 산업</li>
               <li>기계 제조</li>
@@ -1579,7 +1588,7 @@
             </ul>
           </div>
         </div>
-        <button class="btn" onclick="navigateTo('msds'); closeModal();">
+        <button class="btn" onclick="navigateTo('msds'); closeModal();" data-i18n="modal_btn_view">
           자료실 보기
         </button>
       </div>
@@ -1590,33 +1599,33 @@
       // 향후 이미지 URL을 변경하면 자동으로 업데이트됩니다
       const certificates = [
         {
-          title: "상표권 등록증 1",
-          description: "상표권 페이지 1",
+          titleKey: "cert_1_title",
+          descKey: "cert_1_desc",
           imageUrl: "images/trademark_01.png",
         },
         {
-          title: "상표권 등록증 2",
-          description: "상표권 페이지 2",
+          titleKey: "cert_2_title",
+          descKey: "cert_2_desc",
           imageUrl: "images/trademark_02.png",
         },
         {
-          title: "상표권 등록증 3",
-          description: "상표권 페이지 3",
+          titleKey: "cert_3_title",
+          descKey: "cert_3_desc",
           imageUrl: "images/trademark_03.png",
         },
         {
-          title: "상표권 등록증 4",
-          description: "상표권 페이지 4",
+          titleKey: "cert_4_title",
+          descKey: "cert_4_desc",
           imageUrl: "images/trademark_04.png",
         },
         {
-          title: "상표권 등록증 5",
-          description: "상표권 페이지 5",
+          titleKey: "cert_5_title",
+          descKey: "cert_5_desc",
           imageUrl: "images/trademark_05.png",
         },
         {
-          title: "상표권 등록증 6",
-          description: "상표권 페이지 6",
+          titleKey: "cert_6_title",
+          descKey: "cert_6_desc",
           imageUrl: "images/trademark_06.png",
         },
       ];
@@ -1626,13 +1635,16 @@
         const card = document.createElement("div");
         card.className = "certificate-item";
 
+        const title = translations[currentLang][cert.titleKey] || cert.titleKey;
+        const desc = translations[currentLang][cert.descKey] || cert.descKey;
+
         card.innerHTML = `
                 <div class="cert-img-wrapper">
-                    <img src="${cert.imageUrl}" alt="${cert.title}" style="width: 100%; height: 100%; object-fit: contain;">
+                    <img src="${cert.imageUrl}" alt="${title}" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
                 <div class="cert-content">
-                    <h4>${cert.title}</h4>
-                    <p>${cert.description}</p>
+                    <h4 data-i18n="${cert.titleKey}">${title}</h4>
+                    <p data-i18n="${cert.descKey}">${desc}</p>
                 </div>
             `;
         return card;
@@ -1683,6 +1695,7 @@
             `⚠️ ${productName} 파일이 아직 설정되지 않았습니다.\n\nGoogle Drive에 파일을 업로드한 후 File ID를 설정해주세요.`
           );
           console.log(`설정 필요한 파일 키: ${fileKey}`);
+          alert("관련자료가 없습니다.");
           return;
         }
 
@@ -1782,7 +1795,9 @@
         }
       }
 
-      function showProductDetail(title, description) {
+      function showProductDetail(titleKey, descriptionKey) {
+        const title = translations[currentLang][titleKey] || titleKey;
+        const description = translations[currentLang][descriptionKey] || descriptionKey;
         document.getElementById("modalTitle").textContent = title;
         document.getElementById("modalDescription").textContent = description;
         document.getElementById("productModal").classList.add("active");
@@ -1792,6 +1807,11 @@
         document.getElementById("productModal").classList.remove("active");
       }
 
+      function showAlert(key) {
+        const message = translations[currentLang][key] || key;
+        alert(message);
+      }
+
       // 다국어 설정
       const translations = {
         ko: {
@@ -1799,12 +1819,320 @@
           nav_products: "제품소개",
           nav_msds: "자료실",
           nav_support: "고객지원",
+          company_name: "동서화학(주)",
+          // Hero
+          hero_1_title: "50년 기술력, 락카 스프레이 명가",
+          hero_1_desc: "혁신적인 기술개발과 신뢰를 바탕으로 고객에게 최고 품질의 락카 스프레이 제품을 공급합니다.",
+          hero_btn: "제품 보기",
+          hero_2_title: "최고의 품질, 우수한 제품",
+          hero_2_desc: "인증 기준을 충족하는 우수한 제품으로 시장을 선도합니다.",
+          hero_3_title: "신뢰할 수 있는 파트너",
+          hero_3_desc: "고객의 요구를 만족하는 맞춤형 솔루션을 제공합니다.",
+          // Company
+          section_company: "회사소개",
+          ceo_title: "CEO 인사말",
+          ceo_strong: "50년의 혁신, 미래를 향한 동서화학의 약속",
+          ceo_desc: "동서화학(주)는 50년 이상의 역사와 경험을 바탕으로 산업용 에어졸 제품의 선두주자로서의 위치를 확립했습니다. 혁신과 신뢰를 경영 철학으로 삼아 고객에게 최고의 가치를 제공하고 있습니다. 끊임없는 연구개발을 통해 고객의 기대를 뛰어넘는 제품을 선보이겠습니다.",
+          ceo_sign: "동서화학(주) 대표이사 이상민",
+          philosophy_title: "경영이념",
+          phil_1_title: "친환경 미래 창조",
+          phil_1_desc: "친환경 제품 개발과 지속가능한 생산으로 사회적 책임을 다하며, 환경과 미래를 창조하는 기업으로 나아갑니다.",
+          phil_2_title: "정도(正道) 경영",
+          phil_2_desc: "투명하고 공정한 경영을 통해 고객과 사회로부터 신뢰받는 기업이 되겠습니다.",
+          history_title: "회사 연혁",
+          hist_1: "1975년 동도화학(영등포 공장)으로 출발",
+          hist_2: "1980년 동서화학으로 상호변경, 인천공장 이전",
+          hist_3: "1997년 법인(주식회사) 전환, 인천공장 확장",
+          cert_title: "상표 및 인증 현황",
+          cert_desc: "동서화학이 보유한 특허, 상표권 및 각종 인증서를 확인하세요. 국제 표준과 규격을 충족하는 엄격한 기준으로 인증받은 전문성을 확인하실 수 있습니다.",
+          btn_cert: "보유 상표 & 인증 보기",
+          loc_title: "사업장 안내",
+          loc_addr_title: "본사 및 공장",
+          loc_addr: "인천시 서구 길주로 45번길 17-2(석남동)",
+          loc_tel_title: "전화 & 팩스",
+          loc_email_title: "이메일",
+          btn_kakaomap: "📍 카카오맵으로 길찾기",
+          btn_mapshare: "🔗 지도 공유하기",
+          // Certificates Page
+          cert_section_title: "상표 및 인증",
+          cert_page_title: "🏆 동서화학이 보유하고 있는 상표 및 인증",
+          cert_page_desc: "국제 표준과 규격을 충족하는 엄격한 기준으로 인증받은 동서화학의 전문성과 신뢰성을 확인하세요.",
+          cert_status_title: "인증 현황",
+          cert_status_desc: "동서화학은 국내외 주요 인증기관으로부터 다음과 같은 인증을 취득하였으며, 표준에 맞는 제품과 서비스를 제공하고 있습니다.",
+          cert_item_1_strong: "무사고 7000일",
+          cert_item_1_text: "- 품질 경영 인증",
+          cert_item_2_strong: "동서 락카 스프레이 MSDS 인증",
+          cert_item_2_text: "- 화학물질 안전규제",
+          cert_tip_icon: "💡",
+          cert_tip_title: "관리 팁:",
+          cert_tip_desc: "새로운 인증서 이미지는 JavaScript의 certificates 배열에 추가하면 자동으로 표시됩니다.",
+          cert_1_title: "상표권 등록증 1",
+          cert_1_desc: "상표권 페이지 1",
+          cert_2_title: "상표권 등록증 2",
+          cert_2_desc: "상표권 페이지 2",
+          cert_3_title: "상표권 등록증 3",
+          cert_3_desc: "상표권 페이지 3",
+          cert_4_title: "상표권 등록증 4",
+          cert_4_desc: "상표권 페이지 4",
+          cert_5_title: "상표권 등록증 5",
+          cert_5_desc: "상표권 페이지 5",
+          cert_6_title: "상표권 등록증 6",
+          cert_6_desc: "상표권 페이지 6",
+          // Products
+          section_products: "제품소개",
+          prod_dongsuh_title: "동서 락카",
+          prod_dongsuh_desc: "프리미엄 에어졸 도장제",
+          prod_ds_title: "DS 락카",
+          prod_ds_desc: "산업용 도장 솔루션",
+          prod_zinc_title: "아연(ZINC SILVER)",
+          prod_zinc_desc: "방청 코팅제",
+          prod_release_title: "이형제",
+          prod_release_desc: "금형 이형 에어졸",
+          prod_rust_title: "방청제",
+          prod_rust_desc: "강력한 녹 방지 솔루션",
+          prod_filling_title: "충전서비스",
+          prod_filling_desc: "맞춤형 에어졸 제조",
+          // MSDS
+          section_msds: "자료실",
+          msds_title: "MSDS (물질안전보건자료)",
+          msds_notice: "💡 안내 : 제품의 안전 데이터 시트(MSDS)와 성능 인증서를 다운로드하세요. 다운로드 버튼을 클릭 하시면 바로 다운로드 됩니다. 문제가 있으면 고객지원 섹션의 제품 문의 및 자료요청 기능을 이용해 주세요.",
+          msds_tech_data: "MSDS 및 기술 자료",
+          msds_tech_guide: "기술 명세 및 안내",
+          prod_sabi_title: "동서 사비",
+          prod_silver_title: "동서 은색",
+          prod_dsi_title: "DSI 락카",
+          prod_dsi_silver_title: "DSI 락카 은색",
+          btn_download: "자료 다운로드",
+          file_none: "파일 없음",
+          cat_title: "카탈로그",
+          cat_desc: "모든 제품의 정보를 포함한 카탈로그를 다운로드하세요.",
+          cat_prod_title: "상품 카탈로그",
+          cat_prod_desc: "전체 제품 소개서",
+          msds_zip_ko_title: "전체 MSDS ZIP",
+          msds_zip_ko_desc: "국문 MSDS 일괄 다운로드",
+          msds_zip_en_title: "영문 MSDS ZIP",
+          msds_zip_en_desc: "English MSDS Bundle",
+          // Support
+          section_support: "고객지원",
+          contact_title: "제품문의 및 자료요청",
+          contact_desc_1: "추가적인 도움이 필요하신가요?",
+          contact_desc_2: "온라인 문의 양식을 통해 질문을 남기시거나, 본사 고객센터로 직접 연락 주시면 담당자가 친절하게 안내해 드리겠습니다.",
+          btn_contact: "문의 및 자료요청 바로가기",
+          notice_title: "공지사항",
+          notice_desc_1: "동서화학의 최신 소식과 이벤트를 확인하세요.",
+          notice_desc_2: "신제품 출시 정보, 전시회 참가 소식, 그리고 중요 유지보수 안내 등을 가장 빠르게 전달해 드립니다.",
+          faq_title: "자주 묻는 질문 (FAQ)",
+          faq_desc_1: "제품 사용법, 대량 구매, 기술 지원 등 고객님들이 자주 묻는 질문들을 모았습니다.",
+          faq_desc_2: "궁금한 점이 있으시다면 먼저 FAQ를 확인해 보세요. 빠르고 정확한 답변을 찾으실 수 있습니다.",
+          contact_info_title: "문의 & 연락처",
+          // Contact Form
+          form_title: "📝 제품 문의 및 자료 요청",
+          form_notice_1: "※ 문의내용를 남겨주시면 빠른 시일내에 답변 드리겠습니다.",
+          form_notice_2: "※ (필수)항목은 반드시 입력해주셔야 문의 등록이 가능합니다.",
+          form_notice_3: "※ 하단 목록에서, 등록된 문의와 답변 내용을 확인하실 수 있습니다.",
+          label_name: "성명",
+          label_company: "업체명",
+          label_email: "이메일",
+          label_phone: "연락처",
+          label_message: "문의 내용",
+          label_password: "비밀번호",
+          btn_submit: "문의 등록하기",
+          public_list_title: "📢 공개 문의 목록",
+          public_list_notice: "※ 문의내용을 선택하고, 등록시 사용한 비밀번호를 입력하시면, 문의와 답변 내용을 확인하실 수 있습니다.",
+          th_message: "문의내용",
+          th_name: "성명",
+          th_date: "등록일",
+          btn_load_more: "더보기 ▾",
+          // Footer
+          footer_company_info: "동서화학(주) | 대표 : 이상민 | T: 032-571-6010 | F: 032-574-6344",
+          footer_copyright: "COPYRIGHT 2026 DONGSUH CHEMICAL @RIGHTS RESERVED",
+          // MSDS Popup
+          popup_msds_title: "📋 MSDS 안내",
+          popup_msds_desc: "MSDS 및 제품 카탈로그는 자료실에서 다운로드 받을 수 있습니다. 또는 문의를 남기시면 e-mail로 답변드리겠습니다.",
+          popup_contact: "문의전화 : 032-571-6344",
+          popup_btn_go: "자료실 가기",
+          popup_btn_close: "닫기",
+          // Product Modal
+          modal_features: "주요 특징",
+          modal_applications: "적용 분야",
+          modal_btn_view: "자료실 보기",
+          // Added for full localization
+          menu_msds: "MSDS",
+          ph_name: "성명을 입력하세요",
+          ph_company: "업체명을 입력하세요",
+          ph_email: "example@domain.com",
+          ph_phone: "010-xxxx-xxxx",
+          ph_message: "제품명, 수량, 요청 자료 등 상세 내용을 입력해 주세요.",
+          ph_password: "비밀번호 (4자리 이상)",
+          alert_notice: "공지사항: 신제품 출시, 이벤트, 유지보수 안내 등을 확인하세요.",
+          alert_faq: "FAQ: 자주 묻는 질문에 대한 답변을 확인하세요.",
+          // Product Long Descriptions (Modal)
+          prod_dongsuh_desc_long: "금속, 플라스틱, 목재 등 다양한 재질의 표면 도장용 프리미엄 에어졸 제품. 빠른 건조와 우수한 광택감을 제공합니다.",
+          prod_ds_desc_long: "산업용 에어졸 도장제로 다양한 도장 환경에 적용 가능한 제품입니다. 뛰어난 부착성과 내구성을 자랑합니다.",
+          prod_zinc_desc_long: "금속 부식 방지를 위한 아연 코팅제입니다. 자동차 및 기계 산업에서 높은 신뢰도를 가지고 있습니다.",
+          prod_release_desc_long: "금형 및 성형 제품의 이형 작용에 우수한 에어졸 제품입니다. 깔끔한 이형과 재사용성이 뛰어납니다.",
+          prod_rust_desc_long: "금속 표면의 부식을 방지하고 장기간 보관을 가능하게 하는 고성능 방청제입니다. 침투력이 우수하여 미세한 틈새까지 보호합니다.",
+          prod_filling_desc_long: "DSC의 전문 에어졸 충전 서비스입니다. 고객의 맞춤형 제품 제조 및 충전을 지원합니다."
         },
         en: {
           nav_company: "Company",
           nav_products: "Products",
           nav_msds: "Resources",
           nav_support: "Support",
+          company_name: "DongSuh Chemical Co., Ltd.",
+          // Hero
+          hero_1_title: "50 Years of Expertise, The Master of Lacquer Spray",
+          hero_1_desc: "We supply the highest quality lacquer spray products based on innovative technology and trust.",
+          hero_btn: "View Products",
+          hero_2_title: "Best Quality, Excellent Products",
+          hero_2_desc: "Leading the market with excellent products that meet certification standards.",
+          hero_3_title: "Reliable Partner",
+          hero_3_desc: "We provide customized solutions to meet customer needs.",
+          // Company
+          section_company: "Company",
+          ceo_title: "CEO Message",
+          ceo_strong: "50 Years of Innovation, Dongsuh Chemical's Promise for the Future",
+          ceo_desc: "Based on over 50 years of history and experience, Dongsuh Chemical Co., Ltd. has established itself as a leader in industrial aerosol products. We provide the best value to our customers with innovation and trust as our management philosophy. We will introduce products that exceed customer expectations through continuous R&D.",
+          ceo_sign: "Dongsuh Chemical Co., Ltd. CEO Sang-Min Lee",
+          philosophy_title: "Management Philosophy",
+          phil_1_title: "Creating an Eco-friendly Future",
+          phil_1_desc: "Fulfilling social responsibilities through eco-friendly product development and sustainable production, moving forward as a company that creates the environment and future.",
+          phil_2_title: "Ethical Management",
+          phil_2_desc: "Becoming a trusted company by customers and society through transparent and fair management.",
+          history_title: "History",
+          hist_1: "1975 Started as Dongdo Chemical (Yeongdeungpo Factory)",
+          hist_2: "1980 Changed name to Dongsuh Chemical, moved to Incheon Factory",
+          hist_3: "1997 Converted to Corporation, expanded Incheon Factory",
+          cert_title: "Trademarks & Certificates",
+          cert_desc: "Check out Dongsuh Chemical's patents, trademarks, and various certificates. You can verify our expertise certified by strict standards meeting international standards.",
+          btn_cert: "View Trademarks & Certificates",
+          loc_title: "Location",
+          loc_addr_title: "Headquarters & Factory",
+          loc_addr: "17-2, Gilju-ro 45beon-gil, Seo-gu, Incheon (Seongnam-dong)",
+          loc_tel_title: "Tel & Fax",
+          loc_email_title: "Email",
+          btn_kakaomap: "📍 Find on KakaoMap",
+          btn_mapshare: "🔗 Share Map",
+          // Certificates Page
+          cert_section_title: "Certificates",
+          cert_page_title: "🏆 Trademarks & Certificates held by Dongsuh Chemical",
+          cert_page_desc: "Verify the expertise and reliability of Dongsuh Chemical, certified by strict standards meeting international standards.",
+          cert_status_title: "Certification Status",
+          cert_status_desc: "Dongsuh Chemical has obtained the following certifications from major domestic and international certification bodies and provides products and services that meet standards.",
+          cert_item_1_strong: "7000 Days Accident-Free",
+          cert_item_1_text: "- Quality Management Certification",
+          cert_item_2_strong: "Dongsuh Lacquer Spray MSDS Certification",
+          cert_item_2_text: "- Chemical Safety Regulations",
+          cert_tip_icon: "💡",
+          cert_tip_title: "Management Tip:",
+          cert_tip_desc: "New certificate images are automatically displayed when added to the JavaScript certificates array.",
+          cert_1_title: "Trademark Registration 1",
+          cert_1_desc: "Trademark Page 1",
+          cert_2_title: "Trademark Registration 2",
+          cert_2_desc: "Trademark Page 2",
+          cert_3_title: "Trademark Registration 3",
+          cert_3_desc: "Trademark Page 3",
+          cert_4_title: "Trademark Registration 4",
+          cert_4_desc: "Trademark Page 4",
+          cert_5_title: "Trademark Registration 5",
+          cert_5_desc: "Trademark Page 5",
+          cert_6_title: "Trademark Registration 6",
+          cert_6_desc: "Trademark Page 6",
+          // Products
+          section_products: "Products",
+          prod_dongsuh_title: "Dongsuh Lacquer",
+          prod_dongsuh_desc: "Premium Aerosol Paint",
+          prod_ds_title: "DS Lacquer",
+          prod_ds_desc: "Industrial Painting Solution",
+          prod_zinc_title: "Zinc Silver",
+          prod_zinc_desc: "Anti-rust Coating",
+          prod_release_title: "Mold Release",
+          prod_release_desc: "Mold Release Aerosol",
+          prod_rust_title: "Anti-Rust",
+          prod_rust_desc: "Powerful Rust Prevention",
+          prod_filling_title: "Filling Service",
+          prod_filling_desc: "Custom Aerosol Manufacturing",
+          // MSDS
+          section_msds: "Resources",
+          msds_title: "MSDS (Material Safety Data Sheet)",
+          msds_notice: "💡 Notice: Download MSDS and performance certificates. Click the download button to download immediately. If you have any problems, please use the Product Inquiry & Request function in the Support section.",
+          msds_tech_data: "MSDS & Technical Data",
+          msds_tech_guide: "Technical Spec & Guide",
+          prod_sabi_title: "Dongsuh Sabi",
+          prod_silver_title: "Dongsuh Silver",
+          prod_dsi_title: "DSI Lacquer",
+          prod_dsi_silver_title: "DSI Lacquer Silver",
+          btn_download: "Download",
+          file_none: "No File",
+          cat_title: "Catalog",
+          cat_desc: "Download catalogs containing all product information.",
+          cat_prod_title: "Product Catalog",
+          cat_prod_desc: "Full Product Introduction",
+          msds_zip_ko_title: "All MSDS ZIP (KR)",
+          msds_zip_ko_desc: "Download All Korean MSDS",
+          msds_zip_en_title: "All MSDS ZIP (EN)",
+          msds_zip_en_desc: "English MSDS Bundle",
+          // Support
+          section_support: "Support",
+          contact_title: "Inquiry & Request",
+          contact_desc_1: "Need additional help?",
+          contact_desc_2: "Leave a question via the online inquiry form or contact our customer center directly for kind assistance.",
+          btn_contact: "Go to Inquiry",
+          notice_title: "Notice",
+          notice_desc_1: "Check out the latest news and events.",
+          notice_desc_2: "We deliver new product launch information, exhibition news, and important maintenance notices fastest.",
+          faq_title: "FAQ",
+          faq_desc_1: "We have collected frequently asked questions about product usage, bulk purchase, technical support, etc.",
+          faq_desc_2: "If you have any questions, please check the FAQ first. You can find quick and accurate answers.",
+          contact_info_title: "Contact Info",
+          // Contact Form
+          form_title: "📝 Product Inquiry & Request",
+          form_notice_1: "※ We will respond as soon as possible.",
+          form_notice_2: "※ (Required) fields must be filled in.",
+          form_notice_3: "※ You can check your inquiry and answer in the list below.",
+          label_name: "Name",
+          label_company: "Company",
+          label_email: "Email",
+          label_phone: "Phone",
+          label_message: "Message",
+          label_password: "Password",
+          btn_submit: "Submit Inquiry",
+          public_list_title: "📢 Public Inquiries",
+          public_list_notice: "※ Select an inquiry and enter the password to view details.",
+          th_message: "Message",
+          th_name: "Name",
+          th_date: "Date",
+          btn_load_more: "Load More ▾",
+          // Footer
+          footer_company_info: "Dongsuh Chemical Co., Ltd. | Rep: Sang-Min Lee | T: 032-571-6010 | F: 032-574-6344",
+          footer_copyright: "COPYRIGHT 2026 DONGSUH CHEMICAL @RIGHTS RESERVED",
+          // MSDS Popup
+          popup_msds_title: "📋 MSDS Notice",
+          popup_msds_desc: "You can download MSDS and catalogs from the Resources section. Or leave an inquiry and we will answer via e-mail.",
+          popup_contact: "Tel: 032-571-6344",
+          popup_btn_go: "Go to Resources",
+          popup_btn_close: "Close",
+          // Product Modal
+          modal_features: "Key Features",
+          modal_applications: "Applications",
+          modal_btn_view: "View Resources",
+          // Added for full localization
+          menu_msds: "MSDS",
+          ph_name: "Enter your name",
+          ph_company: "Enter company name",
+          ph_email: "example@domain.com",
+          ph_phone: "010-xxxx-xxxx",
+          ph_message: "Please enter details such as product name, quantity, requested materials, etc.",
+          ph_password: "Password (4+ chars)",
+          alert_notice: "Notice: Check out new product launches, events, and maintenance notices.",
+          alert_faq: "FAQ: Check answers to frequently asked questions.",
+          // Product Long Descriptions (Modal)
+          prod_dongsuh_desc_long: "Premium aerosol product for surface painting of various materials such as metal, plastic, and wood. Provides quick drying and excellent gloss.",
+          prod_ds_desc_long: "Industrial aerosol paint applicable to various painting environments. Boasts excellent adhesion and durability.",
+          prod_zinc_desc_long: "Zinc coating agent for preventing metal corrosion. Highly reliable in automotive and machinery industries.",
+          prod_release_desc_long: "Excellent aerosol product for mold release of molds and molded products. Excellent clean release and reusability.",
+          prod_rust_desc_long: "High-performance anti-rust agent that prevents corrosion of metal surfaces and enables long-term storage. Excellent penetration protects even microscopic crevices.",
+          prod_filling_desc_long: "DSC's professional aerosol filling service. We support custom product manufacturing and filling for customers."
         },
       };
 
@@ -1818,6 +2146,13 @@
           const key = el.getAttribute("data-i18n");
           if (translations[currentLang][key]) {
             el.textContent = translations[currentLang][key];
+          }
+        });
+        // Placeholders
+        document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+          const key = el.getAttribute("data-i18n-placeholder");
+          if (translations[currentLang][key]) {
+            el.setAttribute("placeholder", translations[currentLang][key]);
           }
         });
       }
@@ -1866,29 +2201,6 @@
       window.addEventListener("load", function () {
         initSlides();
         initCertificateGallery();
-        initCertificateGalleryFull();
-        setTimeout(function () {
-          showMsdsPopup();
-        }, 2000);
-      });
-
-      document
-        .getElementById("msdsPopupOverlay")
-        .addEventListener("click", function () {
-          closeMsdsPopup();
-        });
-
-      document
-        .getElementById("productModal")
-        .addEventListener("click", function (event) {
-          if (event.target === this) {
-            closeModal();
-          }
-        });
-    </script>
-    <script src="src/script.js"></script>
-  </body>
-</html>
         initCertificateGalleryFull();
         setTimeout(function () {
           showMsdsPopup();

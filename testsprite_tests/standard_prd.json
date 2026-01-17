@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "project": "Product Inquiry and Admin Dashboard System",
+    "date": "2026-01-15",
+    "prepared_by": "Software Development Manager"
+  },
+  "product_overview": "A web-based product inquiry system providing a main landing page with product information and inquiry form, alongside an admin dashboard for managing and replying to inquiries. It supports public inquiry listings and private detailed views protected by password verification.",
+  "core_goals": [
+    "Provide users with an intuitive interface to submit product inquiries.",
+    "Enable admins to efficiently manage and respond to inquiries through a secure dashboard.",
+    "Support public visibility of inquiries with password-protected details.",
+    "Ensure responsive design and seamless user experience across devices.",
+    "Maintain system performance and optimize backend API responsiveness."
+  ],
+  "key_features": [
+    "Main landing page with product introductions and inquiry submission form.",
+    "Admin dashboard for viewing and replying to inquiries.",
+    "Asynchronous handling of inquiry submissions with validation and status feedback.",
+    "Public listing of inquiries with dynamic pagination using a 'Load More' mechanism.",
+    "Password-protected inquiry detail viewing with verification process.",
+    "Localization support for text toggling between English and Korean.",
+    "Interactive UI elements including modals, popups, and carousel sliders.",
+    "Kakao Map integration in the company introduction section.",
+    "Responsive design with media queries supporting mobile menu with accordion submenus.",
+    "Backend serverless functions powered by Netlify handling inquiries and admin replies."
+  ],
+  "user_flow_summary": [
+    "User visits main landing page, reads product information, and fills out inquiry form.",
+    "User submits inquiry; system validates inputs, sends data asynchronously, and shows feedback message.",
+    "User views list of public inquiries, clicks 'Load More' to see additional inquiries.",
+    "User clicks on a specific inquiry in the list, prompted to enter password, submits it for verification, and upon success views detailed inquiry and admin reply.",
+    "Admin logs into admin dashboard, reviews incoming inquiries, and sends replies via the interface.",
+    "User toggles language setting between English and Korean to change visible text.",
+    "User interacts with UI elements such as product detail modals, MSDS popup, and hero carousel slider.",
+    "User navigates to company introduction section to see the embedded Kakao Map rendered correctly."
+  ],
+  "validation_criteria": [
+    "All required input fields for inquiry submission enforce validation and display appropriate user messages.",
+    "Inquiry submission API call responds successfully and UI updates to confirm submission status.",
+    "Public inquiry list loads on page load, displays 'No inquiries' message if empty, and supports incremental loading via 'Load More' button.",
+    "Password verification for inquiry detail correctly prevents unauthorized access and displays error messages on failure.",
+    "Admin reply API accepts input and updates inquiry records, reflecting changes in admin dashboard.",
+    "UI elements such as carousel, modals, and popups function as specified without visual glitches or layout breaks.",
+    "Responsive design adapts correctly at specified media query breakpoints, including mobile menu toggling and accordion submenus.",
+    "Kakao Map loads and renders correctly upon activation of the company introduction section without visual errors or failures.",
+    "Backend Netlify functions respond within acceptable time frames and handle errors gracefully.",
+    "No broken images or invalid paths exist, and UI scripts execute without runtime errors."
+  ],
+  "code_summary": {
+    "tech_stack": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Node.js",
+      "PostgreSQL",
+      "Netlify"
+    ],
+    "features": [
+      {
+        "name": "Main Page",
+        "description": "Main landing page with product introductions and inquiry form.",
+        "files": [
+          "index.html",
+          "src/script.js",
+          "style.css"
+        ]
+      },
+      {
+        "name": "Admin Page",
+        "description": "Admin dashboard to view and reply to inquiries.",
+        "files": [
+          "admin.html",
+          "src/script.js",
+          "style.css"
+        ]
+      },
+      {
+        "name": "Inquiry Submission",
+        "description": "Backend function to handle new inquiry submissions.",
+        "files": [
+          "netlify/functions/submit-inquiry.js"
+        ]
+      },
+      {
+        "name": "Get Public Inquiries",
+        "description": "Backend function to get a list of public inquiries.",
+        "files": [
+          "netlify/functions/get-public-list.js"
+        ]
+      },
+      {
+        "name": "Get Inquiry Detail",
+        "description": "Backend function to get the details of a specific inquiry.",
+        "files": [
+          "netlify/functions/get-inquiry-detail.js"
+        ]
+      },
+      {
+        "name": "Admin Reply",
+        "description": "Backend function for admins to reply to inquiries.",
+        "files": [
+          "netlify/functions/admin-reply.js"
+        ]
+      },
+      {
+        "name": "Password Verification",
+        "description": "Backend function to verify password for private inquiries.",
+        "files": [
+          "netlify/functions/verify-password.js"
+        ]
+      }
+    ]
+  }
+}

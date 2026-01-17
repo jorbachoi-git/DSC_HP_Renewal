@@ -1,0 +1,41 @@
+
+{
+  "tech_stack": ["HTML", "CSS", "JavaScript", "Node.js", "PostgreSQL", "Netlify"],
+  "features": [
+    {
+      "name": "Main Page",
+      "description": "Main landing page with product introductions and inquiry form.",
+      "files": ["index.html", "src/script.js", "style.css"]
+    },
+    {
+      "name": "Admin Page",
+      "description": "Admin dashboard to view and reply to inquiries.",
+      "files": ["admin.html", "src/script.js", "style.css"]
+    },
+    {
+      "name": "Inquiry Submission",
+      "description": "Backend function to handle new inquiry submissions.",
+      "files": ["netlify/functions/submit-inquiry.js"]
+    },
+    {
+      "name": "Get Public Inquiries",
+      "description": "Backend function to get a list of public inquiries.",
+      "files": ["netlify/functions/get-public-list.js"]
+    },
+    {
+      "name": "Get Inquiry Detail",
+      "description": "Backend function to get the details of a specific inquiry.",
+      "files": ["netlify/functions/get-inquiry-detail.js"]
+    },
+    {
+      "name": "Admin Reply",
+      "description": "Backend function for admins to reply to inquiries.",
+      "files": ["netlify/functions/admin-reply.js"]
+    },
+    {
+      "name": "Password Verification",
+      "description": "Backend function to verify password for private inquiries.",
+      "files": ["netlify/functions/verify-password.js"]
+    }
+  ]
+}
