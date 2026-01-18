@@ -835,9 +835,9 @@ footer {
 
 .msds-popup {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 100px;
+  left: 20px;
+  transform: none;
   background: rgba(230, 230, 230, 0.7);
   padding: 30px;
   border-radius: 8px;
@@ -845,7 +845,8 @@ footer {
   z-index: 2001;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   display: none;
-  min-width: 260px;
+  max-width: 30vw;
+  min-width: 280px;
 
   &.active {
     display: block;
