@@ -509,6 +509,57 @@
         pointer-events: none; /* 클릭 및 호버 효과 방지 */
         box-shadow: none !important;
       }
+
+      /* 인증서 갤러리 스타일 개선 */
+      .certificate-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+      }
+      .certificate-item {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        transition: transform 0.2s;
+        display: flex;
+        flex-direction: column;
+      }
+      .certificate-item:hover {
+        transform: translateY(-5px);
+      }
+      .certificate-item .cert-img-wrapper {
+        width: 100%;
+        height: auto; /* style.css의 고정 높이(300px) 오버라이드 */
+        aspect-ratio: 210 / 297; /* A4 용지 비율로 박스 크기 자동 조절 */
+        background-color: #fff;
+        position: relative;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        overflow: hidden;
+      }
+      .certificate-item:hover .cert-img-wrapper {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      }
+      .certificate-item .cert-img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain; /* 이미지 전체가 잘리지 않게 표시 */
+        padding: 0;
+        display: block;
+      }
+      .cert-content {
+        padding: 10px 0;
+        text-align: center;
+        background: transparent;
+      }
+      .cert-content h4 {
+        margin: 0 0 5px;
+        font-size: 1rem;
+        color: #333;
+        font-weight: bold;
+      }
     </style>
   </head>
   <body>
@@ -930,10 +981,6 @@
               <strong data-i18n="cert_item_2_strong">동서 락카 스프레이 MSDS 인증 </strong> <span data-i18n="cert_item_2_text">- 화학물질 안전규제</span>
             </li>
           </ul>
-          <p class="tip">
-            <span data-i18n="cert_tip_icon">💡</span> <strong data-i18n="cert_tip_title">관리 팁:</strong>
-            <span data-i18n="cert_tip_desc">새로운 인증서 이미지는 JavaScript의 certificates 배열에 추가하면 자동으로 표시됩니다.</span>
-          </p>
         </div>
       </div>
     </section>
@@ -1031,14 +1078,14 @@
                   <h3 data-i18n="prod_dongsuh_title">동서 락카</h3>
                   <p data-i18n="msds_tech_data">MSDS 및 기술 자료</p>
                   <a
-                    href="docs/DSC_MSDS_DongSuh_Kor.pdf"
+                    href="docs/동서MSDS.pdf"
                     class="btn download-btn"
                     download
                   >
                     <span class="download-icon">📥</span>
                     <span data-i18n="btn_download">자료 다운로드</span>
                   </a>
-                  <div class="download-file-info" title="DSC_MSDS_DongSuh_Kor.pdf (PDF, 1.5MB)">DSC_MSDS_DongSuh_Kor.pdf (PDF, 1.5MB)</div>
+                  <div class="download-file-info" title="동서MSDS.pdf (PDF, 1.5MB)">동서MSDS.pdf (PDF, 1.5MB)</div>
                 </div>
                 <div class="product-card">
                   <h3 data-i18n="prod_sabi_title">동서 사비</h3>
@@ -1083,14 +1130,14 @@
                   <h3 data-i18n="prod_dsi_silver_title">DSI 락카 은색</h3>
                   <p data-i18n="msds_tech_data">MSDS 및 기술 자료</p>
                   <a
-                    href="docs/DSI락카은색(2025).pdf"
+                    href="docs/DSI락카은색MSDS(2025).pdf"
                     class="btn download-btn"
                     download
                   >
                     <span class="download-icon">📥</span>
                     <span data-i18n="btn_download">자료 다운로드</span>
                   </a>
-                  <div class="download-file-info" title="DSI락카은색(2025).pdf (PDF, 1.5MB)">DSI락카은색(2025).pdf (PDF, 1.5MB)</div>
+                  <div class="download-file-info" title="DSI락카은색MSDS(2025).pdf (PDF, 1.5MB)">DSI락카은색MSDS(2025).pdf (PDF, 1.5MB)</div>
                 </div>
                 <div class="product-card">
                   <h3 data-i18n="prod_zinc_title">아연(ZINC SILVER)</h3>
@@ -1611,7 +1658,7 @@
         {
           titleKey: "cert_3_title",
           descKey: "cert_3_desc",
-          imageUrl: "images/trademark_03.png",
+          imageUrl: "images/trademark_05.png",
         },
         {
           titleKey: "cert_4_title",
@@ -1621,7 +1668,7 @@
         {
           titleKey: "cert_5_title",
           descKey: "cert_5_desc",
-          imageUrl: "images/trademark_05.png",
+          imageUrl: "images/trademark_03.png",
         },
         {
           titleKey: "cert_6_title",
@@ -1636,15 +1683,13 @@
         card.className = "certificate-item";
 
         const title = translations[currentLang][cert.titleKey] || cert.titleKey;
-        const desc = translations[currentLang][cert.descKey] || cert.descKey;
 
         card.innerHTML = `
                 <div class="cert-img-wrapper">
-                    <img src="${cert.imageUrl}" alt="${title}" style="width: 100%; height: 100%; object-fit: contain;">
+                    <img src="${cert.imageUrl}" alt="${title}">
                 </div>
                 <div class="cert-content">
                     <h4 data-i18n="${cert.titleKey}">${title}</h4>
-                    <p data-i18n="${cert.descKey}">${desc}</p>
                 </div>
             `;
         return card;
@@ -1862,22 +1907,18 @@
           cert_item_1_strong: "무사고 7000일",
           cert_item_1_text: "- 품질 경영 인증",
           cert_item_2_strong: "동서 락카 스프레이 MSDS 인증",
+          cert_item_2_text: "- 화학물질 안전규제",             
           cert_item_2_text: "- 화학물질 안전규제",
           cert_tip_icon: "💡",
           cert_tip_title: "관리 팁:",
           cert_tip_desc: "새로운 인증서 이미지는 JavaScript의 certificates 배열에 추가하면 자동으로 표시됩니다.",
-          cert_1_title: "상표권 등록증 1",
-          cert_1_desc: "상표권 페이지 1",
-          cert_2_title: "상표권 등록증 2",
-          cert_2_desc: "상표권 페이지 2",
-          cert_3_title: "상표권 등록증 3",
-          cert_3_desc: "상표권 페이지 3",
-          cert_4_title: "상표권 등록증 4",
-          cert_4_desc: "상표권 페이지 4",
-          cert_5_title: "상표권 등록증 5",
-          cert_5_desc: "상표권 페이지 5",
-          cert_6_title: "상표권 등록증 6",
-          cert_6_desc: "상표권 페이지 6",
+          cert_1_title: "기술혁신형 중소기업(Inno-Biz)확인서",  
+          cert_2_title: "상표등록증-DSI락카",
+          cert_3_title: "상표등록증-동서락카",
+          cert_4_title: "상표등록증-동서디자인",
+          cert_5_title: "상표등록증-DONGSUH",
+          cert_6_title: "상표등록증-동서폼",
+
           // Products
           section_products: "제품소개",
           prod_dongsuh_title: "동서 락카",
@@ -2023,9 +2064,6 @@
           cert_item_1_text: "- Quality Management Certification",
           cert_item_2_strong: "Dongsuh Lacquer Spray MSDS Certification",
           cert_item_2_text: "- Chemical Safety Regulations",
-          cert_tip_icon: "💡",
-          cert_tip_title: "Management Tip:",
-          cert_tip_desc: "New certificate images are automatically displayed when added to the JavaScript certificates array.",
           cert_1_title: "Trademark Registration 1",
           cert_1_desc: "Trademark Page 1",
           cert_2_title: "Trademark Registration 2",
