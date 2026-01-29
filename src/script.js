@@ -48,7 +48,7 @@ document.getElementById("inquiryForm").addEventListener("submit", async (e) => {
       showStatus(
         "submitStatus",
         `✗ ${result.error || result.message || "오류 발생"}`,
-        "error"
+        "error",
       );
     }
   } catch (error) {
@@ -104,7 +104,7 @@ function renderPublicList() {
                 ${sanitizeHTML(q.message)}
             </div>
         </td>
-        <td>${q.name}</td>
+        <td>${maskName(q.name)}</td>
         <td>${new Date(q.created_at).toLocaleDateString("ko-KR")}</td>
       </tr>
       <!-- 상세 내용 행 (숨김 상태로 시작) -->
@@ -125,7 +125,7 @@ function renderPublicList() {
             </div>
         </td>
       </tr>
-    `
+    `,
     )
     .join("");
 
@@ -201,7 +201,7 @@ window.handleInlineVerify = async function (e, id) {
                 <div class="detail-header">
                     <strong>📝 문의 상세 내용</strong>
                     <span style="color:#888; font-size:0.9rem;">${new Date(
-                      inquiry.created_at
+                      inquiry.created_at,
                     ).toLocaleString("ko-KR")}</span>
                 </div>
                 <div class="detail-meta">
@@ -224,7 +224,7 @@ window.handleInlineVerify = async function (e, id) {
                     <div class="reply-box">
                         <div class="reply-label">💬 관리자 답변</div>
                         <div class="reply-content">${sanitizeHTML(
-                          inquiry.reply
+                          inquiry.reply,
                         )}</div>
                     </div>
                 `
@@ -237,6 +237,90 @@ window.handleInlineVerify = async function (e, id) {
     msgDiv.className = "status-message error";
     btn.disabled = false;
     btn.textContent = "확인";
+  }
+};
+
+// 3. MSDS 게시판 기능
+async function loadMsdsList(keyword = "") {
+  const tbody = document.getElementById("msdsListBody");
+  if (!tbody) return;
+
+  try {
+    let url = `${API_BASE}/get-msds-list`;
+    if (keyword) {
+      url += `?keyword=${encodeURIComponent(keyword)}`;
+    }
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Server Error (${response.status}): ${errorText}`);
+    }
+
+    const posts = await response.json();
+
+    if (posts.length === 0) {
+      tbody.innerHTML =
+        '<tr><td colspan="5" style="padding:20px; text-align:center;">등록된 게시물이 없습니다.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = posts
+      .map((post) => {
+        const date = new Date(post.created_at).toLocaleDateString("ko-KR");
+        const noticeBadge = post.is_notice
+          ? '<span class="badge-notice">공지사항</span>'
+          : "";
+        const rowClass = post.is_notice ? 'class="notice"' : "";
+
+        return `
+        <tr ${rowClass} onclick="viewMsdsPost(${post.id})" style="cursor: pointer;">
+          <td>${post.id}</td>
+          <td class="title">
+            ${noticeBadge}
+            ${sanitizeHTML(post.title)}
+          </td>
+          <td>${post.author_name}</td>
+          <td>${date}</td>
+          <td>${post.view_count}</td>
+        </tr>
+      `;
+      })
+      .join("");
+
+    // 게시물 총 개수 업데이트 (선택 사항)
+    const totalEl = document.querySelector(".board-total span");
+    if (totalEl) totalEl.textContent = `${posts.length}건`;
+  } catch (error) {
+    console.error("MSDS Load Error:", error);
+    tbody.innerHTML =
+      '<tr><td colspan="5" style="padding:20px; text-align:center; color:red;">목록을 불러오지 못했습니다.</td></tr>';
+  }
+}
+
+window.viewMsdsPost = async function (id) {
+  try {
+    const response = await fetch(`${API_BASE}/get-msds-detail?id=${id}`);
+    const post = await response.json();
+
+    if (!response.ok) throw new Error("Failed to load post");
+
+    document.getElementById("msds-detail-title").innerHTML = sanitizeHTML(
+      post.title,
+    );
+    document.getElementById("msds-detail-author").innerText =
+      "작성자: " + post.author_name;
+    document.getElementById("msds-detail-date").innerText =
+      "작성일: " + new Date(post.created_at).toLocaleDateString("ko-KR");
+    document.getElementById("msds-detail-views").innerText =
+      "조회수: " + post.view_count;
+    document.getElementById("msds-detail-content").innerHTML = post.content; // HTML 컨텐츠 허용
+
+    navigateTo("msds-detail");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  } catch (error) {
+    alert("게시글을 불러오는 중 오류가 발생했습니다.");
+    console.error(error);
   }
 };
 
@@ -253,9 +337,27 @@ function sanitizeHTML(text) {
   return div.innerHTML;
 }
 
+function maskName(name) {
+  if (!name) return "";
+  if (name.length <= 1) return name;
+  return name.charAt(0) + "*".repeat(name.length - 1);
+}
+
 // 페이지 로드 시 공개 목록 표시
-window.addEventListener("load", () => {
+document.addEventListener("DOMContentLoaded", () => {
   loadPublicList();
+  loadMsdsList(); // MSDS 목록 로드 추가
+
+  // MSDS 검색 기능 연결
+  const searchForm = document.querySelector(".board-search");
+  if (searchForm) {
+    searchForm.addEventListener("submit", (e) => {
+      e.preventDefault(); // 폼 제출로 인한 페이지 새로고침 방지
+      const keyword = document.getElementById("keyword").value;
+      loadMsdsList(keyword);
+    });
+  }
+
   // 더보기 버튼 이벤트 연결
   document.getElementById("btnLoadMore").addEventListener("click", () => {
     visibleCount += ITEMS_PER_PAGE;

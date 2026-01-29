@@ -119,9 +119,12 @@
       #company,
       #products,
       #msds,
+      #gallery,
       #support,
       #contact,
-      #certificates {
+      #certificates,
+      #msds-list,
+      #msds-detail {
         padding-top: 70px !important;
       }
 
@@ -560,7 +563,88 @@
         color: #333;
         font-weight: bold;
       }
+
+      /* Gallery Section Styles */
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+      }
+      .gallery-card {
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        transition: transform 0.3s, box-shadow 0.3s;
+        display: flex;
+        flex-direction: column;
+      }
+      .gallery-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+      }
+      .gallery-card:hover img {
+        transform: scale(1.05);
+      }
+      .gallery-image-container {
+        position: relative;
+      }
+      .copyright-overlay {
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        padding: 3px 8px;
+        font-size: 11px;
+        border-radius: 4px;
+        font-family: sans-serif;
+        z-index: 1;
+      }
+      .gallery-card img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+        display: block; /* 이미지 하단 여백 제거 */
+      }
+      .gallery-content {
+        padding: 20px;
+      }
+      .gallery-content h4 {
+        font-weight: 800;
+        font-size: 1.15rem;
+        margin-bottom: 8px;
+        color: #222;
+      }
     </style>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        colors: {
+                            "primary": "#11d4c4",
+                            "background-light": "#f6f8f8",
+                            "background-dark": "#102220",
+                        },
+                        fontFamily: {
+                            "display": ["Space Grotesk"]
+                        },
+                        borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                    },
+                },
+            }
+        </script>
+    <style>
+            .industrial-gradient {
+                background: linear-gradient(135deg, #ffffff 0%, #e8f9f8 100%);
+            }
+            .dark .industrial-gradient {
+                background: linear-gradient(135deg, #162e2c 0%, #102220 100%);
+            }
+        </style>
   </head>
   <body>
     <!-- MSDS Popup -->
@@ -612,13 +696,14 @@
           </svg>
         </button>
 
-        <div class="logo" onclick="navigateTo('home')">
+        <div class="logo" onclick="navigateTo('home')" role="button" tabindex="0">
           <img src="images/DongSuh_Logo.png" alt="동서화학 로고" />
           <span data-i18n="company_name">동서화학(주)</span>
         </div>
         <nav class="nav">
           <a onclick="navigateTo('company')" data-i18n="nav_company">회사소개</a>
           <a onclick="navigateTo('products')" data-i18n="nav_products">제품소개</a>
+          <a onclick="navigateTo('gallery')" data-i18n="nav_gallery">갤러리</a>
           <a onclick="navigateTo('msds')" data-i18n="nav_msds">자료실</a>
           <a onclick="navigateTo('support')" data-i18n="nav_support">고객지원</a>
         </nav>
@@ -698,6 +783,13 @@
               >충전서비스</a
             >
           </div>
+        </div>
+
+        <!-- 갤러리 (단일 링크) -->
+        <div class="mobile-nav-group">
+          <a class="mobile-nav-link" onclick="navigateTo('gallery'); closeMobileMenu()" data-i18n="nav_gallery"
+            >갤러리</a
+          >
         </div>
 
         <!-- 자료실 (아코디언) -->
@@ -863,6 +955,8 @@
           <div
             class="feature-block cursor-pointer"
             onclick="navigateTo('certificates')"
+            role="button"
+            tabindex="0"
           >
             <div
               class="feature-image"
@@ -999,6 +1093,8 @@
             id="prod-dongsuh"
             class="product-card"
             onclick="showProductDetail('prod_dongsuh_title', 'prod_dongsuh_desc_long')"
+            role="button"
+            tabindex="0"
           >
             <img src="images/prod_01.png" alt="동서 락카" />
             <h3 data-i18n="prod_dongsuh_title">동서 락카</h3>
@@ -1008,6 +1104,8 @@
             id="prod-ds"
             class="product-card"
             onclick="showProductDetail('prod_ds_title', 'prod_ds_desc_long')"
+            role="button"
+            tabindex="0"
           >
             <img src="images/prod_02.png" alt="DS 락카" />
             <h3 data-i18n="prod_ds_title">DS 락카</h3>
@@ -1017,6 +1115,8 @@
             id="prod-zinc"
             class="product-card"
             onclick="showProductDetail('prod_zinc_title', 'prod_zinc_desc_long')"
+            role="button"
+            tabindex="0"
           >
             <img src="images/prod_03.png" alt="아연(ZINC SILVER)" />
             <h3 data-i18n="prod_zinc_title">아연(ZINC SILVER)</h3>
@@ -1026,6 +1126,8 @@
             id="prod-release"
             class="product-card"
             onclick="showProductDetail('prod_release_title', 'prod_release_desc_long')"
+            role="button"
+            tabindex="0"
           >
             <img src="images/prod_04.png" alt="이형제" />
             <h3 data-i18n="prod_release_title">이형제</h3>
@@ -1035,6 +1137,8 @@
             id="prod-rust"
             class="product-card"
             onclick="showProductDetail('prod_rust_title', 'prod_rust_desc_long')"
+            role="button"
+            tabindex="0"
           >
             <img src="images/prod_05.png" alt="방청제" />
             <h3 data-i18n="prod_rust_title">방청제</h3>
@@ -1044,10 +1148,76 @@
             id="prod-filling"
             class="product-card"
             onclick="showProductDetail('prod_filling_title', 'prod_filling_desc_long')"
+            role="button"
+            tabindex="0"
           >
             <img src="images/prod_06.png" alt="충전서비스" />
             <h3 data-i18n="prod_filling_title">충전서비스</h3>
             <p data-i18n="prod_filling_desc">맞춤형 에어졸 제조</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Section (Professional's Choice) -->
+    <section class="section-content" id="gallery">
+      <div
+        class="subheading-banner"
+        style="background-image: url('images/Subheading2.png')"
+      >
+        <h2 data-i18n="section_gallery">전문가의 선택</h2>
+      </div>
+      <div class="container">
+        <h3 class="text-center mb-20" style="color: #008b8b; font-weight: 800; font-size: 1.8rem;" data-i18n="gallery_title">
+          아티스트의 선택: 동서화학 X 범민(BFMIN)
+        </h3>
+        <p class="text-center text-light mb-50 mx-auto max-w-600" data-i18n="gallery_desc">
+          동서화학의 탁월한 발색과 품질은 프로 아티스트의 영감이 됩니다. 세계적인 브랜드 및 K-POP과 함께한 그래피티 아티스트 범민 작가의 프로젝트를 소개합니다.
+        </p>
+        <div class="gallery-grid">
+          <!-- Card 1: 두산로보틱스 -->
+          <div class="gallery-card">
+            <div class="gallery-image-container">
+              <img src="images/bfmin22doosan063.jpg" alt="두산로보틱스 협업 작품" />
+              <span class="copyright-overlay">Artist © 범민[BFMIN]</span>
+            </div>
+            <div class="gallery-content">
+              <h4 data-i18n="gallery_item_1_title">두산로보틱스 로봇 페인팅</h4>
+              <p data-i18n="gallery_item_1_desc">첨단 기술과 예술의 만남, 정교한 로봇 암이 구현하는 그래피티 아트 퍼포먼스.</p>
+            </div>
+          </div>
+          <!-- Card 2: 까르띠에 -->
+          <div class="gallery-card">
+            <div class="gallery-image-container">
+              <img src="images/bfmin23cartier263.jpg" alt="까르띠에 협업 작품" />
+              <span class="copyright-overlay">Artist © 범민[BFMIN]</span>
+            </div>
+            <div class="gallery-content">
+              <h4 data-i18n="gallery_item_2_title">까르띠에(Cartier) 팝업 스토어</h4>
+              <p data-i18n="gallery_item_2_desc">럭셔리 브랜드가 선택한 압도적인 컬러감으로 공간의 가치를 더합니다.</p>
+            </div>
+          </div>
+          <!-- Card 3: 트와이스 -->
+          <div class="gallery-card">
+            <div class="gallery-image-container">
+              <img src="images/bfmin22twice053.jpg" alt="트와이스 뮤직비디오 배경 작업" />
+              <span class="copyright-overlay">Artist © 범민[BFMIN]</span>
+            </div>
+            <div class="gallery-content">
+              <h4 data-i18n="gallery_item_3_title">트와이스(TWICE) 뮤직비디오</h4>
+              <p data-i18n="gallery_item_3_desc">K-POP 스타의 화려한 무대를 완성하는 생생하고 선명한 배경 아트워크.</p>
+            </div>
+          </div>
+          <!-- Card 4: 람보르기니 -->
+          <div class="gallery-card">
+            <div class="gallery-image-container">
+              <img src="images/bfmin23lamborghini063.jpg" alt="람보르기니 협업 작품" />
+              <span class="copyright-overlay">Artist © 범민[BFMIN]</span>
+            </div>
+            <div class="gallery-content">
+              <h4 data-i18n="gallery_item_4_title">람보르기니(Lamborghini) 팝업</h4>
+              <p data-i18n="gallery_item_4_desc">슈퍼카의 역동적인 에너지를 강렬한 컬러와 그래피티로 표현한 아트워크.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -1068,10 +1238,16 @@
             <div class="feature-content">
               <h3 id="msds-content" data-i18n="msds_title">MSDS (물질안전보건자료)</h3>
                 <p data-i18n="msds_notice">
-                  💡 <strong>안내 :</strong> 제품의 안전 데이터 시트(MSDS)와 성능 인증서를 다운로드하세요.<br />
-                  <strong>다운로드 버튼</strong>을 클릭 하시면 바로 다운로드 됩니다.<br />
-                  문제가 있으면 고객지원 섹션의 <strong>제품 문의 및 자료요청 기능</strong>을 이용해 주세요.
-                </p>
+                💡 <strong>안내:</strong> 대표 제품의 MSDS는 각 항목의 <strong style="color: #008b8b;">[📥 자료 다운로드]</strong> 버튼으로, 전체 목록은 페이지 하단의 <strong style="color: #008b8b;">[📋 MSDS 전체 목록 바로가기]</strong> 버튼으로 확인하실 수 있습니다.</p>
+                <p>※ 문제가 있는 경우 '제품 문의' 기능을 이용해 주세요.</p>
+                <button
+                  class="hero-btn"
+                  style="margin-top: 15px; font-size: 1rem; padding: 10px 25px"
+                  onclick="navigateTo('msds-list'); event.stopPropagation();"
+                  data-i18n="btn_msds_list"
+                >
+                  📋 MSDS 전체 목록 바로가기
+                </button>
               </div>
               <div class="product-grid">
                 <div class="product-card">
@@ -1099,6 +1275,19 @@
                     <span data-i18n="btn_download">자료 다운로드</span>
                   </a>
                   <div class="download-file-info" title="동서사비MSDS.pdf (PDF, 1.5MB)">동서사비MSDS.pdf (PDF, 1.5MB)</div>
+                </div>
+                <div class="product-card">
+                  <h3 data-i18n="prod_gold_title">동서 금색</h3>
+                  <p data-i18n="msds_tech_data">MSDS 및 기술 자료</p>
+                  <a
+                    href="docs/동서금색MSDS(2025).pdf"
+                    class="btn download-btn"
+                    download
+                  >
+                    <span class="download-icon">📥</span>
+                    <span data-i18n="btn_download">자료 다운로드</span>
+                  </a>
+                  <div class="download-file-info" title="동서금색MSDS(2025).pdf (PDF, 1.5MB)">동서금색MSDS(2025).pdf (PDF, 1.5MB)</div>
                 </div>
                 <div class="product-card">
                   <h3 data-i18n="prod_silver_title">동서 은색</h3>
@@ -1152,30 +1341,6 @@
                   </a>
                   <div class="download-file-info" title="ZINC100MSDS(2024).pdf">ZINC100MSDS(2024).pdf</div>
                 </div>
-                <div class="product-card">
-                  <h3 data-i18n="prod_release_title">이형제</h3>
-                  <p data-i18n="msds_tech_data">MSDS 및 기술 자료</p>
-                  <button
-                    class="btn download-btn"
-                    disabled
-                  >
-                    <span class="download-icon">📥</span>
-                    <span data-i18n="btn_download">자료 다운로드</span>
-                  </button>
-                  <div class="download-file-info" data-i18n="file_none">파일 없음</div>
-                </div>
-                <div class="product-card">
-                  <h3 data-i18n="prod_filling_title">충전서비스</h3>
-                  <p data-i18n="msds_tech_guide">기술 명세 및 안내</p>
-                  <button
-                    class="btn download-btn"
-                    disabled
-                  >
-                    <span class="download-icon">📥</span>
-                    <span data-i18n="btn_download">자료 다운로드</span>
-                  </button>
-                  <div class="download-file-info" data-i18n="file_none">파일 없음</div>
-                </div>
               </div>
             </div>
 
@@ -1202,14 +1367,17 @@
                 <div class="product-card">
                   <h3 data-i18n="msds_zip_ko_title">전체 MSDS ZIP</h3>
                   <p data-i18n="msds_zip_ko_desc">국문 MSDS 일괄 다운로드</p>
-                  <button
+                  <a
+                    href="docs/동서화학MSDS.zip"
+                    href="https://drive.google.com/uc?export=download&id=1c2BRrl2m3mnyciA27ndULJJllqllvBd-"
                     class="btn download-btn"
-                    disabled
+                    download
                   >
                     <span class="download-icon">📦</span>
                     <span data-i18n="btn_download">자료 다운로드</span>
-                  </button>
-                  <div class="download-file-info" data-i18n="file_none">파일 없음</div>
+                  </a>
+                  <div class="download-file-info">동서화학MSDS.zip</div>
+                  <div class="download-file-info">전체 MSDS ZIP (Google Drive)</div>
                 </div>
                 <div class="product-card">
                   <h3 data-i18n="msds_zip_en_title">영문 MSDS ZIP</h3>
@@ -1230,6 +1398,96 @@
       </div>
     </section>
 
+    <!-- MSDS List Section (Board) -->
+    <section class="section-content" id="msds-list">
+      <div
+        class="subheading-banner"
+        style="background-image: url('images/Subheading3.png')"
+      >
+        <h2 data-i18n="section_msds">자료실</h2>
+      </div>
+      <div class="container">
+        <div class="board-wrap">
+          <h3 class="inquiry-section-title" data-i18n="msds_list_title">MSDS 전체목록</h3>
+          <div style="font-size: 0.85rem; color: #666; margin-bottom: 20px; line-height: 1.6;">
+            <div data-i18n="msds_list_desc">※ 제품명을 검색하거나 목록에서 확인하실 수 있습니다.</div>
+          </div>
+
+          <!-- Board Header -->
+          <div class="board-header">
+            <div class="board-total">Total <span>43건</span> 1페이지</div>
+            <form class="board-search" onsubmit="event.preventDefault();">
+              <label for="keyword" class="sr-only">게시물 검색</label>
+              <input type="text" id="keyword" placeholder="게시물 검색" />
+              <button type="submit">검색</button>
+            </form>
+          </div>
+
+          <!-- Board List -->
+          <section class="board-list">
+            <table>
+              <colgroup>
+                <col style="width:80px" />
+                <col />
+                <col style="width:120px" />
+                <col style="width:140px" />
+                <col style="width:100px" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>번호</th>
+                  <th>제목</th>
+                  <th>작성자</th>
+                  <th>작성일</th>
+                  <th>조회수</th>
+                </tr>
+              </thead>
+              <tbody id="msdsListBody">
+                <!-- JS로 데이터 로드 -->
+              </tbody>
+            </table>
+          </section>
+
+          <!-- Pagination -->
+          <nav class="pagination">
+            <button type="button" class="page-btn" disabled>&lt;&lt;</button>
+            <button type="button" class="page-btn" disabled>&lt;</button>
+            <button type="button" class="page-btn is-active">1</button>
+            <button type="button" class="page-btn">2</button>
+            <button type="button" class="page-btn">3</button>
+            <button type="button" class="page-btn">&gt;</button>
+            <button type="button" class="page-btn">&gt;&gt;</button>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <!-- MSDS Detail Section (Board View) -->
+    <section class="section-content" id="msds-detail">
+      <div
+        class="subheading-banner"
+        style="background-image: url('images/Subheading3.png')"
+      >
+        <h2 data-i18n="section_msds">자료실</h2>
+      </div>
+      <div class="container">
+        <div class="board-view-wrap">
+          <div class="board-view-header">
+            <h3 id="msds-detail-title"></h3>
+            <div class="board-view-meta">
+              <span id="msds-detail-author"></span>
+              <span id="msds-detail-date"></span>
+              <span id="msds-detail-views"></span>
+            </div>
+          </div>
+          <div class="board-view-content" id="msds-detail-content"></div>
+          <div class="board-view-footer">
+            <button class="btn-list" onclick="navigateTo('msds-list')" data-i18n="btn_list">목록</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Support Section -->
     <section class="section-content" id="support">
       <div
@@ -1244,10 +1502,12 @@
           <div
             class="feature-block cursor-pointer"
             onclick="navigateTo('contact')"
+            role="button"
+            tabindex="0"
           >
             <div class="feature-content">
               <h3 data-i18n="contact_title">제품문의 및 자료요청</h3>
-              <p data-i18n="contact_desc_1">추가적인 도움이 필요하신가요?</p>
+              <p data-i18n="contact_desc_1">추가적인 도움이 필요하신가요? 아래의 <strong style="color: #008b8b;">[📝 문의 및 자료요청 바로가기]</strong> 버튼을 눌러주세요.</p>
               <p data-i18n="contact_desc_2">
                 온라인 문의 양식을 통해 질문을 남기시거나, 본사 고객센터로 직접
                 연락 주시면 담당자가 친절하게 안내해 드리겠습니다.
@@ -1258,7 +1518,7 @@
                 onclick="navigateTo('contact'); event.stopPropagation();"
                 data-i18n="btn_contact"
               >
-                문의 및 자료요청 바로가기
+                📝 문의 및 자료요청 바로가기
               </button>
             </div>
             <div
@@ -1271,6 +1531,8 @@
           <div
             class="feature-block cursor-pointer"
             onclick="showAlert('alert_notice')"
+            role="button"
+            tabindex="0"
           >
             <div class="feature-content">
               <h3 id="notice" data-i18n="notice_title">공지사항</h3>
@@ -1290,6 +1552,8 @@
           <div
             class="feature-block cursor-pointer"
             onclick="showAlert('alert_faq')"
+            role="button"
+            tabindex="0"
           >
             <div
               class="feature-image"
@@ -1555,6 +1819,12 @@
             >
           </div>
           <div class="footer-section">
+            <h4 data-i18n="nav_gallery">갤러리</h4>
+            <a href="#" onclick="navigateTo('gallery'); return false;" data-i18n="nav_gallery_sub"
+              >아티스트 협업</a
+            >
+          </div>
+          <div class="footer-section">
             <h4 data-i18n="nav_msds">자료실</h4>
             <a
               href="#"
@@ -1603,7 +1873,7 @@
           <p style="margin-bottom: 30px; color: #888; font-size: 0.8rem" data-i18n="footer_copyright">
             COPYRIGHT 2026 DONGSUH CHEMICAL @RIGHTS RESERVED
           </p>
-          <div class="logo" onclick="navigateTo('home')">
+          <div class="logo" onclick="navigateTo('home')" role="button" tabindex="0">
             <img src="images/DongSuh_Logo.png" alt="동서화학 로고" />
               <span data-i18n="company_name">동서화학(주)</span>
           </div>
@@ -1713,49 +1983,6 @@
         });
       }
 
-      // Google Drive 파일 ID 데이터베이스
-      // ⚠️ YOUR_FILE_ID 부분을 실제 Google Drive File ID로 변경하세요
-      const fileDatabase = {
-        DONGSE_LACQUER_ID: "YOUR_FILE_ID_1", // 동서 락카 MSDS
-        DS_LACQUER_ID: "YOUR_FILE_ID_2", // DS 락카 MSDS
-        ZINC_SILVER_ID: "YOUR_FILE_ID_3", // 아연 MSDS
-        MOLD_RELEASE_ID: "YOUR_FILE_ID_4", // 이형제 MSDS
-        FILLING_SERVICE_ID: "YOUR_FILE_ID_5", // 충전서비스 가이드
-        CATALOG_KO_ID: "YOUR_FILE_ID_6", // 한글 카탈로그
-        MSDS_ZIP_KO_ID: "YOUR_FILE_ID_7", // 한글 MSDS ZIP
-        MSDS_ZIP_EN_ID: "YOUR_FILE_ID_8", // 영문 MSDS ZIP
-      };
-
-      // PDF 다운로드 함수
-      function downloadPDF(fileKey, productName) {
-        const fileId = fileDatabase[fileKey];
-
-        // File ID 확인
-        if (
-          !fileId ||
-          fileId === "YOUR_FILE_ID_1" ||
-          fileId.startsWith("YOUR_FILE_ID")
-        ) {
-          alert(
-            `⚠️ ${productName} 파일이 아직 설정되지 않았습니다.\n\nGoogle Drive에 파일을 업로드한 후 File ID를 설정해주세요.`
-          );
-          console.log(`설정 필요한 파일 키: ${fileKey}`);
-          alert("관련자료가 없습니다.");
-          return;
-        }
-
-        // Google Drive 다운로드 URL
-        const downloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
-
-        // 다운로드 시작
-        const link = document.createElement("a");
-        link.href = downloadUrl;
-        link.click();
-
-        // 콘솔 로그
-        console.log(`✅ ${productName} 다운로드 시작 (File ID: ${fileId})`);
-      }
-
       // 슬라이드 관련 변수
       let currentSlide = 0;
       const slides = document.querySelectorAll(".hero-slide");
@@ -1862,6 +2089,7 @@
         ko: {
           nav_company: "회사소개",
           nav_products: "제품소개",
+          nav_gallery: "갤러리",
           nav_msds: "자료실",
           nav_support: "고객지원",
           company_name: "동서화학(주)",
@@ -1933,18 +2161,34 @@
           prod_rust_desc: "강력한 녹 방지 솔루션",
           prod_filling_title: "충전서비스",
           prod_filling_desc: "맞춤형 에어졸 제조",
+          // Gallery
+          section_gallery: "Professional's Choice",
+          gallery_title: "아티스트의 선택: 동서화학 X 범민(Beommin)",
+          gallery_desc: "동서화학의 탁월한 발색과 품질은 프로 아티스트의 영감이 됩니다. 세계적인 브랜드 및 K-POP 아티스트와 함께한 범민 작가의 프로젝트를 소개합니다.",
+          gallery_item_1_title: "두산로보틱스 로봇 페인팅",
+          gallery_item_1_desc: "첨단 기술과 예술의 만남, 정교한 로봇 암이 구현하는 그래피티 아트 퍼포먼스.",
+          gallery_item_2_title: "까르띠에(Cartier) 팝업 스토어",
+          gallery_item_2_desc: "럭셔리 브랜드가 선택한 압도적인 컬러감으로 공간의 가치를 더합니다.",
+          gallery_item_3_title: "트와이스(TWICE) 뮤직비디오",
+          gallery_item_3_desc: "K-POP 스타의 화려한 무대를 완성하는 생생하고 선명한 배경 아트워크.",
+          gallery_item_4_title: "람보르기니(Lamborghini) 팝업",
+          gallery_item_4_desc: "슈퍼카의 역동적인 에너지를 강렬한 컬러와 그래피티로 표현한 아트워크.",
           // MSDS
           section_msds: "자료실",
           msds_title: "MSDS (물질안전보건자료)",
-          msds_notice: "💡 안내 : 제품의 안전 데이터 시트(MSDS)와 성능 인증서를 다운로드하세요. 다운로드 버튼을 클릭 하시면 바로 다운로드 됩니다. 문제가 있으면 고객지원 섹션의 제품 문의 및 자료요청 기능을 이용해 주세요.",
+          msds_notice: "💡 <strong>안내:</strong> 대표 제품의 MSDS는 각 항목의 <strong style=\"color: #008b8b;\">[📥 자료 다운로드]</strong> 버튼으로, 전체 목록은 페이지 하단의 <strong style=\"color: #008b8b;\">[📋 MSDS 전체 목록 바로가기]</strong> 버튼으로 확인하실 수 있습니다. 문제가 있는 경우 '제품 문의' 기능을 이용해 주세요.",
           msds_tech_data: "MSDS 및 기술 자료",
           msds_tech_guide: "기술 명세 및 안내",
           prod_sabi_title: "동서 사비",
+          prod_gold_title: "동서 금색",
           prod_silver_title: "동서 은색",
           prod_dsi_title: "DSI 락카",
           prod_dsi_silver_title: "DSI 락카 은색",
           btn_download: "자료 다운로드",
           file_none: "파일 없음",
+          btn_msds_list: "📋 MSDS 전체 목록 바로가기",
+          section_msds_list: "MSDS 자료실",
+          btn_list: "목록",
           cat_title: "카탈로그",
           cat_desc: "모든 제품의 정보를 포함한 카탈로그를 다운로드하세요.",
           cat_prod_title: "상품 카탈로그",
@@ -1956,9 +2200,9 @@
           // Support
           section_support: "고객지원",
           contact_title: "제품문의 및 자료요청",
-          contact_desc_1: "추가적인 도움이 필요하신가요?",
+          contact_desc_1: "추가적인 도움이 필요하신가요? 아래의 <strong style=\"color: #008b8b;\">[📝 문의 및 자료요청 바로가기]</strong> 버튼을 눌러주세요.",
           contact_desc_2: "온라인 문의 양식을 통해 질문을 남기시거나, 본사 고객센터로 직접 연락 주시면 담당자가 친절하게 안내해 드리겠습니다.",
-          btn_contact: "문의 및 자료요청 바로가기",
+          btn_contact: "📝 문의 및 자료요청 바로가기",
           notice_title: "공지사항",
           notice_desc_1: "동서화학의 최신 소식과 이벤트를 확인하세요.",
           notice_desc_2: "신제품 출시 정보, 전시회 참가 소식, 그리고 중요 유지보수 안내 등을 가장 빠르게 전달해 드립니다.",
@@ -1984,6 +2228,7 @@
           th_name: "성명",
           th_date: "등록일",
           btn_load_more: "더보기 ▾",
+          nav_gallery_sub: "아티스트 협업",
           // Footer
           footer_company_info: "동서화학(주) | 대표 : 이상민 | T: 032-571-6010 | F: 032-574-6344",
           footer_copyright: "COPYRIGHT 2026 DONGSUH CHEMICAL @RIGHTS RESERVED",
@@ -1997,6 +2242,8 @@
           modal_features: "주요 특징",
           modal_applications: "적용 분야",
           modal_btn_view: "자료실 보기",
+          msds_list_title: "MSDS 목록",
+          msds_list_desc: "※ 제품명을 검색하거나 목록에서 확인하실 수 있습니다.",
           // Added for full localization
           menu_msds: "MSDS",
           ph_name: "성명을 입력하세요",
@@ -2018,6 +2265,7 @@
         en: {
           nav_company: "Company",
           nav_products: "Products",
+          nav_gallery: "Gallery",
           nav_msds: "Resources",
           nav_support: "Support",
           company_name: "DongSuh Chemical Co., Ltd.",
@@ -2090,18 +2338,34 @@
           prod_rust_desc: "Powerful Rust Prevention",
           prod_filling_title: "Filling Service",
           prod_filling_desc: "Custom Aerosol Manufacturing",
+          // Gallery
+          section_gallery: "Professional's Choice",
+          gallery_title: "Artist's Choice: Dongsuh Chemical X Beommin",
+          gallery_desc: "The exceptional color and quality of Dongsuh Chemical's products inspire professional artists. Introducing projects by artist Beommin with global brands and K-POP artists.",
+          gallery_item_1_title: "Doosan Robotics Robot Painting",
+          gallery_item_1_desc: "Where advanced technology meets art, a graffiti performance realized by a sophisticated robot arm.",
+          gallery_item_2_title: "Cartier Pop-up Store",
+          gallery_item_2_desc: "The overwhelming sense of color chosen by a luxury brand adds value to the space.",
+          gallery_item_3_title: "TWICE Music Video",
+          gallery_item_3_desc: "Vivid and clear background artwork that completes the splendid stage of a K-POP star.",
+          gallery_item_4_title: "Lamborghini Pop-up",
+          gallery_item_4_desc: "Artwork expressing the dynamic energy of supercars with intense colors and graffiti.",
           // MSDS
           section_msds: "Resources",
           msds_title: "MSDS (Material Safety Data Sheet)",
-          msds_notice: "💡 Notice: Download MSDS and performance certificates. Click the download button to download immediately. If you have any problems, please use the Product Inquiry & Request function in the Support section.",
+          msds_notice: "💡 <strong>Notice:</strong> You can download the MSDS for each product with the <strong style=\"color: #008b8b;\">[📥 Download]</strong> button, or access the full list via the <strong style=\"color: #008b8b;\">[📋 Go to MSDS List]</strong> button at the bottom of the page. If you have any issues, please use the 'Product Inquiry' function.",
           msds_tech_data: "MSDS & Technical Data",
           msds_tech_guide: "Technical Spec & Guide",
           prod_sabi_title: "Dongsuh Sabi",
+          prod_gold_title: "Dongsuh Gold",
           prod_silver_title: "Dongsuh Silver",
           prod_dsi_title: "DSI Lacquer",
           prod_dsi_silver_title: "DSI Lacquer Silver",
           btn_download: "Download",
           file_none: "No File",
+          btn_msds_list: "📋 Go to MSDS List",
+          section_msds_list: "MSDS Library",
+          btn_list: "List",
           cat_title: "Catalog",
           cat_desc: "Download catalogs containing all product information.",
           cat_prod_title: "Product Catalog",
@@ -2113,9 +2377,9 @@
           // Support
           section_support: "Support",
           contact_title: "Inquiry & Request",
-          contact_desc_1: "Need additional help?",
+          contact_desc_1: "Need additional help? Please click the <strong style=\"color: #008b8b;\">[📝 Go to Inquiry]</strong> button below.",
           contact_desc_2: "Leave a question via the online inquiry form or contact our customer center directly for kind assistance.",
-          btn_contact: "Go to Inquiry",
+          btn_contact: "📝 Go to Inquiry",
           notice_title: "Notice",
           notice_desc_1: "Check out the latest news and events.",
           notice_desc_2: "We deliver new product launch information, exhibition news, and important maintenance notices fastest.",
@@ -2141,6 +2405,7 @@
           th_name: "Name",
           th_date: "Date",
           btn_load_more: "Load More ▾",
+          nav_gallery_sub: "Artist Collab",
           // Footer
           footer_company_info: "Dongsuh Chemical Co., Ltd. | Rep: Sang-Min Lee | T: 032-571-6010 | F: 032-574-6344",
           footer_copyright: "COPYRIGHT 2026 DONGSUH CHEMICAL @RIGHTS RESERVED",
@@ -2154,6 +2419,8 @@
           modal_features: "Key Features",
           modal_applications: "Applications",
           modal_btn_view: "View Resources",
+          msds_list_title: "MSDS List",
+          msds_list_desc: "※ You can search for product names or check them in the list.",
           // Added for full localization
           menu_msds: "MSDS",
           ph_name: "Enter your name",
@@ -2183,7 +2450,7 @@
         document.querySelectorAll("[data-i18n]").forEach((el) => {
           const key = el.getAttribute("data-i18n");
           if (translations[currentLang][key]) {
-            el.textContent = translations[currentLang][key];
+            el.innerHTML = translations[currentLang][key];
           }
         });
         // Placeholders
@@ -2236,13 +2503,71 @@
         }
       }
 
-      window.addEventListener("load", function () {
+      // 파일 사이즈 동적 업데이트 함수
+      async function updateFileSizes() {
+        const downloadLinks = document.querySelectorAll('.product-card a.download-btn');
+        
+        for (const link of downloadLinks) {
+          const url = link.getAttribute('href');
+          const infoDiv = link.parentElement.querySelector('.download-file-info');
+          
+          if (url && infoDiv && !url.startsWith('#') && !url.startsWith('javascript')) {
+            try {
+              const response = await fetch(url, { method: 'HEAD' });
+              if (response.ok) {
+                const size = response.headers.get('Content-Length');
+                if (size) {
+                  const bytes = parseInt(size, 10);
+                  let formattedSize = bytes < 1024 * 1024 
+                    ? (bytes / 1024).toFixed(1) + ' KB' 
+                    : (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+                  
+                  const fileName = decodeURIComponent(url.split('/').pop());
+                  const ext = fileName.split('.').pop().toUpperCase();
+                  
+                  const newText = `${fileName} (${ext}, ${formattedSize})`;
+                  infoDiv.textContent = newText;
+                  infoDiv.title = newText;
+                }
+              }
+            } catch (e) {
+              console.warn('파일 정보를 가져올 수 없습니다:', url);
+            }
+          }
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
         initSlides();
         initCertificateGallery();
         initCertificateGalleryFull();
+        updateFileSizes();
         setTimeout(function () {
           showMsdsPopup();
         }, 2000);
+
+        // 연락처 입력 필드 자동 하이픈 적용
+        const phoneInput = document.getElementById("phone");
+        if (phoneInput) {
+          phoneInput.addEventListener("input", function(e) {
+            let val = e.target.value.replace(/[^0-9]/g, '');
+            let result = '';
+            
+            // 서울 지역번호(02)와 그 외 번호(010, 031 등) 구분 처리
+            if(val.substring(0, 2) == '02') {
+                if (val.length < 3) result = val;
+                else if (val.length < 6) result = val.substr(0, 2) + '-' + val.substr(2);
+                else if (val.length < 10) result = val.substr(0, 2) + '-' + val.substr(2, 3) + '-' + val.substr(5);
+                else result = val.substr(0, 2) + '-' + val.substr(2, 4) + '-' + val.substr(6);
+            } else {
+                if (val.length < 4) result = val;
+                else if (val.length < 7) result = val.substr(0, 3) + '-' + val.substr(3);
+                else if (val.length < 11) result = val.substr(0, 3) + '-' + val.substr(3, 3) + '-' + val.substr(6);
+                else result = val.substr(0, 3) + '-' + val.substr(3, 4) + '-' + val.substr(7);
+            }
+            e.target.value = result;
+          });
+        }
       });
 
       document

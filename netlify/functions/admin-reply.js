@@ -1,9 +1,9 @@
 const { neon } = require("@neondatabase/serverless");
 const path = require("path");
 const dotenv = require("dotenv");
-const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
-// .env 로딩: 실행 위치(루트) 기준 우선 시도 후, 실패 시 파일 상대 경로 시도
+// .env 로딩
 dotenv.config({ path: path.resolve(process.cwd(), ".env") });
 if (!process.env.DATABASE_URL) {
   dotenv.config({ path: path.resolve(__dirname, "../../.env") });
@@ -12,7 +12,7 @@ if (!process.env.DATABASE_URL) {
 const headers = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
   "Content-Type": "application/json",
 };
 
@@ -34,57 +34,55 @@ exports.handler = async (event) => {
     };
   }
 
+  // --- JWT 인증 시작 ---
   try {
-    const { id, adminPassword, reply } = JSON.parse(event.body);
-
-    // 필수 항목 검증
-    if (!id || !reply || !adminPassword) {
-      return {
-        statusCode: 400,
-        headers,
-        body: JSON.stringify({ error: "필수 항목을 입력해주세요" }),
-      };
-    }
-
-    // 관리자 비밀번호 검증 (해시 비교로 변경)
-    // 로컬 테스트용 Fallback: 환경변수가 없으면 .env의 해시값 사용
-    if (!process.env.ADMIN_PASSWORD_HASH) {
-      process.env.ADMIN_PASSWORD_HASH =
-        "$2a$10$4Abmuigt1LUODvuKFbKXzeZfspuKtYxpuzId/8RbVzzunCkJvqUdy";
-    }
-
-    const isMatch = await bcrypt.compare(
-      adminPassword,
-      process.env.ADMIN_PASSWORD_HASH
-    );
-
-    if (!isMatch) {
+    const authHeader = event.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return {
         statusCode: 401,
         headers,
-        body: JSON.stringify({ error: "관리자 암호가 일치하지 않습니다" }),
+        body: JSON.stringify({ error: "인증 토큰이 필요합니다." }),
+      };
+    }
+    const token = authHeader.split(" ")[1];
+    const jwtSecret = process.env.JWT_SECRET;
+    if (!jwtSecret) throw new Error("JWT_SECRET is not set.");
+
+    jwt.verify(token, jwtSecret);
+  } catch (error) {
+    return {
+      statusCode: 401,
+      headers,
+      body: JSON.stringify({ error: "유효하지 않거나 만료된 토큰입니다." }),
+    };
+  }
+  // --- JWT 인증 끝 ---
+
+  try {
+    const { inquiryId, reply } = JSON.parse(event.body);
+
+    if (!inquiryId || !reply) {
+      return {
+        statusCode: 400,
+        headers,
+        body: JSON.stringify({ error: "필수 항목(inquiryId, reply)을 입력해주세요" }),
       };
     }
 
-    // DB 연결 (로컬 테스트용 하드코딩 포함)
     if (!process.env.DATABASE_URL) {
-      console.error("Error: DATABASE_URL is missing");
       return {
         statusCode: 500,
         headers,
-        body: JSON.stringify({
-          error: "Server Configuration Error: Missing Database Connection",
-        }),
+        body: JSON.stringify({ error: "DB 연결 설정이 필요합니다." }),
       };
     }
 
     const sql = neon(process.env.DATABASE_URL);
 
-    // 답글 업데이트
     const result = await sql`
       UPDATE inquiries 
       SET reply = ${reply}
-      WHERE id = ${id}
+      WHERE id = ${inquiryId}
       RETURNING id
     `;
 

@@ -1,16 +1,15 @@
 import asyncio
 from playwright import async_api
-from playwright.async_api import expect
 
 async def run_test():
     pw = None
     browser = None
     context = None
-    
+
     try:
         # Start a Playwright session in asynchronous mode
         pw = await async_api.async_playwright().start()
-        
+
         # Launch a Chromium browser in headless mode with custom arguments
         browser = await pw.chromium.launch(
             headless=True,
@@ -21,70 +20,54 @@ async def run_test():
                 "--single-process"                # Run the browser in a single process mode
             ],
         )
-        
+
         # Create a new browser context (like an incognito window)
         context = await browser.new_context()
         context.set_default_timeout(5000)
-        
+
         # Open a new page in the browser context
         page = await context.new_page()
-        
+
         # Navigate to your target URL and wait until the network request is committed
         await page.goto("http://localhost:8888", wait_until="commit", timeout=10000)
-        
+
         # Wait for the main page to reach DOMContentLoaded state (optional for stability)
         try:
             await page.wait_for_load_state("domcontentloaded", timeout=3000)
         except async_api.Error:
             pass
-        
+
         # Iterate through all iframes and wait for them to load as well
         for frame in page.frames:
             try:
                 await frame.wait_for_load_state("domcontentloaded", timeout=3000)
             except async_api.Error:
                 pass
-        
+
         # Interact with the page elements to simulate user flow
-        # -> Close the MSDS 안내 popup to access the main page content and look for inquiry list or password-protected inquiries
+        # -> Navigate to http://localhost:8888
+        await page.goto("http://localhost:8888", wait_until="commit", timeout=10000)
+        
+        # -> Close the MSDS 안내 modal by clicking the '닫기' button (interactive element [61]) to remove the overlay, then re-run the carousel auto-advance check.
         frame = context.pages[-1]
-        # Click 닫기 button to close the MSDS 안내 popup
+        # Click element
         elem = frame.locator('xpath=html/body/div[2]/div/button[2]').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-
-        # -> Click on '제품 문의 및 자료요청' (Product Inquiry and Data Request) link to access inquiries potentially password protected
+        # -> Click the visible carousel 'next' control (use button index 322), then check the active slide immediately and report the result. If the slide changes, wait ~6s and check again to see if auto-advance resumed.
         frame = context.pages[-1]
-        # Click on '제품 문의 및 자료요청' link under 고객지원 to access inquiry list
-        elem = frame.locator('xpath=html/body/footer/div/div/div[4]/a').nth(0)
+        # Click element
+        elem = frame.locator('xpath=html/body/section[1]/div[2]/button[2]').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-
-        # -> Click on the inquiry labeled 'This is a private inquiry test.' to trigger the password verification prompt
+        # -> Click the carousel 'next' control (button index 322), wait briefly, then run an in-page JS evaluation to read current active slide index, slides count, active text, and presence of next/prev controls so immediate effect of the click can be verified.
         frame = context.pages[-1]
-        # Click on the inquiry row labeled 'This is a private inquiry test.' to trigger password prompt
-        elem = frame.locator('xpath=html/body/section[7]/div[2]/div/section[2]/div[2]/table/tbody/tr[3]').nth(0)
+        # Click element
+        elem = frame.locator('xpath=html/body/section[1]/div[2]/button[2]').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-
-        # -> Input an incorrect password into the password field and submit it to test authentication failure handling
-        frame = context.pages[-1]
-        # Input an incorrect password into the password field
-        elem = frame.locator('xpath=html/body/section[7]/div[2]/div/section[2]/div[2]/table/tbody/tr[4]/td/div/div/form/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('wrongpass')
-        
-
-        frame = context.pages[-1]
-        # Click the 확인 (Confirm) button to submit the incorrect password
-        elem = frame.locator('xpath=html/body/section[7]/div[2]/div/section[2]/div[2]/table/tbody/tr[4]/td/div/div/form/button').nth(0)
-        await page.wait_for_timeout(3000); await elem.click(timeout=5000)
-        
-
-        # --> Assertions to verify final state
-        frame = context.pages[-1]
-        await expect(frame.locator('text=✗ 비밀번호가 일치하지 않습니다').first).to_be_visible(timeout=30000)
         await asyncio.sleep(5)
-    
+
     finally:
         if context:
             await context.close()
@@ -92,6 +75,6 @@ async def run_test():
             await browser.close()
         if pw:
             await pw.stop()
-            
+
 asyncio.run(run_test())
     

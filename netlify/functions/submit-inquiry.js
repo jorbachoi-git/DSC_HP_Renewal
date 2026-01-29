@@ -32,9 +32,11 @@ exports.handler = async (event, context) => {
   }
 
   try {
+    const sanitizeHtml = require("sanitize-html");
+
     // 4. 데이터 파싱
     const data = JSON.parse(event.body);
-    const { name, email, phone, message, password } = data;
+    const { name, email, phone, message, password } = data; // 'is_public' removed
 
     // 필수값 검증
     if (!name || !email || !message || !password) {
@@ -46,6 +48,12 @@ exports.handler = async (event, context) => {
         }),
       };
     }
+
+    // XSS 방지를 위한 입력값 살균 처리
+    const sanitizedName = sanitizeHtml(name);
+    const sanitizedEmail = sanitizeHtml(email);
+    const sanitizedPhone = phone ? sanitizeHtml(phone) : null;
+    const sanitizedMessage = sanitizeHtml(message);
 
     // 5. DB 연결
     if (!process.env.DATABASE_URL) {
@@ -66,12 +74,10 @@ exports.handler = async (event, context) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // 7. 데이터 삽입 쿼리 실행
+    // 7. 데이터 삽입 쿼리 실행 (수정된 쿼리)
     const rows = await sql`
       INSERT INTO inquiries (name, email, phone, message, password_hash, created_at)
-      VALUES (${name}, ${email}, ${
-      phone || null
-    }, ${message}, ${hashedPassword}, NOW())
+      VALUES (${sanitizedName}, ${sanitizedEmail}, ${sanitizedPhone}, ${sanitizedMessage}, ${hashedPassword}, NOW())
       RETURNING id
     `;
 

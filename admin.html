@@ -10,7 +10,6 @@
         width: 100%;
         border-collapse: collapse;
         table-layout: fixed;
-        margin-bottom: 20px;
         background: #fff;
       }
       .inquiry-table th,
@@ -23,6 +22,10 @@
         background-color: #f8f9fa;
         color: #333;
         font-weight: 600;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        box-shadow: 0 1px 0 #ddd;
       }
       .truncate-text {
         white-space: nowrap;
@@ -58,9 +61,16 @@
         border: none;
         border-radius: 4px;
         cursor: pointer;
+        white-space: nowrap;
       }
       .btn-inline:hover {
         background-color: #007a7a;
+      }
+      .btn-danger {
+        background-color: #e74c3c;
+      }
+      .btn-danger:hover {
+        background-color: #c0392b;
       }
       /* Admin 상단 배너 스타일 추가 */
       .admin-banner {
@@ -165,6 +175,53 @@
         text-align: center;
         margin-bottom: 30px;
       }
+      /* 탭 메뉴 스타일 */
+      .admin-tabs {
+        display: flex;
+        border-bottom: 2px solid #ddd;
+        margin-bottom: 30px;
+      }
+      .tab-btn {
+        padding: 15px 30px;
+        background: none;
+        border: none;
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #666;
+        cursor: pointer;
+        border-bottom: 4px solid transparent;
+        transition: all 0.3s;
+      }
+      .tab-btn:hover {
+        color: #008b8b;
+        background-color: #f9f9f9;
+      }
+      .tab-btn.active {
+        color: #008b8b;
+        border-bottom: 4px solid #008b8b;
+      }
+      .tab-content {
+        display: none;
+        animation: fadeIn 0.5s;
+      }
+      .tab-content.active {
+        display: block;
+      }
+      @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+      /* 관리 버튼 그룹 스타일 */
+      .action-btn-group {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: nowrap;
+      }
+      /* 테이블 스크롤 컨테이너 */
+      .table-container {
+        max-height: 400px;
+        overflow-y: auto;
+        border: 1px solid #eee;
+        margin-bottom: 20px;
+      }
     </style>
   </head>
   <body>
@@ -196,107 +253,291 @@
       </section>
 
       <section id="admin-panel" style="display: none">
-        <h2>미답변 문의 목록</h2>
-        <table class="inquiry-table">
-          <thead>
-            <tr>
-              <th style="width: 10%">ID</th>
-              <th style="width: 50%">문의내용</th>
-              <th style="width: 20%">작성자</th>
-              <th style="width: 20%">작성일</th>
-            </tr>
-          </thead>
-          <tbody id="pendingListBody"></tbody>
-        </table>
+        <div style="text-align: right; margin-bottom: 10px;">
+          <button class="btn-inline" style="background-color: #666;" onclick="logout()">로그아웃</button>
+        </div>
+        <!-- 탭 메뉴 -->
+        <div class="admin-tabs">
+          <button class="tab-btn active" onclick="showTab('inquiries')">미답변 문의 관리</button>
+          <button class="tab-btn" onclick="showTab('msds')">MSDS 관리</button>
+        </div>
+
+        <!-- 탭 1: 미답변 문의 목록 -->
+        <div id="tab-inquiries" class="tab-content active">
+          <h2 style="color: #008b8b; margin-bottom: 20px;">미답변 문의 목록</h2>
+          <div class="table-container">
+            <table class="inquiry-table">
+              <thead>
+                <tr>
+                  <th style="width: 8%">ID</th>
+                  <th style="width: 47%">문의내용</th>
+                  <th style="width: 15%">작성자</th>
+                  <th style="width: 15%">작성일</th>
+                  <th style="width: 15%">관리</th>
+                </tr>
+              </thead>
+              <tbody id="pendingListBody"></tbody>
+            </table>
+          </div>
+
+          <h2 style="color: #008b8b; margin: 40px 0 20px;">기답변 문의 목록</h2>
+          <div class="table-container">
+            <table class="inquiry-table">
+              <thead>
+                <tr>
+                  <th style="width: 8%">ID</th>
+                  <th style="width: 47%">문의내용</th>
+                  <th style="width: 15%">작성자</th>
+                  <th style="width: 15%">작성일</th>
+                  <th style="width: 15%">관리</th>
+                </tr>
+              </thead>
+              <tbody id="answeredListBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 탭 2: MSDS 등록 -->
+        <div id="tab-msds" class="tab-content">
+          <h2 style="color: #008b8b; margin-bottom: 20px;">MSDS 게시글 관리</h2>
+          
+          <!-- MSDS 목록 (수정 선택용) -->
+          <div class="table-container" style="margin-bottom: 30px;">
+            <table class="inquiry-table" style="margin-bottom: 0;">
+              <thead>
+                <tr>
+                  <th style="width: 8%">ID</th>
+                  <th style="width: 47%">제목</th>
+                  <th style="width: 15%">작성자</th>
+                  <th style="width: 15%">작성일</th>
+                  <th style="width: 15%">관리</th>
+                </tr>
+              </thead>
+              <tbody id="msdsAdminListBody"></tbody>
+            </table>
+          </div>
+
+          <div style="background: #fff; padding: 30px; border-radius: 8px; border: 1px solid #eee;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+              <h3 style="margin: 0; color: #333;">게시글 작성/수정</h3>
+              <button type="button" class="btn-inline" style="background-color: #666;" onclick="resetMsdsForm()">새 글 작성</button>
+            </div>
+            <form id="msdsForm">
+              <input type="hidden" id="msdsId" value="">
+              <div class="form-group">
+                <label for="msdsTitle" style="display:block; margin-bottom:8px; font-weight:bold;">제목</label>
+                <input type="text" id="msdsTitle" class="reply-textarea" style="height: 45px; min-height:auto;" placeholder="게시글 제목을 입력하세요" required />
+              </div>
+              
+              <div style="display: flex; gap: 20px; margin-bottom: 15px;">
+                <div class="form-group" style="flex: 1;">
+                  <label for="msdsAuthor" style="display:block; margin-bottom:8px; font-weight:bold;">작성자</label>
+                  <input type="text" id="msdsAuthor" class="reply-textarea" style="height: 45px; min-height:auto;" value="관리자" required />
+                </div>
+                <div class="form-group" style="flex: 0 0 auto; display: flex; align-items: center; padding-top: 30px;">
+                  <input type="checkbox" id="msdsNotice" style="width: 20px; height: 20px; margin-right: 8px;" />
+                  <label for="msdsNotice" style="cursor: pointer; font-weight:bold;">공지사항으로 등록</label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="msdsContent" style="display:block; margin-bottom:8px; font-weight:bold;">본문 내용 (HTML 지원)</label>
+                
+                <!-- 구글 드라이브 다운로드 버튼 생성기 -->
+                <div style="background: #f0f8ff; padding: 15px; border: 1px solid #cce5ff; border-radius: 5px; margin-bottom: 15px;">
+                  <h4 style="margin: 0 0 10px 0; color: #008b8b; font-size: 1rem;">🛠️ 구글 드라이브 다운로드 버튼 생성기</h4>
+                  <div style="display: flex; gap: 10px; margin-bottom: 5px; flex-wrap: wrap;">
+                    <input type="text" id="driveLinkInput" placeholder="Google Drive 공유 링크 붙여넣기" style="flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; min-width: 200px;">
+                    <input type="text" id="driveBtnText" value="자료 다운로드" placeholder="버튼명" style="width: 120px; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                    <button type="button" class="btn-inline" onclick="addDriveButton()">본문에 추가</button>
+                  </div>
+                  <p style="font-size: 0.8rem; color: #666; margin: 0;">※ 링크를 입력하고 추가하면, <strong>클릭 시 바로 다운로드</strong>되는 버튼 코드가 본문에 삽입됩니다.</p>
+                </div>
+
+                <textarea id="msdsContent" class="reply-textarea" style="min-height: 300px;" placeholder="내용을 입력하세요. 구글 드라이브 링크 등을 포함할 수 있습니다." required></textarea>
+                <p style="font-size: 0.9rem; color: #666; margin-top: 5px;">
+                  ※ 파일은 Google Drive 등에 업로드 후 공유 링크를 본문에 붙여넣어 주세요.<br>
+                  ※ HTML 태그 사용이 가능합니다. (예: &lt;a href="..."&gt;다운로드&lt;/a&gt;)
+                </p>
+              </div>
+
+              <div style="text-align: right; margin-top: 20px;">
+                <button type="submit" class="btn-submit" style="width: 200px;" id="btnSaveMsds">게시글 등록</button>
+              </div>
+            </form>
+          </div>
+        </div>
       </section>
     </div>
 
     <script>
       const API_BASE = "/.netlify/functions";
-      let adminPassword = "";
+      let adminToken = null;
+
+      // 페이지 로드 시 토큰 확인
+      document.addEventListener('DOMContentLoaded', () => {
+        adminToken = sessionStorage.getItem('adminToken');
+        if (adminToken) {
+          showAdminPanel();
+        }
+      });
 
       // Admin 로그인
       document
         .getElementById("adminLoginForm")
         .addEventListener("submit", async (e) => {
           e.preventDefault();
-          const inputPassword = document.getElementById("adminPassword").value;
+          const password = document.getElementById("adminPassword").value;
+          const loginButton = e.target.querySelector("button[type='submit']");
 
-          if (inputPassword === "admin1234") {
-            adminPassword = inputPassword;
-            document.getElementById("admin-login").style.display = "none";
-            document.getElementById("admin-panel").style.display = "block";
+          loginButton.disabled = true;
+          loginButton.textContent = "로그인 중...";
 
-            // 로그인 후 배너 스타일 변경 (높이 축소 및 이미지 변경)
-            document.querySelector(".admin-banner").classList.add("logged-in");
+          try {
+            const response = await fetch(`${API_BASE}/login`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ password }),
+            });
 
-            loadPendingInquiries();
-          } else {
-            alert("관리자 비밀번호가 일치하지 않습니다.");
+            if (response.ok) {
+              const { token } = await response.json();
+              adminToken = token;
+              sessionStorage.setItem('adminToken', token); // 세션 스토리지에 토큰 저장
+              showAdminPanel();
+            } else {
+              const { error } = await response.json();
+              alert(`로그인 실패: ${error}`);
+            }
+          } catch (error) {
+            console.error("Login request failed:", error);
+            alert("로그인 요청 중 오류가 발생했습니다.");
+          } finally {
+            loginButton.disabled = false;
+            loginButton.textContent = "로그인";
           }
         });
 
-      // 미답변 문의 조회
-      async function loadPendingInquiries() {
-        try {
-          const response = await fetch(
-            `${API_BASE}/get-public-list?getAll=true`
-          );
-          const inquiries = await response.json();
+      function showAdminPanel() {
+        document.getElementById("admin-login").style.display = "none";
+        document.getElementById("admin-panel").style.display = "block";
+        document.querySelector(".admin-banner").classList.add("logged-in");
+        loadInquiries();
+      }
 
+      // 로그아웃 함수
+      function logout() {
+        sessionStorage.removeItem('adminToken');
+        window.location.reload();
+      }
+
+      // 탭 전환 함수
+      function showTab(tabName) {
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+        const tabToShow = document.querySelector(`.tab-btn[onclick="showTab('${tabName}')"]`);
+        const contentToShow = document.getElementById(`tab-${tabName}`);
+        
+        if (tabToShow) tabToShow.classList.add('active');
+        if (contentToShow) contentToShow.classList.add('active');
+
+        if (tabName === 'msds') {
+          loadMsdsAdminList();
+        }
+      }
+
+      // 공통 fetch 래퍼
+      async function fetchAdminAPI(endpoint, options = {}) {
+        const headers = {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${adminToken}`,
+          ...options.headers,
+        };
+
+        const response = await fetch(`${API_BASE}/${endpoint}`, { ...options, headers });
+
+        if (response.status === 401) {
+          alert("인증이 만료되었거나 유효하지 않습니다. 다시 로그인해주세요.");
+          sessionStorage.removeItem('adminToken');
+          window.location.reload();
+          throw new Error("Unauthorized");
+        }
+        
+        return response;
+      }
+
+      // 문의 목록 조회 (미답변 + 기답변)
+      async function loadInquiries() {
+        try {
+          const response = await fetchAdminAPI('get-public-list?getAll=true');
+          if (!response.ok) throw new Error('Failed to load inquiries');
+          const inquiries = await response.json();
+          
           const pending = inquiries.filter((q) => !q.reply);
-          const tbody = document.getElementById("pendingListBody");
+          const answered = inquiries.filter((q) => q.reply);
+
+          renderInquiries(pending, 'pendingListBody', false);
+          renderInquiries(answered, 'answeredListBody', true);
+
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      }
+
+      function renderInquiries(inquiries, tbodyId, isAnswered) {
+          const tbody = document.getElementById(tbodyId);
           tbody.innerHTML = "";
 
-          if (pending.length === 0) {
-            tbody.innerHTML =
-              '<tr><td colspan="4" style="padding:20px;">미답변 문의가 없습니다</td></tr>';
+          if (inquiries.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="5" style="padding:20px;">${isAnswered ? '기' : '미'}답변 문의가 없습니다</td></tr>`;
             return;
           }
 
-          pending.forEach((q) => {
-            // 1. 요약 행
+          inquiries.forEach((q) => {
+            const detailId = isAnswered ? `answered-${q.id}` : q.id;
             const tr = document.createElement("tr");
             tr.style.cursor = "pointer";
-            tr.onclick = () => toggleDetail(q.id);
+            tr.onclick = () => toggleDetail(detailId);
             tr.innerHTML = `
               <td>${q.id}</td>
-              <td><div class="truncate-text">${sanitizeHTML(
-                q.message
-              )}</div></td>
-              <td>${q.name}</td>
+              <td><div class="truncate-text">${sanitizeHTML(q.message)}</div></td>
+              <td>${sanitizeHTML(q.name)}</td>
               <td>${new Date(q.created_at).toLocaleDateString("ko-KR")}</td>
+              <td>
+                <div class="action-btn-group">
+                  <button class="btn-inline" onclick="event.stopPropagation(); toggleDetail('${detailId}')">${isAnswered ? '수정' : '답변'}</button>
+                  <button class="btn-inline btn-danger" onclick="event.stopPropagation(); deleteInquiry(${q.id})">삭제</button>
+                </div>
+              </td>
             `;
             tbody.appendChild(tr);
 
-            // 2. 상세 및 답변 작성 행
             const detailTr = document.createElement("tr");
-            detailTr.id = `detail-${q.id}`;
+            detailTr.id = `detail-${detailId}`;
             detailTr.className = "detail-row";
             detailTr.innerHTML = `
-              <td colspan="4" class="detail-cell">
+              <td colspan="5" class="detail-cell">
                 <div class="detail-content">
+                  <div style="margin-bottom: 15px; padding: 15px; background-color: #f8f9fa; border-radius: 5px; border: 1px solid #e9ecef;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                      <div><strong>📧 이메일:</strong> <a href="mailto:${sanitizeHTML(q.email)}" style="color: #008b8b; text-decoration: underline;">${sanitizeHTML(q.email)}</a></div>
+                      <div><strong>📞 연락처:</strong> ${sanitizeHTML(q.phone || '-')}</div>
+                    </div>
+                  </div>
                   <p><strong>📝 문의 상세 내용:</strong></p>
-                  <div style="margin: 10px 0; white-space: pre-wrap; color: #333;">${sanitizeHTML(
-                    q.message
-                  )}</div>
+                  <div style="margin: 10px 0; white-space: pre-wrap; color: #333;">${sanitizeHTML(q.message)}</div>
                   <hr style="margin: 15px 0; border: 0; border-top: 1px solid #eee;">
-                  <p><strong>💬 답변 작성:</strong></p>
-                  <textarea id="reply-text-${
-                    q.id
-                  }" class="reply-textarea" placeholder="답변 내용을 입력하세요..."></textarea>
-                  <button class="btn-inline" onclick="submitReply(${
-                    q.id
-                  })">답변 등록</button>
+                  <p><strong>💬 답변 ${isAnswered ? '수정' : '작성'}:</strong></p>
+                  <textarea id="reply-text-${q.id}" class="reply-textarea" placeholder="답변 내용을 입력하세요...">${q.reply ? sanitizeHTML(q.reply) : ''}</textarea>
+                  <button class="btn-inline" onclick="submitReply(${q.id})">답변 ${isAnswered ? '수정' : '등록'}</button>
                 </div>
               </td>
             `;
             tbody.appendChild(detailTr);
           });
-        } catch (error) {
-          console.error("Error:", error);
-        }
       }
+
 
       // 상세 토글
       function toggleDetail(id) {
@@ -304,7 +545,7 @@
         row.style.display = row.style.display === "none" ? "table-row" : "none";
       }
 
-      // 답변 등록 (인라인)
+      // 답변 등록/수정
       function submitReply(id) {
         const replyText = document.getElementById(`reply-text-${id}`).value;
         if (!replyText.trim()) {
@@ -312,33 +553,188 @@
           return;
         }
 
-        // 커스텀 확인 팝업 호출
-        showCustomConfirm("답변을 등록하시겠습니까?", async () => {
-          const data = {
-            id: id,
-            adminPassword,
-            reply: replyText,
-          };
+        const isEdit = !!document.getElementById(`detail-answered-${id}`);
+        const actionText = isEdit ? "수정" : "등록";
 
+        showCustomConfirm(`답변을 ${actionText}하시겠습니까?`, async () => {
           try {
-            const response = await fetch(`${API_BASE}/admin-reply`, {
+            const response = await fetchAdminAPI('admin-reply', {
               method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(data),
+              body: JSON.stringify({ id, reply: replyText }),
             });
 
-            const result = await response.json();
-
             if (response.ok) {
-              // 성공 시 커스텀 알림 팝업
-              showCustomAlert("답변이 정상적으로 등록되었습니다", () => {
-                loadPendingInquiries();
-              });
+              showCustomAlert(`답변이 정상적으로 ${actionText}되었습니다`, () => loadInquiries());
             } else {
+              const result = await response.json();
               showCustomAlert(`✗ ${result.error}`);
             }
           } catch (error) {
-            showCustomAlert(`✗ 오류: ${error.message}`);
+            if (error.message !== "Unauthorized") {
+              showCustomAlert(`✗ 오류: ${error.message}`);
+            }
+          }
+        });
+      }
+
+      // MSDS 관리자 목록 조회
+      async function loadMsdsAdminList() {
+        const tbody = document.getElementById("msdsAdminListBody");
+        tbody.innerHTML = '<tr><td colspan="5" style="padding:20px;">로딩 중...</td></tr>';
+        try {
+          const response = await fetchAdminAPI('get-msds-list');
+          if (!response.ok) throw new Error('MSDS 목록 로드 실패');
+          const posts = await response.json();
+
+          if (!posts || posts.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" style="padding:20px;">등록된 게시글이 없습니다.</td></tr>';
+            return;
+          }
+
+          tbody.innerHTML = posts.map(post => `
+            <tr>
+              <td>${post.id}</td>
+              <td style="text-align:left; padding-left:10px;">
+                ${post.is_notice ? '<span style="color:red; font-weight:bold;">[공지]</span> ' : ''}
+                ${sanitizeHTML(post.title)}
+              </td>
+              <td>${sanitizeHTML(post.author_name)}</td>
+              <td>${new Date(post.created_at).toLocaleDateString("ko-KR")}</td>
+              <td>
+                <div class="action-btn-group">
+                  <button class="btn-inline" onclick="editMsdsPost(${post.id})">수정</button>
+                  <button class="btn-inline btn-danger" onclick="deleteMsdsPost(${post.id})">삭제</button>
+                </div>
+              </td>
+            </tr>
+          `).join("");
+        } catch (error) {
+          if (error.message !== "Unauthorized") {
+            tbody.innerHTML = `<tr><td colspan="5" style="color:red;">${error.message}</td></tr>`;
+          }
+        }
+      }
+
+      // MSDS 수정 모드 진입
+      async function editMsdsPost(id) {
+        try {
+          const response = await fetchAdminAPI(`get-msds-detail?id=${id}&skipIncrement=true`);
+          if (!response.ok) throw new Error("데이터를 불러오지 못했습니다.");
+          const post = await response.json();
+
+          document.getElementById("msdsId").value = post.id;
+          document.getElementById("msdsTitle").value = post.title;
+          document.getElementById("msdsAuthor").value = post.author_name;
+          document.getElementById("msdsNotice").checked = post.is_notice;
+          document.getElementById("msdsContent").value = post.content;
+          document.getElementById("btnSaveMsds").textContent = "게시글 수정";
+          document.getElementById("msdsForm").scrollIntoView({ behavior: "smooth" });
+        } catch (error) {
+           if (error.message !== "Unauthorized") showCustomAlert(`오류: ${error.message}`);
+        }
+      }
+
+      // MSDS 폼 초기화
+      function resetMsdsForm() {
+        document.getElementById("msdsForm").reset();
+        document.getElementById("msdsId").value = "";
+        document.getElementById("msdsAuthor").value = "관리자";
+        document.getElementById("btnSaveMsds").textContent = "게시글 등록";
+      }
+      
+      // 구글 드라이브 버튼 추가
+      function addDriveButton() {
+        const url = document.getElementById("driveLinkInput").value.trim();
+        if (!url) return alert("Google Drive 링크를 입력해주세요.");
+        
+        let fileId = (url.match(/\/d\/([a-zA-Z0-9_-]+)/) || url.match(/id=([a-zA-Z0-9_-]+)/) || [])[1];
+        if (!fileId) return alert("올바른 Google Drive 링크 형식을 찾을 수 없습니다.");
+
+        const text = document.getElementById("driveBtnText").value || "자료 다운로드";
+        const btnHtml = `<a href="https://drive.google.com/uc?export=download&id=${fileId}" class="btn download-btn" style="text-decoration: none; margin-top: 10px;">📥 ${text}</a>`;
+        document.getElementById("msdsContent").value += `\n<p>${btnHtml}</p>`;
+        document.getElementById("driveLinkInput").value = "";
+      }
+
+      // MSDS 등록/수정 제출
+      document.getElementById("msdsForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const id = document.getElementById("msdsId").value;
+        const actionText = id ? "수정" : "등록";
+        const endpoint = id ? "update-msds-post" : "create-msds-post";
+        
+        const bodyData = {
+          title: document.getElementById("msdsTitle").value,
+          author_name: document.getElementById("msdsAuthor").value,
+          is_notice: document.getElementById("msdsNotice").checked,
+          content: document.getElementById("msdsContent").value,
+        };
+        if (id) bodyData.id = id;
+
+        showCustomConfirm(`MSDS 게시글을 ${actionText}하시겠습니까?`, async () => {
+          try {
+            const response = await fetchAdminAPI(endpoint, {
+              method: "POST",
+              body: JSON.stringify(bodyData),
+            });
+
+            if (response.ok) {
+              showCustomAlert(`게시글이 성공적으로 ${actionText}되었습니다.`, () => {
+                resetMsdsForm();
+                loadMsdsAdminList();
+              });
+            } else {
+              const result = await response.json();
+              showCustomAlert(`✗ ${actionText} 실패: ${result.error || "알 수 없는 오류"}`);
+            }
+          } catch (error) {
+            if (error.message !== "Unauthorized") {
+              showCustomAlert(`✗ 오류: ${error.message}`);
+            }
+          }
+        });
+      });
+
+      // 문의 삭제 함수
+      function deleteInquiry(id) {
+        showCustomConfirm("정말로 이 문의를 삭제하시겠습니까?\n삭제된 데이터는 복구할 수 없습니다.", async () => {
+          try {
+            const response = await fetchAdminAPI('delete-inquiry', {
+              method: "POST",
+              body: JSON.stringify({ id }),
+            });
+            if (response.ok) {
+              showCustomAlert("문의가 삭제되었습니다.", loadInquiries);
+            } else {
+              const result = await response.json();
+              showCustomAlert(`삭제 실패: ${result.error}`);
+            }
+          } catch (error) {
+            if (error.message !== "Unauthorized") showCustomAlert(`오류: ${error.message}`);
+          }
+        });
+      }
+
+      // MSDS 게시글 삭제 함수
+      function deleteMsdsPost(id) {
+        showCustomConfirm("정말로 이 게시글을 삭제하시겠습니까?\n삭제된 데이터는 복구할 수 없습니다.", async () => {
+          try {
+             const response = await fetchAdminAPI('delete-msds-post', {
+              method: "POST",
+              body: JSON.stringify({ id }),
+            });
+            if (response.ok) {
+              showCustomAlert("게시글이 삭제되었습니다.", () => {
+                loadMsdsAdminList();
+                resetMsdsForm();
+              });
+            } else {
+               const result = await response.json();
+              showCustomAlert(`삭제 실패: ${result.error}`);
+            }
+          } catch (error) {
+            if (error.message !== "Unauthorized") showCustomAlert(`오류: ${error.message}`);
           }
         });
       }
@@ -352,21 +748,20 @@
         const btnCancel = document.getElementById("btnModalCancel");
 
         title.textContent = "확인";
-        msg.textContent = message;
-        btnCancel.style.display = "inline-block"; // 취소 버튼 보이기
+        msg.innerHTML = message.replace('\n', '<br>');
+        btnCancel.style.display = "inline-block";
 
-        // 이벤트 리스너 초기화 (중복 방지)
         const newConfirmBtn = btnConfirm.cloneNode(true);
-        const newCancelBtn = btnCancel.cloneNode(true);
         btnConfirm.parentNode.replaceChild(newConfirmBtn, btnConfirm);
-        btnCancel.parentNode.replaceChild(newCancelBtn, btnCancel);
-
-        newConfirmBtn.addEventListener("click", () => {
+        newConfirmBtn.onclick = () => {
           closeCustomModal();
           if (onConfirm) onConfirm();
-        });
-        newCancelBtn.addEventListener("click", closeCustomModal);
+        };
 
+        const newCancelBtn = btnCancel.cloneNode(true);
+        btnCancel.parentNode.replaceChild(newCancelBtn, btnCancel);
+        newCancelBtn.onclick = closeCustomModal;
+        
         overlay.classList.add("active");
       }
 
@@ -379,30 +774,27 @@
 
         title.textContent = "알림";
         msg.textContent = message;
-        btnCancel.style.display = "none"; // 취소 버튼 숨기기
-
+        btnCancel.style.display = "none";
+        
         const newConfirmBtn = btnConfirm.cloneNode(true);
         btnConfirm.parentNode.replaceChild(newConfirmBtn, btnConfirm);
-
-        newConfirmBtn.addEventListener("click", () => {
+        newConfirmBtn.onclick = () => {
           closeCustomModal();
           if (onOk) onOk();
-        });
+        };
 
         overlay.classList.add("active");
       }
 
       function closeCustomModal() {
-        document
-          .getElementById("customModalOverlay")
-          .classList.remove("active");
+        document.getElementById("customModalOverlay").classList.remove("active");
       }
 
-      // 유틸리티: HTML 살균 (XSS 방지)
       function sanitizeHTML(text) {
-        const div = document.createElement("div");
-        div.textContent = text;
-        return div.innerHTML;
+        if (text === null || typeof text === 'undefined') return '';
+        const temp = document.createElement('div');
+        temp.textContent = text;
+        return temp.innerHTML;
       }
     </script>
   </body>

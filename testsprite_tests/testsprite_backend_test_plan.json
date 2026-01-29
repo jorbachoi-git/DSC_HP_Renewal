@@ -1,0 +1,32 @@
+[
+  {
+    "id": "TC001",
+    "title": "admin login with valid password",
+    "description": "Test the POST /login endpoint with a valid admin password to verify successful authentication and receipt of a JWT token."
+  },
+  {
+    "id": "TC002",
+    "title": "submit inquiry with all required fields",
+    "description": "Test the POST /submit-inquiry endpoint by submitting a new inquiry with all required fields to ensure successful storage in the database."
+  },
+  {
+    "id": "TC003",
+    "title": "get public inquiries list without authentication",
+    "description": "Test the GET /get-public-list endpoint without authentication to verify retrieval of public inquiries with masked names."
+  },
+  {
+    "id": "TC004",
+    "title": "get all inquiries list with admin authentication",
+    "description": "Test the GET /get-public-list endpoint with valid admin JWT token and getAll=true query to verify retrieval of all inquiries including non-public ones."
+  },
+  {
+    "id": "TC005",
+    "title": "admin reply to inquiry with valid token",
+    "description": "Test the POST /admin-reply endpoint by submitting a reply to an inquiry with a valid admin JWT token to verify successful posting or updating of the reply."
+  },
+  {
+    "id": "TC006",
+    "title": "create msds post with valid admin token",
+    "description": "Test the POST /create-msds-post endpoint by creating a new MSDS post with valid admin JWT token to verify successful creation of the post."
+  }
+]

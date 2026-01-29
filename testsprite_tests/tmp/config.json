@@ -1,16 +1,17 @@
 {
   "status": "commited",
-  "type": "frontend",
+  "type": "backend",
   "scope": "codebase",
   "localEndpoint": "http://localhost:8888",
+  "backendAuthType": "public",
   "executionArgs": {
     "projectName": "DSC_HP_01",
     "projectPath": "C:\\Users\\jaeeu\\Documents\\Dev\\DSC_HP_01",
     "testIds": [],
-    "additionalInstruction": "",
+    "additionalInstruction": "# 웹사이트 전체 디버깅 체크리스트 (v2.0)\n\n이 문서는 동서화학 웹사이트의 프론트엔드 및 백엔드 기능 전반에 대한 디버깅 체크리스트입니다. `functionality_summary.md`의 최신 명세를 기반으로 작성되었으며, 기능 테스트, 버그 재현, 유지보수 시 활용하여 시스템의 안정성을 확보하는 것을 목적으로 합니다.\n\n---\n\n## Part 1: 프론트엔드 (Frontend)\n\n... (rest of the checklist content) ...\n\n---\n**VERY IMPORTANT INSTRUCTIONS FOR FINAL VERIFICATION:**\nPlease prioritize and specifically verify the following fixes using the admin password \"dssp2134\":\n\n1.  **Inquiry Submission Fix (`submit-inquiry.js`):**\n    *   **CRITICAL VERIFICATION:** The previous run failed with a `500 Internal Server Error` due to a SQL syntax error (JavaScript comment in SQL template literal). This has been fixed. Verify that submitting a new inquiry now works correctly and returns a `200 OK` status.\n    *   **XSS Vulnerability Fix:** As part of the same submission, verify that malicious content (e.g., `<script>alert('xss')</script>`) is sanitized and not rendered as executable HTML.\n\n2.  **MSDS Post Creation Fix (`create-msds-post.js`):**\n    *   Log in as admin.\n    *   Verify that creating a new MSDS post works successfully.\n\n3.  **Admin Reply Fix (`admin-reply.js`):**\n    *   Log in as admin.\n    *   Verify that replying to an inquiry works successfully.\n\nThis is the final verification run. Please test all functionalities comprehensively.\n",
     "envs": {
       "API_KEY": "sk-user-Q7vRWOhKWSo0txHUwrR7WfRbFsaUW-cF80imsciihl3joBVaPHqNbxx2cABLFzTss-Iq0Vqsj3Bk3TxhxGvuO0-4Wh06gDxy_l-HlY76rZIjhbsErJ162K7LnqaZU0ROg4k"
     }
   },
-  "proxy": "http://d209e341-7bdb-4ba2-ba63-6349b6b5aa71:QS2fImJSVmOG4INUvi87VQHlF6K8zFSl@tun.testsprite.com:8080"
+  "proxy": "http://9f74d4c4-fa41-4f82-9255-9ebc84de9e4b:lsw9ns28nJRSDIY9EUwaCTJV8p8JuGLt@tun.testsprite.com:8080"
 }

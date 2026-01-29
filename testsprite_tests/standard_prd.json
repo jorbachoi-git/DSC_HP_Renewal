@@ -1,113 +1,336 @@
 {
   "meta": {
-    "project": "Product Inquiry and Admin Dashboard System",
-    "date": "2026-01-15",
+    "project": "Dongseo Chemical Website",
+    "date": "2026-01-29",
     "prepared_by": "Software Development Manager"
   },
-  "product_overview": "A web-based product inquiry system providing a main landing page with product information and inquiry form, alongside an admin dashboard for managing and replying to inquiries. It supports public inquiry listings and private detailed views protected by password verification.",
+  "product_overview": "Dongseo Chemical Website is a comprehensive platform offering public product information, material safety data sheets (MSDS), and customer inquiry management with secure admin dashboard functionalities.",
   "core_goals": [
-    "Provide users with an intuitive interface to submit product inquiries.",
-    "Enable admins to efficiently manage and respond to inquiries through a secure dashboard.",
-    "Support public visibility of inquiries with password-protected details.",
-    "Ensure responsive design and seamless user experience across devices.",
-    "Maintain system performance and optimize backend API responsiveness."
+    "Provide a user-friendly website for product browsing and inquiry submission.",
+    "Implement a secure and functional admin dashboard for managing inquiries and MSDS posts.",
+    "Ensure multilingual support and responsive design across devices.",
+    "Maintain robust backend API with data validation, security, and error handling.",
+    "Enable easy management and moderation of customer inquiries and MSDS content."
   ],
   "key_features": [
-    "Main landing page with product introductions and inquiry submission form.",
-    "Admin dashboard for viewing and replying to inquiries.",
-    "Asynchronous handling of inquiry submissions with validation and status feedback.",
-    "Public listing of inquiries with dynamic pagination using a 'Load More' mechanism.",
-    "Password-protected inquiry detail viewing with verification process.",
-    "Localization support for text toggling between English and Korean.",
-    "Interactive UI elements including modals, popups, and carousel sliders.",
-    "Kakao Map integration in the company introduction section.",
-    "Responsive design with media queries supporting mobile menu with accordion submenus.",
-    "Backend serverless functions powered by Netlify handling inquiries and admin replies."
+    "Public-facing homepage with interactive product galleries, customer inquiry submission, and MSDS browsing.",
+    "Multi-language support and responsive UI including mobile navigation and modal popups.",
+    "Inquiry system allowing public submission, masking of names, detail view with password protection, and admin replies.",
+    "Admin dashboard authentication with JWT tokens, managing inquiries (answer, delete), and MSDS posts (create, edit, delete).",
+    "RESTful backend APIs built with Node.js and Netlify Functions including login, inquiry submission, inquiry listing, MSDS management, and admin replies.",
+    "Security features including password hashing (bcrypt), JWT authentication, and input sanitization for XSS prevention.",
+    "Detailed UI features like hero carousel, Kakao maps integration, and gallery effects for enhanced user experience."
   ],
   "user_flow_summary": [
-    "User visits main landing page, reads product information, and fills out inquiry form.",
-    "User submits inquiry; system validates inputs, sends data asynchronously, and shows feedback message.",
-    "User views list of public inquiries, clicks 'Load More' to see additional inquiries.",
-    "User clicks on a specific inquiry in the list, prompted to enter password, submits it for verification, and upon success views detailed inquiry and admin reply.",
-    "Admin logs into admin dashboard, reviews incoming inquiries, and sends replies via the interface.",
-    "User toggles language setting between English and Korean to change visible text.",
-    "User interacts with UI elements such as product detail modals, MSDS popup, and hero carousel slider.",
-    "User navigates to company introduction section to see the embedded Kakao Map rendered correctly."
+    "Users visit the homepage, navigate various sections smoothly, and browse product information and galleries.",
+    "Users submit inquiries through a form that validates required fields and sends data to backend.",
+    "Public inquiries are listed with masked names; users can expand inquiries, enter passwords to view details and admin replies.",
+    "Administrators log in using password to receive JWT and access the admin dashboard.",
+    "In admin dashboard, admins manage inquiries by answering or deleting them and manage MSDS posts by creating, updating, or deleting content.",
+    "APIs validate user input, authenticate admin requests, hash passwords, and handle errors consistently."
   ],
   "validation_criteria": [
-    "All required input fields for inquiry submission enforce validation and display appropriate user messages.",
-    "Inquiry submission API call responds successfully and UI updates to confirm submission status.",
-    "Public inquiry list loads on page load, displays 'No inquiries' message if empty, and supports incremental loading via 'Load More' button.",
-    "Password verification for inquiry detail correctly prevents unauthorized access and displays error messages on failure.",
-    "Admin reply API accepts input and updates inquiry records, reflecting changes in admin dashboard.",
-    "UI elements such as carousel, modals, and popups function as specified without visual glitches or layout breaks.",
-    "Responsive design adapts correctly at specified media query breakpoints, including mobile menu toggling and accordion submenus.",
-    "Kakao Map loads and renders correctly upon activation of the company introduction section without visual errors or failures.",
-    "Backend Netlify functions respond within acceptable time frames and handle errors gracefully.",
-    "No broken images or invalid paths exist, and UI scripts execute without runtime errors."
+    "Frontend UI elements render correctly and interact as expected (responsive design, modals, navigation, language toggle).",
+    "API endpoints respond with proper HTTP codes and data formats for success and failure cases.",
+    "Password security ensured via bcrypt hashing and JWT token-based authorization.",
+    "Data stored in PostgreSQL reliably, with sanitized inputs preventing XSS vulnerabilities.",
+    "Admin operations require valid JWT tokens; unauthorized access returns 401 errors.",
+    "Inquiry listing and details display proper masking and password verification results.",
+    "MSDS posts display, search, pagination, and detail view functionalities operate correctly.",
+    "Error handling returns consistent messages and HTTP status codes across frontend and backend.",
+    "Sensitive data like passwords or password hashes are never exposed in API responses.",
+    "Environment variables securely manage all sensitive configuration values."
   ],
   "code_summary": {
     "tech_stack": [
-      "HTML",
-      "CSS",
-      "JavaScript",
       "Node.js",
-      "PostgreSQL",
-      "Netlify"
+      "JavaScript",
+      "Netlify Functions",
+      "PostgreSQL (Neon)",
+      "jsonwebtoken",
+      "bcryptjs"
     ],
     "features": [
       {
-        "name": "Main Page",
-        "description": "Main landing page with product introductions and inquiry form.",
+        "name": "POST /login",
+        "description": "Authenticates an admin user based on a password and returns a JWT.",
         "files": [
-          "index.html",
-          "src/script.js",
-          "style.css"
-        ]
+          "netlify/functions/login.js"
+        ],
+        "api_doc": {
+          "openapi": "3.0.0",
+          "info": {
+            "title": "Admin Login API",
+            "version": "1.0.0"
+          },
+          "paths": {
+            "/.netlify/functions/login": {
+              "post": {
+                "summary": "Admin login",
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "password": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "password"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "Successful login, returns JWT",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "type": "object",
+                          "properties": {
+                            "token": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "401": {
+                    "description": "Invalid credentials"
+                  }
+                }
+              }
+            }
+          }
+        }
       },
       {
-        "name": "Admin Page",
-        "description": "Admin dashboard to view and reply to inquiries.",
-        "files": [
-          "admin.html",
-          "src/script.js",
-          "style.css"
-        ]
-      },
-      {
-        "name": "Inquiry Submission",
-        "description": "Backend function to handle new inquiry submissions.",
+        "name": "POST /submit-inquiry",
+        "description": "Submits a new customer inquiry and stores it in the database.",
         "files": [
           "netlify/functions/submit-inquiry.js"
-        ]
+        ],
+        "api_doc": {
+          "openapi": "3.0.0",
+          "info": {
+            "title": "Submit Inquiry API",
+            "version": "1.0.0"
+          },
+          "paths": {
+            "/.netlify/functions/submit-inquiry": {
+              "post": {
+                "summary": "Submit a new inquiry",
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "company": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string",
+                            "format": "email"
+                          },
+                          "phone": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          },
+                          "is_public": {
+                            "type": "boolean"
+                          },
+                          "password": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "name",
+                          "email",
+                          "message",
+                          "password"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "Inquiry submitted successfully"
+                  },
+                  "400": {
+                    "description": "Missing required fields"
+                  }
+                }
+              }
+            }
+          }
+        }
       },
       {
-        "name": "Get Public Inquiries",
-        "description": "Backend function to get a list of public inquiries.",
+        "name": "GET /get-public-list",
+        "description": "Retrieves public inquiries. Can fetch all inquiries if called with admin rights.",
         "files": [
           "netlify/functions/get-public-list.js"
-        ]
+        ],
+        "api_doc": {
+          "openapi": "3.0.0",
+          "info": {
+            "title": "Get Inquiries API",
+            "version": "1.0.0"
+          },
+          "paths": {
+            "/.netlify/functions/get-public-list": {
+              "get": {
+                "summary": "Get list of inquiries",
+                "parameters": [
+                  {
+                    "name": "getAll",
+                    "in": "query",
+                    "schema": {
+                      "type": "boolean"
+                    }
+                  }
+                ],
+                "security": [
+                  {
+                    "BearerAuth": []
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "A list of inquiries"
+                  },
+                  "401": {
+                    "description": "Unauthorized (required for getAll=true)"
+                  }
+                }
+              }
+            }
+          }
+        }
       },
       {
-        "name": "Get Inquiry Detail",
-        "description": "Backend function to get the details of a specific inquiry.",
-        "files": [
-          "netlify/functions/get-inquiry-detail.js"
-        ]
-      },
-      {
-        "name": "Admin Reply",
-        "description": "Backend function for admins to reply to inquiries.",
+        "name": "POST /admin-reply",
+        "description": "Allows an admin to post or update a reply to an inquiry.",
         "files": [
           "netlify/functions/admin-reply.js"
-        ]
+        ],
+        "api_doc": {
+          "openapi": "3.0.0",
+          "info": {
+            "title": "Admin Reply API",
+            "version": "1.0.0"
+          },
+          "paths": {
+            "/.netlify/functions/admin-reply": {
+              "post": {
+                "summary": "Submit an admin reply",
+                "security": [
+                  {
+                    "BearerAuth": []
+                  }
+                ],
+                "requestBody": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "inquiryId": {
+                            "type": "integer"
+                          },
+                          "reply": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "inquiryId",
+                          "reply"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "Reply posted successfully"
+                  },
+                  "401": {
+                    "description": "Unauthorized"
+                  }
+                }
+              }
+            }
+          }
+        }
       },
       {
-        "name": "Password Verification",
-        "description": "Backend function to verify password for private inquiries.",
+        "name": "POST /create-msds-post",
+        "description": "Allows an admin to create a new MSDS post.",
         "files": [
-          "netlify/functions/verify-password.js"
-        ]
+          "netlify/functions/create-msds-post.js"
+        ],
+        "api_doc": {
+          "openapi": "3.0.0",
+          "info": {
+            "title": "Create MSDS Post API",
+            "version": "1.0.0"
+          },
+          "paths": {
+            "/.netlify/functions/create-msds-post": {
+              "post": {
+                "summary": "Create an MSDS post",
+                "security": [
+                  {
+                    "BearerAuth": []
+                  }
+                ],
+                "requestBody": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "title": {
+                            "type": "string"
+                          },
+                          "content": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "title",
+                          "content"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "Post created successfully"
+                  },
+                  "401": {
+                    "description": "Unauthorized"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     ]
   }
