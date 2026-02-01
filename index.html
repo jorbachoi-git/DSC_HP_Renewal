@@ -4,6 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>동서화학 - 50년 전통의 에어졸 전문기업</title>
+    <meta name="description" content="50년 전통의 에어졸 전문기업 동서화학(DSC). 락카 스프레이, 방청제, 이형제 제조 및 충전 서비스 제공." />
+    <meta name="keywords" content="동서화학, 락카, 스프레이, 에어졸, 방청제, 이형제, 충전서비스, DSC" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="동서화학 - 50년 전통의 에어졸 전문기업" />
+    <meta property="og:description" content="혁신적인 기술개발과 신뢰를 바탕으로 고객에게 최고 품질의 제품을 공급합니다." />
+    <meta property="og:image" content="https://www.dsc-aerosol.com/images/DongSuh_Logo.png" />
+    <meta property="og:url" content="https://www.dsc-aerosol.com" />
     <link rel="stylesheet" href="style.css" />
     <style>
       /* JS 동적 제어를 위한 필수 스타일 */
@@ -170,7 +177,7 @@
       .mobile-nav-sub a {
         display: block;
         padding: 10px 20px 10px 35px; /* 들여쓰기 */
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         color: #666;
         border-bottom: 1px solid #eee;
       }
@@ -392,6 +399,12 @@
         font-weight: bold;
         font-size: 1.2rem;
         cursor: pointer;
+        line-height: 1.2; /* 기본 줄 간격 축소 */
+      }
+      /* 영문 모드일 때 로고 텍스트 최적화 (폰트 크기 및 행간 축소) */
+      html[lang="en"] .logo span {
+        font-size: 0.95rem;
+        line-height: 1.1;
       }
       .logo img {
         height: auto;
@@ -617,6 +630,139 @@
         margin-bottom: 8px;
         color: #222;
       }
+      /* MSDS 팝업 버튼 스타일 조정 (폰트 축소) */
+      .msds-popup-btn {
+        font-size: 0.65rem !important;
+        padding: 8px 12px !important;
+      }
+      /* MSDS 팝업 전체 크기 축소 (약 60% 수준) */
+      .msds-popup {
+        width: 90% !important;
+        max-width: 320px !important;
+        padding: 15px !important;
+      }
+      .msds-popup h2 {
+        font-size: 1.1rem !important;
+        margin-bottom: 8px !important;
+      }
+      .msds-popup p {
+        font-size: 0.8rem !important;
+        line-height: 1.4 !important;
+      }
+      /* 제품 상세 모달 텍스트 크기 축소 (80%) */
+      #productModal #modalDescription,
+      #productModal .modal-grid ul li {
+        font-size: 80% !important;
+        line-height: 1.5;
+      }
+      /* --- 데스크탑 드롭다운 메뉴 스타일 --- */
+      .nav {
+        overflow: visible !important; /* 드롭다운이 잘리지 않도록 설정 */
+      }
+      .nav-item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        height: 100%;
+      }
+      .nav-item > a {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        padding: 0 15px;
+        cursor: pointer;
+        text-decoration: none;
+        color: #333;
+        font-weight: 600;
+        transition: color 0.2s;
+      }
+      .nav-item:hover > a {
+        color: #008b8b;
+      }
+      .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%) translateY(10px);
+        background-color: #fff;
+        min-width: 200px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        padding: 10px 0;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 1000;
+        border: 1px solid #eee;
+      }
+      .nav-item:hover .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+      }
+      .dropdown-menu a {
+        display: block;
+        padding: 10px 20px;
+        color: #555;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+        text-align: left;
+      }
+      .dropdown-menu a:hover {
+        color: #008b8b;
+        background-color: #f8f9fa;
+        padding-left: 25px; /* 호버 시 살짝 이동 효과 */
+      }
+      /* 마우스 이동 시 메뉴가 닫히지 않도록 투명 다리 역할 */
+      .nav-item::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 100%;
+        height: 20px;
+      }
+      /* --- 언어 토글 스위치 스타일 (KOR/ENG) --- */
+      .language-toggle-container {
+        display: flex;
+        background-color: #f1f3f4;
+        border-radius: 20px;
+        padding: 3px;
+        margin-left: 15px;
+        border: 1px solid #e0e0e0;
+      }
+      .lang-option {
+        background: none;
+        border: none;
+        padding: 6px 14px;
+        border-radius: 17px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #888;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        line-height: 1;
+      }
+      .lang-option.active {
+        background-color: #008b8b;
+        color: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+      }
+      .lang-option:hover:not(.active) {
+        color: #008b8b;
+        background-color: rgba(0, 139, 139, 0.1);
+      }
+      @media (max-width: 768px) {
+        .language-toggle-container {
+          margin-left: 10px;
+        }
+        .lang-option {
+          padding: 5px 10px;
+          font-size: 0.75rem;
+        }
+      }
     </style>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script id="tailwind-config">
@@ -652,22 +798,50 @@
     <div class="msds-popup" id="msdsPopup">
       <h2 data-i18n="popup_msds_title">📋 MSDS 안내</h2>
       <p>
-        <span data-i18n="popup_msds_desc">MSDS 및 제품 카탈로그는 자료실에서 다운로드 받을 수 있습니다. 또는 문의를 남기시면 e-mail로 답변드리겠습니다.</span><br /><br />
+        <span data-i18n="popup_msds_desc">MSDS 및 제품 카탈로그는 자료실에서 다운로드 받을 수 있습니다. 또는 제품문의 및 자료요청 페이지에서 요청해주시면 e-mail로 답변드리겠습니다.</span><br /><br />
         <span style="font-size: 14px; color: #666"
           data-i18n="popup_contact">문의전화 : 032-571-6344</span
         >
       </p>
       <div class="msds-popup-buttons">
         <button
-          class="msds-popup-btn msds-popup-btn-primary"
-          onclick="closeMsdsPopup(); navigateTo('msds');"
-          data-i18n="popup_btn_go"
+          class="msds-popup-btn msds-popup-btn-secondary"
+          onclick="closeMsdsPopup24h();"
+          data-i18n="popup_btn_24h"
         >
-          자료실 가기
+          24시간 닫기
         </button>
         <button
-          class="msds-popup-btn msds-popup-btn-secondary"
+          class="msds-popup-btn msds-popup-btn-primary"
           onclick="closeMsdsPopup();"
+          data-i18n="popup_btn_close"
+        >
+          닫기
+        </button>
+      </div>
+    </div>
+
+    <!-- Filling Service Popup -->
+    <div class="msds-popup-overlay" id="fillingPopupOverlay" style="z-index: 2001;"></div>
+    <div class="msds-popup" id="fillingPopup" style="z-index: 2002;">
+      <h2 data-i18n="popup_filling_title">고품질 충전서비스 확대</h2>
+      <p>
+        <span data-i18n="popup_filling_desc"><strong>4L 이상</strong>부터 주문 가능하고, 신속한 납기를 보장합니다. 제품문의 및 자료요청 페이지에서 요청해 주시거나 전화주세요</span><br /><br />
+        <span style="font-size: 14px; color: #666"
+          data-i18n="popup_filling_contact">문의전화 : 032-574-6345</span
+        >
+      </p>
+      <div class="msds-popup-buttons">
+        <button
+          class="msds-popup-btn msds-popup-btn-secondary"
+          onclick="closeFillingPopup24h();"
+          data-i18n="popup_btn_24h"
+        >
+          24시간 닫기
+        </button>
+        <button
+          class="msds-popup-btn msds-popup-btn-primary"
+          onclick="closeFillingPopup();"
           data-i18n="popup_btn_close"
         >
           닫기
@@ -696,18 +870,58 @@
           </svg>
         </button>
 
-        <div class="logo" onclick="navigateTo('home')" role="button" tabindex="0">
+        <div class="logo" onclick="navigateTo('home')" role="button" tabindex="0" onkeydown="if(event.key === 'Enter' || event.key === ' ') navigateTo('home')">
           <img src="images/DongSuh_Logo.png" alt="동서화학 로고" />
           <span data-i18n="company_name">동서화학(주)</span>
         </div>
         <nav class="nav">
-          <a onclick="navigateTo('company')" data-i18n="nav_company">회사소개</a>
-          <a onclick="navigateTo('products')" data-i18n="nav_products">제품소개</a>
-          <a onclick="navigateTo('gallery')" data-i18n="nav_gallery">갤러리</a>
-          <a onclick="navigateTo('msds')" data-i18n="nav_msds">자료실</a>
-          <a onclick="navigateTo('support')" data-i18n="nav_support">고객지원</a>
+          <div class="nav-item">
+            <a onclick="navigateTo('company')" data-i18n="nav_company">회사소개</a>
+            <div class="dropdown-menu">
+              <a onclick="navigateTo('company', 'ceo-message')" data-i18n="ceo_title">CEO 인사말</a>
+              <a onclick="navigateTo('company', 'philosophy')" data-i18n="philosophy_title">경영이념</a>
+              <a onclick="navigateTo('company', 'history')" data-i18n="history_title">회사연혁</a>
+              <a onclick="navigateTo('certificates')" data-i18n="cert_title">상표 및 인증현황</a>
+              <a onclick="navigateTo('company', 'location')" data-i18n="loc_title">사업장안내</a>
+            </div>
+          </div>
+          <div class="nav-item">
+            <a onclick="navigateTo('products')" data-i18n="nav_products">제품소개</a>
+            <div class="dropdown-menu">
+              <a onclick="navigateTo('products', 'prod-dongsuh')" data-i18n="prod_dongsuh_title">동서 락카</a>
+              <a onclick="navigateTo('products', 'prod-ds')" data-i18n="prod_ds_title">DS 락카</a>
+              <a onclick="navigateTo('products', 'prod-zinc')" data-i18n="prod_zinc_title">아연(ZINC SILVER)</a>
+              <a onclick="navigateTo('products', 'prod-release')" data-i18n="prod_release_title">이형제</a>
+              <a onclick="navigateTo('products', 'prod-rust')" data-i18n="prod_rust_title">방청제</a>
+              <a onclick="navigateTo('products', 'prod-filling')" data-i18n="prod_filling_title">충전서비스</a>
+            </div>
+          </div>
+          <div class="nav-item">
+            <a onclick="navigateTo('gallery')" data-i18n="nav_gallery">갤러리</a>
+            <div class="dropdown-menu">
+              <a onclick="navigateTo('gallery')" data-i18n="nav_gallery_sub">아티스트 협업</a>
+            </div>
+          </div>
+          <div class="nav-item">
+            <a onclick="navigateTo('msds')" data-i18n="nav_msds">자료실</a>
+            <div class="dropdown-menu">
+              <a onclick="navigateTo('msds', 'msds-content')" data-i18n="menu_msds">MSDS</a>
+              <a onclick="navigateTo('msds', 'catalog-content')" data-i18n="cat_title">카탈로그</a>
+            </div>
+          </div>
+          <div class="nav-item">
+            <a onclick="navigateTo('support')" data-i18n="nav_support">고객지원</a>
+            <div class="dropdown-menu">
+              <a onclick="navigateTo('contact')" data-i18n="contact_title">제품 문의 및 자료요청</a>
+              <a onclick="navigateTo('support', 'notice')" data-i18n="notice_title">공지사항</a>
+              <a onclick="navigateTo('support', 'contact-info')" data-i18n="contact_info_title">문의 & 연락처</a>
+            </div>
+          </div>
         </nav>
-        <button class="language-toggle" onclick="toggleLanguage()">ENG</button>
+        <div class="language-toggle-container">
+          <button class="lang-option active" id="lang-ko" onclick="setLanguage('ko')">KOR</button>
+          <button class="lang-option" id="lang-en" onclick="setLanguage('en')">ENG</button>
+        </div>
       </div>
     </header>
 
@@ -715,22 +929,19 @@
     <div
       class="mobile-menu-overlay"
       id="mobileMenuOverlay"
-      onclick="closeMobileMenu()"
+      onclick="history.back()"
     ></div>
     <div class="mobile-menu" id="mobileMenu">
       <div class="mobile-menu-header">
         <span class="mobile-menu-title">MENU</span>
-        <button class="mobile-menu-close" onclick="closeMobileMenu()">✕</button>
+        <button class="mobile-menu-close" onclick="history.back()">✕</button>
       </div>
       <nav class="mobile-nav-list">
         <!-- 회사소개 (아코디언) -->
         <div class="mobile-nav-group">
-          <div
-            class="mobile-nav-header"
-            onclick="toggleMobileSubmenu('sub-company', this)"
-          >
-            <span data-i18n="nav_company">회사소개</span>
-            <span class="arrow-icon">▼</span>
+          <div class="mobile-nav-header">
+            <span data-i18n="nav_company" onclick="navigateTo('company'); closeMobileMenu()" style="flex-grow: 1;">회사소개</span>
+            <span class="arrow-icon" onclick="toggleMobileSubmenu('sub-company', this.parentElement)" style="padding: 10px;">▼</span>
           </div>
           <div id="sub-company" class="mobile-nav-sub">
             <a onclick="navigateTo('company', 'ceo-message'); closeMobileMenu()" data-i18n="ceo_title"
@@ -753,12 +964,9 @@
 
         <!-- 제품소개 (아코디언 - 확장 대비) -->
         <div class="mobile-nav-group">
-          <div
-            class="mobile-nav-header"
-            onclick="toggleMobileSubmenu('sub-products', this)"
-          >
-            <span data-i18n="nav_products">제품소개</span>
-            <span class="arrow-icon">▼</span>
+          <div class="mobile-nav-header">
+            <span data-i18n="nav_products" onclick="navigateTo('products'); closeMobileMenu()" style="flex-grow: 1;">제품소개</span>
+            <span class="arrow-icon" onclick="toggleMobileSubmenu('sub-products', this.parentElement)" style="padding: 10px;">▼</span>
           </div>
           <div id="sub-products" class="mobile-nav-sub">
             <a
@@ -794,12 +1002,9 @@
 
         <!-- 자료실 (아코디언) -->
         <div class="mobile-nav-group">
-          <div
-            class="mobile-nav-header"
-            onclick="toggleMobileSubmenu('sub-msds', this)"
-          >
-            <span data-i18n="nav_msds">자료실</span>
-            <span class="arrow-icon">▼</span>
+          <div class="mobile-nav-header">
+            <span data-i18n="nav_msds" onclick="navigateTo('msds'); closeMobileMenu()" style="flex-grow: 1;">자료실</span>
+            <span class="arrow-icon" onclick="toggleMobileSubmenu('sub-msds', this.parentElement)" style="padding: 10px;">▼</span>
           </div>
           <div id="sub-msds" class="mobile-nav-sub">
             <a onclick="navigateTo('msds', 'msds-content'); closeMobileMenu()" data-i18n="menu_msds"
@@ -814,12 +1019,9 @@
 
         <!-- 고객지원 (아코디언) -->
         <div class="mobile-nav-group">
-          <div
-            class="mobile-nav-header"
-            onclick="toggleMobileSubmenu('sub-support', this)"
-          >
-            <span data-i18n="nav_support">고객지원</span>
-            <span class="arrow-icon">▼</span>
+          <div class="mobile-nav-header">
+            <span data-i18n="nav_support" onclick="navigateTo('support'); closeMobileMenu()" style="flex-grow: 1;">고객지원</span>
+            <span class="arrow-icon" onclick="toggleMobileSubmenu('sub-support', this.parentElement)" style="padding: 10px;">▼</span>
           </div>
           <div id="sub-support" class="mobile-nav-sub">
             <a onclick="navigateTo('contact'); closeMobileMenu()" data-i18n="contact_title"
@@ -827,9 +1029,6 @@
             >
             <a onclick="navigateTo('support', 'notice'); closeMobileMenu()" data-i18n="notice_title"
               >공지사항</a
-            >
-            <a onclick="navigateTo('support', 'faq'); closeMobileMenu()" data-i18n="faq_title"
-              >자주 묻는 질문(FAQ)</a
             >
             <a
               onclick="navigateTo('support', 'contact-info'); closeMobileMenu()" data-i18n="contact_info_title"
@@ -853,8 +1052,8 @@
               혁신적인 기술개발과 신뢰를 바탕으로 고객에게 최고 품질의 락카
               스프레이 제품을 공급합니다.
             </p>
-            <button class="hero-btn" onclick="navigateTo('products')" data-i18n="hero_btn">
-              제품 보기
+            <button class="hero-btn" onclick="navigateTo('products', 'prod-dongsuh')" data-i18n="hero_btn_dongsuh">
+              고품질 동서락카 보기
             </button>
           </div>
         </div>
@@ -865,8 +1064,8 @@
           <div class="hero-content">
             <h1 data-i18n="hero_2_title">최고의 품질, 우수한 제품</h1>
             <p data-i18n="hero_2_desc">인증 기준을 충족하는 우수한 제품으로 시장을 선도합니다.</p>
-            <button class="hero-btn" onclick="navigateTo('products')" data-i18n="hero_btn">
-              제품 보기
+            <button class="hero-btn" onclick="navigateTo('products', 'prod-filling')" data-i18n="hero_btn_filling">
+              신속 충전서비스 보기
             </button>
           </div>
         </div>
@@ -877,8 +1076,8 @@
           <div class="hero-content">
             <h1 data-i18n="hero_3_title">신뢰할 수 있는 파트너</h1>
             <p data-i18n="hero_3_desc">고객의 요구를 만족하는 맞춤형 솔루션을 제공합니다.</p>
-            <button class="hero-btn" onclick="navigateTo('products')" data-i18n="hero_btn">
-              제품 보기
+            <button class="hero-btn" onclick="navigateTo('products', 'prod-dongsuh')" data-i18n="hero_btn_dongsuh">
+              고품질 동서락카 보기
             </button>
           </div>
         </div>
@@ -1083,7 +1282,7 @@
     <section class="section-content" id="products">
       <div
         class="subheading-banner"
-        style="background-image: url('images/Subheading2.png')"
+        style="background-image: url('images/BGI_DongSuh1.png')"
       >
         <h2 data-i18n="section_products">제품소개</h2>
       </div>
@@ -1092,66 +1291,72 @@
           <div
             id="prod-dongsuh"
             class="product-card"
-            onclick="showProductDetail('prod_dongsuh_title', 'prod_dongsuh_desc_long')"
+            onclick="showProductDetail('dongsuh')"
+            onkeydown="if(event.key === 'Enter' || event.key === ' ') showProductDetail('dongsuh')"
             role="button"
             tabindex="0"
           >
-            <img src="images/prod_01.png" alt="동서 락카" />
+            <img src="images/prod_01.png" alt="동서 락카" loading="lazy" />
             <h3 data-i18n="prod_dongsuh_title">동서 락카</h3>
             <p data-i18n="prod_dongsuh_desc">프리미엄 에어졸 도장제</p>
           </div>
           <div
             id="prod-ds"
             class="product-card"
-            onclick="showProductDetail('prod_ds_title', 'prod_ds_desc_long')"
+            onclick="showProductDetail('ds')"
+            onkeydown="if(event.key === 'Enter' || event.key === ' ') showProductDetail('ds')"
             role="button"
             tabindex="0"
           >
-            <img src="images/prod_02.png" alt="DS 락카" />
+            <img src="images/prod_02.png" alt="DS 락카" loading="lazy" />
             <h3 data-i18n="prod_ds_title">DS 락카</h3>
             <p data-i18n="prod_ds_desc">산업용 도장 솔루션</p>
           </div>
           <div
             id="prod-zinc"
             class="product-card"
-            onclick="showProductDetail('prod_zinc_title', 'prod_zinc_desc_long')"
+            onclick="showProductDetail('zinc')"
+            onkeydown="if(event.key === 'Enter' || event.key === ' ') showProductDetail('zinc')"
             role="button"
             tabindex="0"
           >
-            <img src="images/prod_03.png" alt="아연(ZINC SILVER)" />
+            <img src="images/prod_03.png" alt="아연(ZINC SILVER)" loading="lazy" />
             <h3 data-i18n="prod_zinc_title">아연(ZINC SILVER)</h3>
             <p data-i18n="prod_zinc_desc">방청 코팅제</p>
           </div>
           <div
             id="prod-release"
             class="product-card"
-            onclick="showProductDetail('prod_release_title', 'prod_release_desc_long')"
+            onclick="showProductDetail('release')"
+            onkeydown="if(event.key === 'Enter' || event.key === ' ') showProductDetail('release')"
             role="button"
             tabindex="0"
           >
-            <img src="images/prod_04.png" alt="이형제" />
+            <img src="images/prod_04.png" alt="이형제" loading="lazy" />
             <h3 data-i18n="prod_release_title">이형제</h3>
             <p data-i18n="prod_release_desc">금형 이형 에어졸</p>
           </div>
           <div
             id="prod-rust"
             class="product-card"
-            onclick="showProductDetail('prod_rust_title', 'prod_rust_desc_long')"
+            onclick="showProductDetail('rust')"
+            onkeydown="if(event.key === 'Enter' || event.key === ' ') showProductDetail('rust')"
             role="button"
             tabindex="0"
           >
-            <img src="images/prod_05.png" alt="방청제" />
+            <img src="images/prod_05.png" alt="방청제" loading="lazy" />
             <h3 data-i18n="prod_rust_title">방청제</h3>
             <p data-i18n="prod_rust_desc">강력한 녹 방지 솔루션</p>
           </div>
           <div
             id="prod-filling"
             class="product-card"
-            onclick="showProductDetail('prod_filling_title', 'prod_filling_desc_long')"
+            onclick="showProductDetail('filling')"
+            onkeydown="if(event.key === 'Enter' || event.key === ' ') showProductDetail('filling')"
             role="button"
             tabindex="0"
           >
-            <img src="images/prod_06.png" alt="충전서비스" />
+            <img src="images/prod_06.png" alt="충전서비스" loading="lazy" />
             <h3 data-i18n="prod_filling_title">충전서비스</h3>
             <p data-i18n="prod_filling_desc">맞춤형 에어졸 제조</p>
           </div>
@@ -1163,7 +1368,7 @@
     <section class="section-content" id="gallery">
       <div
         class="subheading-banner"
-        style="background-image: url('images/Subheading2.png')"
+        style="background-image: url('images/BGI_DongSuh2.png')"
       >
         <h2 data-i18n="section_gallery">전문가의 선택</h2>
       </div>
@@ -1178,7 +1383,7 @@
           <!-- Card 1: 두산로보틱스 -->
           <div class="gallery-card">
             <div class="gallery-image-container">
-              <img src="images/bfmin22doosan063.jpg" alt="두산로보틱스 협업 작품" />
+              <img src="images/bfmin22doosan063.jpg" alt="두산로보틱스 협업 작품" loading="lazy" />
               <span class="copyright-overlay">Artist © 범민[BFMIN]</span>
             </div>
             <div class="gallery-content">
@@ -1189,7 +1394,7 @@
           <!-- Card 2: 까르띠에 -->
           <div class="gallery-card">
             <div class="gallery-image-container">
-              <img src="images/bfmin23cartier263.jpg" alt="까르띠에 협업 작품" />
+              <img src="images/bfmin23cartier263.jpg" alt="까르띠에 협업 작품" loading="lazy" />
               <span class="copyright-overlay">Artist © 범민[BFMIN]</span>
             </div>
             <div class="gallery-content">
@@ -1200,7 +1405,7 @@
           <!-- Card 3: 트와이스 -->
           <div class="gallery-card">
             <div class="gallery-image-container">
-              <img src="images/bfmin22twice053.jpg" alt="트와이스 뮤직비디오 배경 작업" />
+              <img src="images/bfmin22twice053.jpg" alt="트와이스 뮤직비디오 배경 작업" loading="lazy" />
               <span class="copyright-overlay">Artist © 범민[BFMIN]</span>
             </div>
             <div class="gallery-content">
@@ -1211,7 +1416,7 @@
           <!-- Card 4: 람보르기니 -->
           <div class="gallery-card">
             <div class="gallery-image-container">
-              <img src="images/bfmin23lamborghini063.jpg" alt="람보르기니 협업 작품" />
+              <img src="images/bfmin23lamborghini063.jpg" alt="람보르기니 협업 작품" loading="lazy" />
               <span class="copyright-overlay">Artist © 범민[BFMIN]</span>
             </div>
             <div class="gallery-content">
@@ -1523,8 +1728,7 @@
             </div>
             <div
               class="feature-image"
-              style="background-image: url('images/BGI_DongSuh1.png')"
-            ></div>
+              style="background-image: url('images/Subheading5.png')"
           </div>
 
           <!-- 공지사항 -->
@@ -1541,39 +1745,22 @@
                 신제품 출시 정보, 전시회 참가 소식, 그리고 중요 유지보수 안내
                 등을 가장 빠르게 전달해 드립니다.
               </p>
+              <p data-i18n="notice_desc_3">
+                ※<strong>내용 보완예정</strong>입니다.
+              </p>
             </div>
             <div
               class="feature-image"
-              style="background-image: url('images/BGI_DongSuh2.png')"
+              style="background-image: url('images/Subheading6.png')"
             ></div>
-          </div>
-
-          <!-- FAQ -->
-          <div
-            class="feature-block cursor-pointer"
-            onclick="showAlert('alert_faq')"
-            role="button"
-            tabindex="0"
-          >
-            <div
-              class="feature-image"
-              style="background-image: url('images/Subheading3.png')"
-            ></div>
-            <div class="feature-content">
-              <h3 id="faq" data-i18n="faq_title">자주 묻는 질문 (FAQ)</h3>
-              <p data-i18n="faq_desc_1">
-                제품 사용법, 대량 구매, 기술 지원 등 고객님들이 자주 묻는
-                질문들을 모았습니다.
-              </p>
-              <p data-i18n="faq_desc_2">
-                궁금한 점이 있으시다면 먼저 FAQ를 확인해 보세요. 빠르고 정확한
-                답변을 찾으실 수 있습니다.
-              </p>
-            </div>
           </div>
 
           <!-- 문의 & 연락처 (이동됨) -->
           <div class="feature-block">
+            <div
+              class="feature-image"
+              style="background-image: url('images/Subheading7.png')"
+            ></div>
             <div class="feature-content">
               <h3 id="contact-info" data-i18n="contact_info_title">문의 & 연락처</h3>
               <p>
@@ -1595,7 +1782,7 @@
     <section class="section-content" id="contact">
       <div
         class="subheading-banner"
-        style="background-image: url('images/Subheading4.png')"
+        style="background-image: url('images/Subheading7.png')"
       >
         <h2 data-i18n="section_support">고객지원</h2>
       </div>
@@ -1628,7 +1815,7 @@
                 <!-- 1행: 성명 / 업체명 -->
                 <div class="form-group">
                   <label for="name"
-                    ><span data-i18n="label_name">성명</span><span class="required-text">(필수)</span></label
+                    ><span data-i18n="label_name">성명</span><span class="required-text" data-i18n="required_text">(필수)</span></label
                   >
                   <input
                     type="text"
@@ -1653,7 +1840,7 @@
                 <!-- 2행: 이메일 / 연락처 -->
                 <div class="form-group">
                   <label for="email"
-                    ><span data-i18n="label_email">이메일</span><span class="required-text">(필수)</span></label
+                    ><span data-i18n="label_email">이메일</span><span class="required-text" data-i18n="required_text">(필수)</span></label
                   >
                   <input
                     type="email"
@@ -1678,7 +1865,7 @@
                 <!-- 3행: 문의내용 (Full Width) -->
                 <div class="form-group full-width">
                   <label for="message"
-                    ><span data-i18n="label_message">문의 내용</span><span class="required-text">(필수)</span></label
+                    ><span data-i18n="label_message">문의 내용</span><span class="required-text" data-i18n="required_text">(필수)</span></label
                   >
                   <textarea
                     id="message"
@@ -1694,7 +1881,7 @@
               <div class="form-footer">
                 <div class="form-group password-group">
                   <label for="password"
-                    ><span data-i18n="label_password">비밀번호</span><span class="required-text">(필수)</span></label
+                    ><span data-i18n="label_password">비밀번호</span><span class="required-text" data-i18n="required_text">(필수)</span></label
                   >
                   <input
                     type="password"
@@ -1845,9 +2032,6 @@
             <a href="#" onclick="navigateTo('support', 'notice'); return false;" data-i18n="notice_title"
               >공지사항</a
             >
-            <a href="#" onclick="navigateTo('support', 'faq'); return false;" data-i18n="faq_title"
-              >자주 묻는 질문(FAQ)</a
-            >
             <a
               href="#"
               onclick="navigateTo('support', 'contact-info'); return false;" data-i18n="contact_info_title"
@@ -1873,7 +2057,7 @@
           <p style="margin-bottom: 30px; color: #888; font-size: 0.8rem" data-i18n="footer_copyright">
             COPYRIGHT 2026 DONGSUH CHEMICAL @RIGHTS RESERVED
           </p>
-          <div class="logo" onclick="navigateTo('home')" role="button" tabindex="0">
+          <div class="logo" onclick="navigateTo('home')" role="button" tabindex="0" onkeydown="if(event.key === 'Enter' || event.key === ' ') navigateTo('home')">
             <img src="images/DongSuh_Logo.png" alt="동서화학 로고" />
               <span data-i18n="company_name">동서화학(주)</span>
           </div>
@@ -1884,28 +2068,20 @@
     <!-- Product Detail Modal -->
     <div id="productModal" class="modal">
       <div class="modal-content">
-        <button class="modal-close" onclick="closeModal()">✕</button>
+        <button class="modal-close" onclick="history.back()">✕</button>
         <h2 id="modalTitle"></h2>
         <p id="modalDescription"></p>
         <div class="modal-grid">
           <div>
             <h4 data-i18n="modal_features">주요 특징</h4>
-            <ul>
-              <li>우수한 성능</li>
-              <li>안정성 인증</li>
-              <li>환경친화적</li>
-            </ul>
+            <ul id="modalFeatures"></ul>
           </div>
           <div>
             <h4 data-i18n="modal_applications">적용 분야</h4>
-            <ul>
-              <li>자동차 산업</li>
-              <li>기계 제조</li>
-              <li>금속 가공</li>
-            </ul>
+            <ul id="modalApplications"></ul>
           </div>
         </div>
-        <button class="btn" onclick="navigateTo('msds'); closeModal();" data-i18n="modal_btn_view">
+        <button class="btn" onclick="navigateTo('msds')" data-i18n="modal_btn_view">
           자료실 보기
         </button>
       </div>
@@ -1992,6 +2168,12 @@
       // 슬라이드 초기화
       function initSlides() {
         const dotsContainer = document.getElementById("heroDots");
+        
+        // 초기 히스토리 상태 설정 (Home)
+        if (!history.state) {
+          history.replaceState({ section: 'home' }, '', '');
+        }
+
         for (let i = 0; i < totalSlides; i++) {
           const dot = document.createElement("div");
           dot.className = "hero-dot" + (i === 0 ? " active" : "");
@@ -2041,8 +2223,59 @@
         startAutoSlide();
       }
 
-      // 네비게이션
+      // 브라우저 뒤로가기(Popstate) 처리
+      window.addEventListener('popstate', function(event) {
+        // 뒤로가기 시 열려있는 모달/팝업/메뉴 닫기
+        document.getElementById("productModal").classList.remove("active");
+        document.getElementById("msdsPopupOverlay").classList.remove("active");
+        document.getElementById("msdsPopup").classList.remove("active");
+        document.getElementById("mobileMenuOverlay").classList.remove("active");
+        document.getElementById("mobileMenu").classList.remove("active");
+        
+        // 문의 상세 내용 모두 닫기
+        document.querySelectorAll('.detail-row').forEach(r => r.style.display = 'none');
+
+        if (event.state) {
+            // 1. 섹션 복원
+            if (event.state.section) {
+                updateUI(event.state.section, event.state.targetId);
+            }
+            // 2. 모바일 메뉴 상태 복원
+            if (event.state.menu) {
+                document.getElementById("mobileMenuOverlay").classList.add("active");
+                document.getElementById("mobileMenu").classList.add("active");
+            }
+            // 3. 모달 상태 복원 (내용은 DOM에 남아있음)
+            if (event.state.modal) {
+                document.getElementById("productModal").classList.add("active");
+            }
+            // 4. 문의 상세 복원
+            if (event.state.inquiryId) {
+                const row = document.getElementById(`detail-row-${event.state.inquiryId}`);
+                if (row) row.style.display = 'table-row';
+            }
+        } else {
+            // 상태가 없으면 홈으로 이동
+            updateUI('home');
+        }
+      });
+
+      // 네비게이션 (히스토리 추가 포함)
       function navigateTo(section, targetId) {
+        // 모바일 메뉴가 열려있는 상태라면 히스토리를 쌓지 않고 교체 (UX 개선)
+        if (history.state && history.state.menu) {
+          history.replaceState({ section: section, targetId: targetId }, '', '');
+        } else {
+          history.pushState({ section: section, targetId: targetId }, '', '');
+        }
+        updateUI(section, targetId);
+      }
+
+      // 실제 UI 업데이트 로직 (내부 함수)
+      function updateUI(section, targetId) {
+        // 섹션 이동 시 모달이 열려있다면 닫기 (안전장치)
+        document.getElementById("productModal").classList.remove("active");
+
         const sections = document.querySelectorAll(".section-content");
         sections.forEach((s) => s.classList.remove("active"));
 
@@ -2067,16 +2300,30 @@
         }
       }
 
-      function showProductDetail(titleKey, descriptionKey) {
+      function showProductDetail(productId) {
+        // 모달을 열 때도 히스토리에 추가 (뒤로가기 시 모달만 닫히도록)
+        const currentSection = document.querySelector('.section-content.active').id || 'home';
+        history.pushState({ section: currentSection, modal: true }, '', '');
+
+        const titleKey = `prod_${productId}_title`;
+        const descriptionKey = `prod_${productId}_desc_long`;
+        const featuresKey = `prod_${productId}_features`;
+        const appsKey = `prod_${productId}_apps`;
+
         const title = translations[currentLang][titleKey] || titleKey;
         const description = translations[currentLang][descriptionKey] || descriptionKey;
+        
         document.getElementById("modalTitle").textContent = title;
-        document.getElementById("modalDescription").textContent = description;
+        document.getElementById("modalDescription").innerHTML = description;
+        document.getElementById("modalFeatures").innerHTML = translations[currentLang][featuresKey] || "<li>정보 없음</li>";
+        document.getElementById("modalApplications").innerHTML = translations[currentLang][appsKey] || "<li>정보 없음</li>";
+        
         document.getElementById("productModal").classList.add("active");
       }
 
       function closeModal() {
-        document.getElementById("productModal").classList.remove("active");
+        // 닫기 버튼을 누르면 히스토리 뒤로가기를 실행하여 popstate 이벤트를 발생시킴
+        history.back();
       }
 
       function showAlert(key) {
@@ -2097,6 +2344,8 @@
           hero_1_title: "50년 기술력, 락카 스프레이 명가",
           hero_1_desc: "혁신적인 기술개발과 신뢰를 바탕으로 고객에게 최고 품질의 락카 스프레이 제품을 공급합니다.",
           hero_btn: "제품 보기",
+          hero_btn_dongsuh: "고품질 동서락카 보기",
+          hero_btn_filling: "신속 충전서비스 보기",
           hero_2_title: "최고의 품질, 우수한 제품",
           hero_2_desc: "인증 기준을 충족하는 우수한 제품으로 시장을 선도합니다.",
           hero_3_title: "신뢰할 수 있는 파트너",
@@ -2206,9 +2455,6 @@
           notice_title: "공지사항",
           notice_desc_1: "동서화학의 최신 소식과 이벤트를 확인하세요.",
           notice_desc_2: "신제품 출시 정보, 전시회 참가 소식, 그리고 중요 유지보수 안내 등을 가장 빠르게 전달해 드립니다.",
-          faq_title: "자주 묻는 질문 (FAQ)",
-          faq_desc_1: "제품 사용법, 대량 구매, 기술 지원 등 고객님들이 자주 묻는 질문들을 모았습니다.",
-          faq_desc_2: "궁금한 점이 있으시다면 먼저 FAQ를 확인해 보세요. 빠르고 정확한 답변을 찾으실 수 있습니다.",
           contact_info_title: "문의 & 연락처",
           // Contact Form
           form_title: "📝 제품 문의 및 자료 요청",
@@ -2222,6 +2468,7 @@
           label_message: "문의 내용",
           label_password: "비밀번호",
           btn_submit: "문의 등록하기",
+          required_text: "(필수)",
           public_list_title: "📢 공개 문의 목록",
           public_list_notice: "※ 문의내용을 선택하고, 등록시 사용한 비밀번호를 입력하시면, 문의와 답변 내용을 확인하실 수 있습니다.",
           th_message: "문의내용",
@@ -2234,10 +2481,16 @@
           footer_copyright: "COPYRIGHT 2026 DONGSUH CHEMICAL @RIGHTS RESERVED",
           // MSDS Popup
           popup_msds_title: "📋 MSDS 안내",
-          popup_msds_desc: "MSDS 및 제품 카탈로그는 자료실에서 다운로드 받을 수 있습니다. 또는 문의를 남기시면 e-mail로 답변드리겠습니다.",
+          popup_msds_desc: "MSDS 및 제품 카탈로그는 자료실에서 다운로드 받을 수 있습니다. 또는 제품문의 및 자료요청 페이지에서 요청해주시면 e-mail로 답변드리겠습니다.",
           popup_contact: "문의전화 : 032-571-6344",
           popup_btn_go: "자료실 가기",
           popup_btn_close: "닫기",
+          popup_btn_24h: "24시간 동안 보지 않기",
+          popup_btn_24h: "24시간 닫기",
+          // Filling Popup
+          popup_filling_title: "고품질 충전서비스 확대",
+          popup_filling_desc: "<strong>4L 이상</strong>부터 주문 가능하고, 신속한 납기를 보장합니다. 제품문의 및 자료요청 페이지에서 요청해 주시거나 전화주세요",
+          popup_filling_contact: "문의전화 : 032-574-6345",
           // Product Modal
           modal_features: "주요 특징",
           modal_applications: "적용 분야",
@@ -2253,14 +2506,32 @@
           ph_message: "제품명, 수량, 요청 자료 등 상세 내용을 입력해 주세요.",
           ph_password: "비밀번호 (4자리 이상)",
           alert_notice: "공지사항: 신제품 출시, 이벤트, 유지보수 안내 등을 확인하세요.",
-          alert_faq: "FAQ: 자주 묻는 질문에 대한 답변을 확인하세요.",
           // Product Long Descriptions (Modal)
-          prod_dongsuh_desc_long: "금속, 플라스틱, 목재 등 다양한 재질의 표면 도장용 프리미엄 에어졸 제품. 빠른 건조와 우수한 광택감을 제공합니다.",
-          prod_ds_desc_long: "산업용 에어졸 도장제로 다양한 도장 환경에 적용 가능한 제품입니다. 뛰어난 부착성과 내구성을 자랑합니다.",
-          prod_zinc_desc_long: "금속 부식 방지를 위한 아연 코팅제입니다. 자동차 및 기계 산업에서 높은 신뢰도를 가지고 있습니다.",
-          prod_release_desc_long: "금형 및 성형 제품의 이형 작용에 우수한 에어졸 제품입니다. 깔끔한 이형과 재사용성이 뛰어납니다.",
-          prod_rust_desc_long: "금속 표면의 부식을 방지하고 장기간 보관을 가능하게 하는 고성능 방청제입니다. 침투력이 우수하여 미세한 틈새까지 보호합니다.",
-          prod_filling_desc_long: "DSC의 전문 에어졸 충전 서비스입니다. 고객의 맞춤형 제품 제조 및 충전을 지원합니다."
+          prod_dongsuh_desc_long: "금속, 플라스틱, 가구, 목재 등 다양한 재질의 표면 도장용 <strong>프리미엄 에어졸 제품.</strong> 선명한 색상과 우수한 광택감, 빠른 건조를 제공합니다.",
+          prod_ds_desc_long: "<strong>산업용 범용 에어졸 제품</strong>으로 다양한 도장 환경에 적용 가능한 범용 락카 스프레이입니다. 우수한 성능과 내구성을 자랑합니다.",
+          prod_zinc_desc_long: "금속 부식 방지를 위한 <strong>아연 코팅제</strong>입니다. 아연분과 금속과의 전기화학적 작용으로 방청과 부식방지에 탁월합니다. 자동차 및 기계 산업에서 높은 신뢰도를 가지고 있습니다.",
+          prod_release_desc_long: "금형 및 성형 제품의 <strong>이형 작용</strong>에 우수한 에어졸 제품입니다. 프라스틱이나 고무 부품을 금형에서 손상 없이, 깔끔하게 쉽게 제거할 수 있습니다.",
+          prod_rust_desc_long: "금속 표면의 부식을 방지하고 장기간 보관을 가능하게 하는 <strong>고성능 방청제</strong>입니다. 침투력이 우수하여 미세한 틈새까지 보호합니다.",
+          prod_filling_desc_long: "동서화학의 전문 에어졸 <strong>프리미엄 충전 서비스</strong>입니다. 고객별 맞춤형 제품 제조 및 충전을 지원합니다.(조색해오신 페인트는 4L이상 부터 주문가능하며, 물량에 따라 조색 서비스도 제공합니다.)<br><br>※ 고객지원 섹션의 <strong style='color: #008b8b;'>[📝 문의 및 자료요청 바로가기]</strong> 버튼을 눌러 요청해 주시거나, 032-574-6345로 전화주세요 !!",
+          
+          // Product Features & Applications (HTML Lists)
+          prod_dongsuh_features: "<li>선명한 색상과 광택</li><li>빠른 건조 속도</li><li>다양한 재질에 적용 가능</li>",
+          prod_dongsuh_apps: "<li> 금속,플라스틱,가구 표면채색 </li><li>목재, 철재 보수 도장</li>",
+          
+          prod_ds_features: "<li>경제적인 가격</li><li>우수한 내구성</li><li>산업 현장 최적화</li>",
+          prod_ds_apps: "<li>산업용 마킹 및 식별, 표면</li><li>목재,철재 등의 상도 보수용</li>",
+          
+          prod_zinc_features: "<li>고순도 미립자 이용 아연도금방식</li><li>탁월한 방청 효과</li><li>우수한 접착성</li><li>뛰어난 내열성과 용접성</li>",
+          prod_zinc_apps: "<li>선박,차량,발전,건축물</li><li>배관,탱크,용접 부위 보수</li><li>철구조물 방청,아연도금의 보수</li>",
+          
+          prod_release_features: "<li>우수한 이형성</li><li>금형 오염 최소화</li><li>2차 가공(도장, 도금) 용이</li>",
+          prod_release_apps: "<li>플라스틱 사출 성형</li><li>고무 및 다이캐스팅 성형</li>",
+          
+          prod_rust_features: "<li>강력한 보호막 형성</li><li>우수한 수치환성</li><li>장기간 녹 방지</li>",
+          prod_rust_apps: "<li>금형 및 기계 부품 보관</li><li>수출용 금속 제품 보호</li>",
+          
+          prod_filling_features: "<li>소량 다품종 생산 가능</li><li>고객 맞춤형 충전</li><li>철저한 품질 관리</li>",
+          prod_filling_apps: "<li>특수 컬러 락카스프레이</li><li>OEM/ODM 에어졸 생산</li>"
         },
         en: {
           nav_company: "Company",
@@ -2273,6 +2544,8 @@
           hero_1_title: "50 Years of Expertise, The Master of Lacquer Spray",
           hero_1_desc: "We supply the highest quality lacquer spray products based on innovative technology and trust.",
           hero_btn: "View Products",
+          hero_btn_dongsuh: "View Dongsuh Lacquer",
+          hero_btn_filling: "View Fast Filling Service",
           hero_2_title: "Best Quality, Excellent Products",
           hero_2_desc: "Leading the market with excellent products that meet certification standards.",
           hero_3_title: "Reliable Partner",
@@ -2383,14 +2656,11 @@
           notice_title: "Notice",
           notice_desc_1: "Check out the latest news and events.",
           notice_desc_2: "We deliver new product launch information, exhibition news, and important maintenance notices fastest.",
-          faq_title: "FAQ",
-          faq_desc_1: "We have collected frequently asked questions about product usage, bulk purchase, technical support, etc.",
-          faq_desc_2: "If you have any questions, please check the FAQ first. You can find quick and accurate answers.",
           contact_info_title: "Contact Info",
           // Contact Form
           form_title: "📝 Product Inquiry & Request",
           form_notice_1: "※ We will respond as soon as possible.",
-          form_notice_2: "※ (Required) fields must be filled in.",
+          form_notice_2: "※ Fields marked with * are required.",
           form_notice_3: "※ You can check your inquiry and answer in the list below.",
           label_name: "Name",
           label_company: "Company",
@@ -2399,6 +2669,7 @@
           label_message: "Message",
           label_password: "Password",
           btn_submit: "Submit Inquiry",
+          required_text: "*",
           public_list_title: "📢 Public Inquiries",
           public_list_notice: "※ Select an inquiry and enter the password to view details.",
           th_message: "Message",
@@ -2411,10 +2682,16 @@
           footer_copyright: "COPYRIGHT 2026 DONGSUH CHEMICAL @RIGHTS RESERVED",
           // MSDS Popup
           popup_msds_title: "📋 MSDS Notice",
-          popup_msds_desc: "You can download MSDS and catalogs from the Resources section. Or leave an inquiry and we will answer via e-mail.",
+          popup_msds_desc: "You can download MSDS and catalogs from the Resources section. Or request it on the Product Inquiry & Request page and we will answer via e-mail.",
           popup_contact: "Tel: 032-571-6344",
           popup_btn_go: "Go to Resources",
           popup_btn_close: "Close",
+          popup_btn_24h: "Don't show for 24 hours",
+          popup_btn_24h: "Close for 24h",
+          // Filling Popup
+          popup_filling_title: "Expansion of High-Quality Filling Service",
+          popup_filling_desc: "Orders available from <strong>4L or more</strong>, guaranteeing fast delivery. Please request via the Product Inquiry & Request page or call us.",
+          popup_filling_contact: "Tel: 032-574-6345",
           // Product Modal
           modal_features: "Key Features",
           modal_applications: "Applications",
@@ -2430,23 +2707,47 @@
           ph_message: "Please enter details such as product name, quantity, requested materials, etc.",
           ph_password: "Password (4+ chars)",
           alert_notice: "Notice: Check out new product launches, events, and maintenance notices.",
-          alert_faq: "FAQ: Check answers to frequently asked questions.",
           // Product Long Descriptions (Modal)
-          prod_dongsuh_desc_long: "Premium aerosol product for surface painting of various materials such as metal, plastic, and wood. Provides quick drying and excellent gloss.",
-          prod_ds_desc_long: "Industrial aerosol paint applicable to various painting environments. Boasts excellent adhesion and durability.",
-          prod_zinc_desc_long: "Zinc coating agent for preventing metal corrosion. Highly reliable in automotive and machinery industries.",
-          prod_release_desc_long: "Excellent aerosol product for mold release of molds and molded products. Excellent clean release and reusability.",
-          prod_rust_desc_long: "High-performance anti-rust agent that prevents corrosion of metal surfaces and enables long-term storage. Excellent penetration protects even microscopic crevices.",
-          prod_filling_desc_long: "DSC's professional aerosol filling service. We support custom product manufacturing and filling for customers."
+          prod_dongsuh_desc_long: "<strong>Premium aerosol product</strong> for surface painting of various materials such as metal, plastic, furniture, and wood. Provides vivid colors, excellent gloss, and fast drying.",
+          prod_ds_desc_long: "General-purpose lacquer spray applicable to various painting environments as an <strong>industrial general-purpose aerosol product</strong>. Boasts excellent performance and durability.",
+          prod_zinc_desc_long: "<strong>Zinc coating agent</strong> for preventing metal corrosion. Excellent for rust prevention and corrosion protection through electrochemical action between zinc powder and metal. Highly reliable in automotive and machinery industries.",
+          prod_release_desc_long: "Excellent aerosol product for <strong>mold release</strong> of molds and molded products. Plastic or rubber parts can be easily removed cleanly from the mold without damage.",
+          prod_rust_desc_long: "<strong>High-performance anti-rust agent</strong> that prevents corrosion of metal surfaces and enables long-term storage. Excellent penetration protects even microscopic crevices.",
+          prod_filling_desc_long: "DSC's professional aerosol <strong>premium filling service</strong>. We support custom product manufacturing and filling for customers. (We handle paints mixed by customers from 4L or more, and color matching service is also available depending on the volume.)",
+          
+          // Product Features & Applications (HTML Lists)
+          prod_dongsuh_features: "<li>Vivid colors and gloss</li><li>Fast drying speed</li><li>Applicable to various materials</li>",
+          prod_dongsuh_apps: "<li>Surface painting of metal, plastic, furniture</li><li>Repair painting of wood, steel</li>",
+          
+          prod_ds_features: "<li>Economical price</li><li>Excellent durability</li><li>Optimized for industrial sites</li>",
+          prod_ds_apps: "<li>Industrial marking, identification, surface</li><li>Top coat repair for wood, steel, etc.</li>",
+          
+          prod_zinc_features: "<li>Zinc plating method using high-purity fine particles</li><li>Excellent anti-rust effect</li><li>Excellent adhesion</li><li>Excellent heat resistance and weldability</li>",
+          prod_zinc_apps: "<li>Ships, vehicles, power generation, buildings</li><li>Repair of piping, tanks, welding spots</li><li>Rust prevention of steel structures, repair of zinc plating</li>",
+          
+          prod_release_features: "<li>Excellent release properties</li><li>Minimizes mold contamination</li><li>Easy for secondary processing (painting, plating)</li>",
+          prod_release_apps: "<li>Plastic injection molding</li><li>Rubber and die-casting molding</li>",
+          
+          prod_rust_features: "<li>Forms strong protective film</li><li>Excellent water displacement</li><li>Long-term rust prevention</li>",
+          prod_rust_apps: "<li>Storage of molds and machine parts</li><li>Protection of export metal products</li>",
+          
+          prod_filling_features: "<li>Small batch production available</li><li>Custom filling</li><li>Strict quality control</li>",
+          prod_filling_apps: "<li>Special color lacquer spray</li><li>OEM/ODM aerosol production</li>"
         },
       };
 
       let currentLang = "ko";
 
-      function toggleLanguage() {
-        currentLang = currentLang === "ko" ? "en" : "ko";
-        document.querySelector(".language-toggle").textContent =
-          currentLang === "ko" ? "ENG" : "KOR";
+      function setLanguage(lang) {
+        if (currentLang === lang) return;
+        currentLang = lang;
+        document.documentElement.lang = lang; // CSS 언어별 스타일 적용을 위해 lang 속성 업데이트
+
+        // 토글 UI 업데이트
+        document.getElementById('lang-ko').classList.toggle('active', lang === 'ko');
+        document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+
+        // 번역 적용
         document.querySelectorAll("[data-i18n]").forEach((el) => {
           const key = el.getAttribute("data-i18n");
           if (translations[currentLang][key]) {
@@ -2472,8 +2773,32 @@
         document.getElementById("msdsPopup").classList.remove("active");
       }
 
+      function closeMsdsPopup24h() {
+        const expiryTime = new Date().getTime() + (24 * 60 * 60 * 1000);
+        localStorage.setItem('msdsPopupExpiry', expiryTime);
+        closeMsdsPopup();
+      }
+
+      function showFillingPopup() {
+        document.getElementById("fillingPopupOverlay").classList.add("active");
+        document.getElementById("fillingPopup").classList.add("active");
+      }
+
+      function closeFillingPopup() {
+        document.getElementById("fillingPopupOverlay").classList.remove("active");
+        document.getElementById("fillingPopup").classList.remove("active");
+      }
+
+      function closeFillingPopup24h() {
+        const expiryTime = new Date().getTime() + (24 * 60 * 60 * 1000);
+        localStorage.setItem('fillingPopupExpiry', expiryTime);
+        closeFillingPopup();
+      }
+
       // 모바일 메뉴 제어
       function openMobileMenu() {
+        const currentSection = document.querySelector('.section-content.active').id || 'home';
+        history.pushState({ section: currentSection, menu: true }, '', '');
         document.getElementById("mobileMenuOverlay").classList.add("active");
         document.getElementById("mobileMenu").classList.add("active");
       }
@@ -2543,7 +2868,16 @@
         initCertificateGalleryFull();
         updateFileSizes();
         setTimeout(function () {
-          showMsdsPopup();
+          const expiry = localStorage.getItem('msdsPopupExpiry');
+          const now = new Date().getTime();
+          if (!expiry || now > parseInt(expiry)) {
+            showMsdsPopup();
+          }
+          
+          const fillingExpiry = localStorage.getItem('fillingPopupExpiry');
+          if (!fillingExpiry || now > parseInt(fillingExpiry)) {
+            showFillingPopup();
+          }
         }, 2000);
 
         // 연락처 입력 필드 자동 하이픈 적용
@@ -2574,6 +2908,12 @@
         .getElementById("msdsPopupOverlay")
         .addEventListener("click", function () {
           closeMsdsPopup();
+        });
+      
+      document
+        .getElementById("fillingPopupOverlay")
+        .addEventListener("click", function () {
+          closeFillingPopup();
         });
 
       document

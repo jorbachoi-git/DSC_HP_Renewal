@@ -4,6 +4,8 @@
   "description": "DSC HP Website with Inquiry System",
   "scripts": {
     "dev": "netlify dev",
+    "dev:mobile": "netlify dev --live",
+    "dev:live": "netlify dev --live",
     "build": "sass scss/style.scss style.css",
     "watch": "sass --watch scss/style.scss style.css"
   },
