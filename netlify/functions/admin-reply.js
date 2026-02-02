@@ -59,13 +59,17 @@ exports.handler = async (event) => {
   // --- JWT 인증 끝 ---
 
   try {
-    const { inquiryId, reply } = JSON.parse(event.body);
+    const body = JSON.parse(event.body);
+    const inquiryId = body.inquiryId || body.id;
+    const reply = body.reply;
 
     if (!inquiryId || !reply) {
       return {
         statusCode: 400,
         headers,
-        body: JSON.stringify({ error: "필수 항목(inquiryId, reply)을 입력해주세요" }),
+        body: JSON.stringify({
+          error: "필수 항목(inquiryId, reply)을 입력해주세요",
+        }),
       };
     }
 
