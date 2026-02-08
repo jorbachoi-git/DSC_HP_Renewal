@@ -10,6 +10,7 @@ body {
   line-height: 1.6;
   color: #333;
   background-color: #fff;
+  word-break: keep-all;
 }
 
 a {
@@ -93,10 +94,15 @@ header .header-top {
   padding: 0 20px;
 }
 header .hamburger-btn {
-  display: block;
+  display: none;
   cursor: pointer;
   color: #333;
   padding: 5px;
+}
+@media (max-width: 1080px) {
+  header .hamburger-btn {
+    display: block;
+  }
 }
 header .logo img {
   margin-left: 10px;
@@ -112,7 +118,7 @@ header .nav a {
 header .nav a:hover {
   color: #008b8b;
 }
-@media (max-width: 768px) {
+@media (max-width: 1080px) {
   header .nav {
     display: none;
   }

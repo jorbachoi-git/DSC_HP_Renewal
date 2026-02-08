@@ -903,10 +903,10 @@
             </div>
           </div>
           <div class="nav-item">
-            <a onclick="navigateTo('msds')" data-i18n="nav_msds">자료실</a>
+            <a onclick="navigateTo('msds-list')" data-i18n="nav_msds">자료실</a>
             <div class="dropdown-menu">
-              <a onclick="navigateTo('msds', 'msds-content')" data-i18n="menu_msds">MSDS</a>
-              <a onclick="navigateTo('msds', 'catalog-content')" data-i18n="cat_title">카탈로그</a>
+              <a onclick="navigateTo('msds-list')" data-i18n="menu_msds">MSDS</a>
+              <a onclick="navigateTo('msds-list')" data-i18n="cat_title">카탈로그</a>
             </div>
           </div>
           <div class="nav-item">
@@ -1003,15 +1003,15 @@
         <!-- 자료실 (아코디언) -->
         <div class="mobile-nav-group">
           <div class="mobile-nav-header">
-            <span data-i18n="nav_msds" onclick="navigateTo('msds'); closeMobileMenu()" style="flex-grow: 1;">자료실</span>
+            <span data-i18n="nav_msds" onclick="navigateTo('msds-list'); closeMobileMenu()" style="flex-grow: 1;">자료실</span>
             <span class="arrow-icon" onclick="toggleMobileSubmenu('sub-msds', this.parentElement)" style="padding: 10px;">▼</span>
           </div>
           <div id="sub-msds" class="mobile-nav-sub">
-            <a onclick="navigateTo('msds', 'msds-content'); closeMobileMenu()" data-i18n="menu_msds"
+            <a onclick="navigateTo('msds-list'); closeMobileMenu()" data-i18n="menu_msds"
               >MSDS</a
             >
             <a
-              onclick="navigateTo('msds', 'catalog-content'); closeMobileMenu()" data-i18n="cat_title"
+              onclick="navigateTo('msds-list'); closeMobileMenu()" data-i18n="cat_title"
               >카탈로그</a
             >
           </div>
@@ -1250,10 +1250,10 @@
         <h2 data-i18n="cert_section_title">상표 및 인증</h2>
       </div>
       <div class="container">
-        <h3 class="text-center mb-20" style="color: #008b8b" data-i18n="cert_page_title">
+        <h3 class="text-center mb-20" style="color: #008b8b; font-weight: 800; font-size: 1.8rem;" data-i18n="cert_page_title">
           🏆 동서화학이 보유하고 있는 상표 및 인증
         </h3>
-        <p class="text-center text-light mb-50 mx-auto max-w-600" data-i18n="cert_page_desc">
+        <p class="text-center text-light mb-50 mx-auto" style="word-break: keep-all;" data-i18n="cert_page_desc">
           국제 표준과 규격을 충족하는 엄격한 기준으로 인증받은 동서화학의
           전문성과 신뢰성을 확인하세요.
         </p>
@@ -1376,8 +1376,8 @@
         <h3 class="text-center mb-20" style="color: #008b8b; font-weight: 800; font-size: 1.8rem;" data-i18n="gallery_title">
           아티스트의 선택: 동서화학 X 범민(BFMIN)
         </h3>
-        <p class="text-center text-light mb-50 mx-auto max-w-600" data-i18n="gallery_desc">
-          동서화학의 탁월한 발색과 품질은 프로 아티스트의 영감이 됩니다. 세계적인 브랜드 및 K-POP과 함께한 그래피티 아티스트 범민 작가의 프로젝트를 소개합니다.
+        <p class="text-center text-light mb-50 mx-auto max-w-600" style="word-break: keep-all;" data-i18n="gallery_desc">
+          동서화학의 탁월한 발색과 품질은 프로 아티스트의 영감이 됩니다. 세계적인 브랜드 및 <span style="white-space: nowrap;">K-POP</span>과 함께한 그래피티 아티스트 범민 작가의 프로젝트를 소개합니다.
         </p>
         <div class="gallery-grid">
           <!-- Card 1: 두산로보틱스 -->
@@ -1443,7 +1443,7 @@
             <div class="feature-content">
               <h3 id="msds-content" data-i18n="msds_title">MSDS (물질안전보건자료)</h3>
                 <p data-i18n="msds_notice">
-                💡 <strong>안내:</strong> 대표 제품의 MSDS는 각 항목의 <strong style="color: #008b8b;">[📥 자료 다운로드]</strong> 버튼으로, 전체 목록은 페이지 하단의 <strong style="color: #008b8b;">[📋 MSDS 전체 목록 바로가기]</strong> 버튼으로 확인하실 수 있습니다.</p>
+                💡 <strong>안내:</strong> 대표 제품의 MSDS는 각 항목의 <strong style="color: #008b8b;">[📥 자료 다운로드]</strong> 버튼으로, 전체 목록은 페이지 하단의 <strong style="color: #008b8b;">[📋 MSDS/카탈로그 전체 목록 바로가기]</strong> 버튼으로 확인하실 수 있습니다.</p>
                 <p>※ 문제가 있는 경우 '제품 문의' 기능을 이용해 주세요.</p>
                 <button
                   class="hero-btn"
@@ -1451,100 +1451,42 @@
                   onclick="navigateTo('msds-list'); event.stopPropagation();"
                   data-i18n="btn_msds_list"
                 >
-                  📋 MSDS 전체 목록 바로가기
+                  📋 MSDS/카탈로그 전체 목록 바로가기
                 </button>
               </div>
               <div class="product-grid">
                 <div class="product-card">
                   <h3 data-i18n="prod_dongsuh_title">동서 락카</h3>
                   <p data-i18n="msds_tech_data">MSDS 및 기술 자료</p>
-                  <a
-                    href="docs/동서MSDS.pdf"
+                  <button
                     class="btn download-btn"
-                    download
+                    onclick="navigateTo('msds-list'); event.stopPropagation();"
                   >
                     <span class="download-icon">📥</span>
                     <span data-i18n="btn_download">자료 다운로드</span>
-                  </a>
-                  <div class="download-file-info" title="동서MSDS.pdf (PDF, 1.5MB)">동서MSDS.pdf (PDF, 1.5MB)</div>
-                </div>
-                <div class="product-card">
-                  <h3 data-i18n="prod_sabi_title">동서 사비</h3>
-                  <p data-i18n="msds_tech_data">MSDS 및 기술 자료</p>
-                  <a
-                    href="docs/동서사비MSDS.pdf"
-                    class="btn download-btn"
-                    download
-                  >
-                    <span class="download-icon">📥</span>
-                    <span data-i18n="btn_download">자료 다운로드</span>
-                  </a>
-                  <div class="download-file-info" title="동서사비MSDS.pdf (PDF, 1.5MB)">동서사비MSDS.pdf (PDF, 1.5MB)</div>
-                </div>
-                <div class="product-card">
-                  <h3 data-i18n="prod_gold_title">동서 금색</h3>
-                  <p data-i18n="msds_tech_data">MSDS 및 기술 자료</p>
-                  <a
-                    href="docs/동서금색MSDS(2025).pdf"
-                    class="btn download-btn"
-                    download
-                  >
-                    <span class="download-icon">📥</span>
-                    <span data-i18n="btn_download">자료 다운로드</span>
-                  </a>
-                  <div class="download-file-info" title="동서금색MSDS(2025).pdf (PDF, 1.5MB)">동서금색MSDS(2025).pdf (PDF, 1.5MB)</div>
-                </div>
-                <div class="product-card">
-                  <h3 data-i18n="prod_silver_title">동서 은색</h3>
-                  <p data-i18n="msds_tech_data">MSDS 및 기술 자료</p>
-                  <a
-                    href="docs/동서은색MSDS(2025).pdf"
-                    class="btn download-btn"
-                    download
-                  >
-                    <span class="download-icon">📥</span>
-                    <span data-i18n="btn_download">자료 다운로드</span>
-                  </a>
-                  <div class="download-file-info" title="동서은색MSDS(2025).pdf (PDF, 1.5MB)">동서은색MSDS(2025).pdf (PDF, 1.5MB)</div>
+                  </button>
                 </div>
                 <div class="product-card">
                   <h3 data-i18n="prod_dsi_title">DSI 락카</h3>
                   <p data-i18n="msds_tech_data">MSDS 및 기술 자료</p>
-                  <a
-                    href="docs/DSI락카MSDS(2025).pdf"
+                  <button
                     class="btn download-btn"
-                    download
+                    onclick="navigateTo('msds-list'); event.stopPropagation();"
                   >
                     <span class="download-icon">📥</span>
                     <span data-i18n="btn_download">자료 다운로드</span>
-                  </a>
-                  <div class="download-file-info" title="DSI락카MSDS(2025).pdf (PDF, 1.5MB)">DSI락카MSDS(2025).pdf (PDF, 1.5MB)</div>
-                </div>
-                <div class="product-card">
-                  <h3 data-i18n="prod_dsi_silver_title">DSI 락카 은색</h3>
-                  <p data-i18n="msds_tech_data">MSDS 및 기술 자료</p>
-                  <a
-                    href="docs/DSI락카은색MSDS(2025).pdf"
-                    class="btn download-btn"
-                    download
-                  >
-                    <span class="download-icon">📥</span>
-                    <span data-i18n="btn_download">자료 다운로드</span>
-                  </a>
-                  <div class="download-file-info" title="DSI락카은색MSDS(2025).pdf (PDF, 1.5MB)">DSI락카은색MSDS(2025).pdf (PDF, 1.5MB)</div>
+                  </button>
                 </div>
                 <div class="product-card">
                   <h3 data-i18n="prod_zinc_title">아연(ZINC SILVER)</h3>
                   <p data-i18n="msds_tech_data">MSDS 및 기술 자료</p>
-                  <a
-                    href="docs/ZINC100MSDS(2024).pdf"
+                  <button
                     class="btn download-btn"
-                    download
+                    onclick="navigateTo('msds-list'); event.stopPropagation();"
                   >
                     <span class="download-icon">📥</span>
                     <span data-i18n="btn_download">자료 다운로드</span>
-                  </a>
-                  <div class="download-file-info" title="ZINC100MSDS(2024).pdf">ZINC100MSDS(2024).pdf</div>
+                  </button>
                 </div>
               </div>
             </div>
@@ -1553,48 +1495,40 @@
           <div class="feature-block">
             <div class="feature-content">
               <h3 id="catalog-content" data-i18n="cat_title">카탈로그</h3>
-                <p data-i18n="cat_desc">모든 제품의 정보를 포함한 카탈로그를 다운로드하세요.<br /><br /></p>
+                <p data-i18n="msds_notice">
+                💡 <strong>안내:</strong> 제품의 카탈로그는 아래의 <strong style="color: #008b8b;">[📋 MSDS/카탈로그 전체 목록 바로가기]</strong> 버튼으로 확인하실 수 있습니다.</p>
+                <p>※ 카탈로그 내용은 곧 업데이트될 예정입니다. </p>
+                <button
+                  class="hero-btn"
+                  style="margin-top: 15px; font-size: 1rem; padding: 10px 25px"
+                  onclick="navigateTo('msds-list'); event.stopPropagation();"
+                  data-i18n="btn_msds_list"
+                >
+                  📋 MSDS/카탈로그 전체 목록 바로가기
+                </button>
               </div>
               <div class="product-grid">
                 <div class="product-card">
                   <h3 data-i18n="cat_prod_title">상품 카탈로그</h3>
                   <p data-i18n="cat_prod_desc">전체 제품 소개서</p>
-                  <a
-                    href="docs/DSC_Prod_Cat1.pdf"
+                  <button
                     class="btn download-btn"
-                    download
+                    onclick="navigateTo('msds-list'); event.stopPropagation();"
                   >
                     <span class="download-icon">📄</span>
                     <span data-i18n="btn_download">자료 다운로드</span>
-                  </a>
-                  <div class="download-file-info" title="DSC_Prod_Cat1.pdf (PDF, 5.2MB)">DSC_Prod_Cat1.pdf (PDF, 5.2MB)</div>
+                  </button>
                 </div>
                 <div class="product-card">
-                  <h3 data-i18n="msds_zip_ko_title">전체 MSDS ZIP</h3>
-                  <p data-i18n="msds_zip_ko_desc">국문 MSDS 일괄 다운로드</p>
-                  <a
-                    href="docs/동서화학MSDS.zip"
-                    href="https://drive.google.com/uc?export=download&id=1c2BRrl2m3mnyciA27ndULJJllqllvBd-"
-                    class="btn download-btn"
-                    download
-                  >
-                    <span class="download-icon">📦</span>
-                    <span data-i18n="btn_download">자료 다운로드</span>
-                  </a>
-                  <div class="download-file-info">동서화학MSDS.zip</div>
-                  <div class="download-file-info">전체 MSDS ZIP (Google Drive)</div>
-                </div>
-                <div class="product-card">
-                  <h3 data-i18n="msds_zip_en_title">영문 MSDS ZIP</h3>
-                  <p data-i18n="msds_zip_en_desc">English MSDS Bundle</p>
+                  <h3 data-i18n="cat_prod_en_title">영문 상품카탈로그</h3>
+                  <p data-i18n="cat_prod_en_desc">전체 제품 영문 소개서</p>
                   <button
                     class="btn download-btn"
-                    disabled
+                    onclick="navigateTo('msds-list'); event.stopPropagation();"
                   >
-                    <span class="download-icon">📦</span>
+                    <span class="download-icon">📄</span>
                     <span data-i18n="btn_download">자료 다운로드</span>
                   </button>
-                  <div class="download-file-info" data-i18n="file_none">파일 없음</div>
                 </div>
               </div>
             </div>
@@ -1613,14 +1547,15 @@
       </div>
       <div class="container">
         <div class="board-wrap">
-          <h3 class="inquiry-section-title" data-i18n="msds_list_title">MSDS 전체목록</h3>
+          <h3 class="inquiry-section-title" data-i18n="msds_list_title">MSDS/카탈로그 전체목록</h3>
           <div style="font-size: 0.85rem; color: #666; margin-bottom: 20px; line-height: 1.6;">
             <div data-i18n="msds_list_desc">※ 제품명을 검색하거나 목록에서 확인하실 수 있습니다.</div>
+            <div data-i18n="msds_list_help" style="margin-top: 5px;">※ 문제가 있는 경우, 고객지원 페이지의 '제품 문의 및 자료요청' 기능을 이용해 주세요.</div>
           </div>
 
           <!-- Board Header -->
           <div class="board-header">
-            <div class="board-total">Total <span>43건</span> 1페이지</div>
+            <div class="board-total">Total <span id="total-count">-건</span></div>
             <form class="board-search" onsubmit="event.preventDefault();">
               <label for="keyword" class="sr-only">게시물 검색</label>
               <input type="text" id="keyword" placeholder="게시물 검색" />
@@ -1648,7 +1583,7 @@
                 </tr>
               </thead>
               <tbody id="msdsListBody">
-                <!-- JS로 데이터 로드 -->
+                <tr><td colspan="5" style="padding: 30px; text-align: center; color: #888;">데이터를 불러오는 중입니다...</td></tr>
               </tbody>
             </table>
           </section>
@@ -1712,7 +1647,7 @@
           >
             <div class="feature-content">
               <h3 data-i18n="contact_title">제품문의 및 자료요청</h3>
-              <p data-i18n="contact_desc_1">추가적인 도움이 필요하신가요? 아래의 <strong style="color: #008b8b;">[📝 문의 및 자료요청 바로가기]</strong> 버튼을 눌러주세요.</p>
+              <p data-i18n="contact_desc_1">추가적인 도움이 필요하신가요? 아래의 <strong style="color: #008b8b;">[📝 제품문의 및 자료요청 바로가기]</strong> 버튼을 눌러주세요.</p>
               <p data-i18n="contact_desc_2">
                 온라인 문의 양식을 통해 질문을 남기시거나, 본사 고객센터로 직접
                 연락 주시면 담당자가 친절하게 안내해 드리겠습니다.
@@ -1723,7 +1658,7 @@
                 onclick="navigateTo('contact'); event.stopPropagation();"
                 data-i18n="btn_contact"
               >
-                📝 문의 및 자료요청 바로가기
+                📝 제품문의 및 자료요청 바로가기
               </button>
             </div>
             <div
@@ -2016,12 +1951,12 @@
             <h4 data-i18n="nav_msds">자료실</h4>
             <a
               href="#"
-              onclick="navigateTo('msds', 'msds-content'); return false;" data-i18n="menu_msds"
+              onclick="navigateTo('msds-list'); return false;" data-i18n="menu_msds"
               >MSDS</a
             >
             <a
               href="#"
-              onclick="navigateTo('msds', 'catalog-content'); return false;" data-i18n="cat_title"
+              onclick="navigateTo('msds-list'); return false;" data-i18n="cat_title"
               >카탈로그</a
             >
           </div>
@@ -2082,7 +2017,7 @@
             <ul id="modalApplications"></ul>
           </div>
         </div>
-        <button class="btn" onclick="navigateTo('msds')" data-i18n="modal_btn_view">
+        <button class="btn" onclick="navigateTo('msds-list')" data-i18n="modal_btn_view">
           자료실 보기
         </button>
       </div>
@@ -2414,7 +2349,7 @@
           // Gallery
           section_gallery: "Professional's Choice",
           gallery_title: "아티스트의 선택: 동서화학 X 범민(Beommin)",
-          gallery_desc: "동서화학의 탁월한 발색과 품질은 프로 아티스트의 영감이 됩니다. 세계적인 브랜드 및 K-POP 아티스트와 함께한 범민 작가의 프로젝트를 소개합니다.",
+          gallery_desc: "동서화학의 탁월한 발색과 품질은 프로 아티스트의 영감이 됩니다. 세계적인 브랜드 및 <span style='white-space: nowrap;'>K-POP</span> 아티스트와 함께한 범민 작가의 프로젝트를 소개합니다.",
           gallery_item_1_title: "두산로보틱스 로봇 페인팅",
           gallery_item_1_desc: "첨단 기술과 예술의 만남, 정교한 로봇 암이 구현하는 그래피티 아트 퍼포먼스.",
           gallery_item_2_title: "까르띠에(Cartier) 팝업 스토어",
@@ -2443,6 +2378,8 @@
           cat_desc: "모든 제품의 정보를 포함한 카탈로그를 다운로드하세요.",
           cat_prod_title: "상품 카탈로그",
           cat_prod_desc: "전체 제품 소개서",
+          cat_prod_en_title: "영문 상품카탈로그",
+          cat_prod_en_desc: "전체 제품 영문 소개서",
           msds_zip_ko_title: "전체 MSDS ZIP",
           msds_zip_ko_desc: "국문 MSDS 일괄 다운로드",
           msds_zip_en_title: "영문 MSDS ZIP",
@@ -2478,7 +2415,7 @@
           btn_load_more: "더보기 ▾",
           nav_gallery_sub: "아티스트 협업",
           // Footer
-          footer_company_info: "동서화학(주) | 대표 : 이상민 | T: 032-571-6010 | F: 032-574-6344",
+          footer_company_info: "동서화학(주) | 대표 : 이상민 | T:032-571-6010 | F:032-574-6344",
           footer_copyright: "COPYRIGHT 2026 DONGSUH CHEMICAL @RIGHTS RESERVED",
           // MSDS Popup
           popup_msds_title: "📋 MSDS 안내",
@@ -2496,8 +2433,9 @@
           modal_features: "주요 특징",
           modal_applications: "적용 분야",
           modal_btn_view: "자료실 보기",
-          msds_list_title: "MSDS 목록",
+          msds_list_title: "MSDS/카탈로그 전체목록",
           msds_list_desc: "※ 제품명을 검색하거나 목록에서 확인하실 수 있습니다.",
+          msds_list_help: "※ 문제가 있는 경우, 고객지원 페이지의 '제품 문의 및 자료요청' 기능을 이용해 주세요.",
           // Added for full localization
           menu_msds: "MSDS",
           ph_name: "성명을 입력하세요",
@@ -2644,6 +2582,8 @@
           cat_desc: "Download catalogs containing all product information.",
           cat_prod_title: "Product Catalog",
           cat_prod_desc: "Full Product Introduction",
+          cat_prod_en_title: "English Product Catalog",
+          cat_prod_en_desc: "Full Product Introduction (EN)",
           msds_zip_ko_title: "All MSDS ZIP (KR)",
           msds_zip_ko_desc: "Download All Korean MSDS",
           msds_zip_en_title: "All MSDS ZIP (EN)",
@@ -2697,8 +2637,9 @@
           modal_features: "Key Features",
           modal_applications: "Applications",
           modal_btn_view: "View Resources",
-          msds_list_title: "MSDS List",
+          msds_list_title: "MSDS/Catalog List",
           msds_list_desc: "※ You can search for product names or check them in the list.",
+          msds_list_help: "※ If you have any issues, please use the 'Product Inquiry & Request' function on the Support page.",
           // Added for full localization
           menu_msds: "MSDS",
           ph_name: "Enter your name",

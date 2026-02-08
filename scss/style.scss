@@ -29,6 +29,7 @@ body {
   line-height: 1.6;
   color: $text-color;
   background-color: $white;
+  word-break: keep-all;
 }
 
 a {
@@ -125,10 +126,14 @@ header {
   }
 
   .hamburger-btn {
-    display: block;
+    display: none;
     cursor: pointer;
     color: $text-color;
     padding: 5px;
+
+    @media (max-width: 1080px) {
+      display: block;
+    }
   }
 
   .logo {
@@ -150,7 +155,7 @@ header {
       }
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 1080px) {
       display: none;
     }
   }
