@@ -37,19 +37,35 @@ exports.handler = async (event) => {
   // --- JWT 인증 끝 ---
 
   try {
-    const { title, is_notice, content } = JSON.parse(event.body);
-    const author_name = "관리자"; // Set author name to '관리자' on the backend
+    // 1. 요청 본문에서 사용자 입력을 파싱합니다.
+    const { title, content } = JSON.parse(event.body);
 
+    // 2. 입력값 유효성 검사
+    if (!title || !content) {
+      return {
+        statusCode: 400, // Bad Request
+        headers,
+        body: JSON.stringify({ error: "필수 항목(제목, 내용)이 누락되었습니다." }),
+      };
+    }
+
+    // 3. 서버에서 author_name과 is_notice 값을 설정합니다.
+    const author_name = "관리자";
+    const is_notice = false; // MSDS 게시물이므로 항상 false
+
+    // 4. 데이터베이스에 연결합니다.
     const sql = neon(process.env.DATABASE_URL);
 
+    // 5. 유효성 검사를 통과한 데이터로 INSERT 쿼리를 실행합니다.
     await sql`
       INSERT INTO msds_posts (title, content, author_name, is_notice, created_at, updated_at)
-      VALUES (${title}, ${content}, ${author_name}, ${is_notice || false}, NOW(), NOW())
+      VALUES (${title}, ${content}, ${author_name}, ${is_notice}, NOW(), NOW())
     `;
 
     return { statusCode: 200, headers, body: JSON.stringify({ message: "Success" }) };
   } catch (error) {
     console.error("Error creating MSDS post:", error);
+    // 500 에러는 유지하되, 유효성 검사 실패 시에는 400 에러가 먼저 반환됩니다.
     return { statusCode: 500, headers, body: JSON.stringify({ error: "Database error: " + error.message }) };
   }
 };

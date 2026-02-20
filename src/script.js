@@ -192,17 +192,17 @@ async function loadMsdsList(keyword = "") {
     }
     tbody.innerHTML = posts
       .map(
-        (post) => `
-        <tr class="${post.is_notice ? "notice" : ""}" onclick="viewMsdsPost(${post.id})" style="cursor: pointer;">
-          <td>${post.id}</td>
-          <td class="title">${post.is_notice ? '<span class="badge-notice">공지사항</span>' : ""}${sanitizeHTML(post.title)}</td>
+        (post, index) => `
+        <tr onclick="viewMsdsPost(${post.id})" style="cursor: pointer;">
+          <td>${posts.length - index}</td>
+          <td class="title">${sanitizeHTML(post.title)}</td>
           <td>${post.author_name}</td>
           <td>${new Date(post.created_at).toLocaleDateString("ko-KR")}</td>
           <td>${post.view_count}</td>
         </tr>`,
       )
       .join("");
-    const totalEl = document.querySelector(".board-total span");
+    const totalEl = document.getElementById("total-count");
     if (totalEl) totalEl.textContent = `${posts.length}건`;
   } catch (error) {
     console.error("MSDS Load Error:", error);
@@ -229,6 +229,74 @@ window.viewMsdsPost = async function (id) {
     navigateTo("msds-detail");
   } catch (error) {
     alert("게시글을 불러오는 중 오류가 발생했습니다.");
+    console.error(error);
+  }
+};
+
+// 4. 공지사항 게시판 기능 (Added - Separate Table)
+async function loadNoticeList(keyword = "") {
+  const tbody = document.getElementById("noticeListBody");
+  if (!tbody) return;
+  try {
+    // 별도의 공지사항 API 호출
+    let url = `${API_BASE}/get-notice-list`;
+    if (keyword) url += `?keyword=${encodeURIComponent(keyword)}`;
+    const response = await fetch(url);
+    if (!response.ok)
+      throw new Error(
+        `Server Error (${response.status}): ${await response.text()}`,
+      );
+    const notices = await response.json();
+
+    if (notices.length === 0) {
+      tbody.innerHTML =
+        '<tr><td colspan="5" style="padding:20px; text-align:center;">등록된 공지사항이 없습니다.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = notices
+      .map(
+        (post, index) => `
+      <tr onclick="viewNoticePost(${post.id})" style="cursor: pointer;">
+        <td>${notices.length - index}</td>
+        <td class="title"><span class="badge-notice">공지</span> ${sanitizeHTML(post.title)}</td>
+        <td>${post.author_name}</td>
+        <td>${new Date(post.created_at).toLocaleDateString("ko-KR")}</td>
+        <td>${post.view_count}</td>
+      </tr>
+    `,
+      )
+      .join("");
+
+    const totalEl = document.getElementById("notice-total-count");
+    if (totalEl) totalEl.textContent = `${notices.length}건`;
+  } catch (error) {
+    console.error("Notice Load Error:", error);
+    tbody.innerHTML =
+      '<tr><td colspan="5" style="padding:20px; text-align:center; color:red;">목록을 불러오지 못했습니다.</td></tr>';
+  }
+}
+
+window.viewNoticePost = async function (id) {
+  try {
+    const response = await fetch(`${API_BASE}/get-notice-detail?id=${id}`);
+    const post = await response.json();
+    if (!response.ok) throw new Error("Failed to load post");
+
+    document.getElementById("notice-detail-title").innerHTML = sanitizeHTML(
+      post.title,
+    );
+    document.getElementById("notice-detail-author").innerText =
+      "작성자: " + post.author_name;
+    document.getElementById("notice-detail-date").innerText =
+      "작성일: " + new Date(post.created_at).toLocaleDateString("ko-KR");
+    document.getElementById("notice-detail-views").innerText =
+      "조회수: " + post.view_count;
+    document.getElementById("notice-detail-content").innerHTML = post.content;
+
+    navigateTo("notice-detail");
+  } catch (error) {
+    alert("공지사항을 불러오는 중 오류가 발생했습니다.");
     console.error(error);
   }
 };
@@ -279,19 +347,32 @@ window.toggleInquiryDetail = function (id) {
 
 // 페이지 로드 시 초기 데이터 로드 및 이벤트 바인딩
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. 공개 문의 목록 로드
-    loadPublicList();
+  // 1. 공개 문의 목록 로드
+  loadPublicList();
 
-    // 2. MSDS 게시글 목록 로드
-    loadMsdsList();
+  // 2. MSDS 게시글 목록 로드
+  loadMsdsList();
 
-    // 3. MSDS 검색 기능 바인딩
-    const searchForm = document.querySelector(".board-search");
-    if (searchForm) {
-        searchForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            const keyword = document.getElementById("keyword").value;
-            loadMsdsList(keyword);
-        });
-    }
+  // 3. 공지사항 목록 로드
+  loadNoticeList();
+
+  // 3. MSDS 검색 기능 바인딩
+  const msdsSearchForm = document.getElementById("msdsSearchForm");
+  if (msdsSearchForm) {
+    msdsSearchForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const keyword = document.getElementById("keyword").value;
+      loadMsdsList(keyword);
+    });
+  }
+
+  // 4. 공지사항 검색 기능 바인딩
+  const noticeSearchForm = document.getElementById("noticeSearchForm");
+  if (noticeSearchForm) {
+    noticeSearchForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const keyword = document.getElementById("notice-keyword").value;
+      loadNoticeList(keyword);
+    });
+  }
 });

@@ -913,7 +913,7 @@
             <a onclick="navigateTo('support')" data-i18n="nav_support">고객지원</a>
             <div class="dropdown-menu">
               <a onclick="navigateTo('contact')" data-i18n="contact_title">제품 문의 및 자료요청</a>
-              <a onclick="navigateTo('support', 'notice')" data-i18n="notice_title">공지사항</a>
+              <a onclick="navigateTo('notice-list')" data-i18n="notice_title">공지사항</a>
               <a onclick="navigateTo('support', 'contact-info')" data-i18n="contact_info_title">문의 & 연락처</a>
             </div>
           </div>
@@ -1027,7 +1027,7 @@
             <a onclick="navigateTo('contact'); closeMobileMenu()" data-i18n="contact_title"
               >제품 문의 및 자료요청</a
             >
-            <a onclick="navigateTo('support', 'notice'); closeMobileMenu()" data-i18n="notice_title"
+            <a onclick="navigateTo('notice-list'); closeMobileMenu()" data-i18n="notice_title"
               >공지사항</a
             >
             <a
@@ -1556,7 +1556,7 @@
           <!-- Board Header -->
           <div class="board-header">
             <div class="board-total">Total <span id="total-count">-건</span></div>
-            <form class="board-search" onsubmit="event.preventDefault();">
+            <form id="msdsSearchForm" class="board-search" onsubmit="event.preventDefault();">
               <label for="keyword" class="sr-only">게시물 검색</label>
               <input type="text" id="keyword" placeholder="게시물 검색" />
               <button type="submit">검색</button>
@@ -1628,6 +1628,96 @@
       </div>
     </section>
 
+    <!-- Notice List Section (Added) -->
+    <section class="section-content" id="notice-list">
+      <div
+        class="subheading-banner"
+        style="background-image: url('images/Subheading6.png')"
+      >
+        <h2 data-i18n="notice_title">공지사항</h2>
+      </div>
+      <div class="container">
+        <div class="board-wrap">
+          <h3 class="inquiry-section-title" data-i18n="notice_list_title">공지사항 목록</h3>
+          <div style="font-size: 0.85rem; color: #666; margin-bottom: 20px; line-height: 1.6;">
+            <div data-i18n="notice_list_desc">동서화학의 최신 소식과 이벤트를 확인하세요.</div>
+          </div>
+
+          <!-- Board Header -->
+          <div class="board-header">
+            <div class="board-total">Total <span id="notice-total-count">-건</span></div>
+            <form id="noticeSearchForm" class="board-search" onsubmit="event.preventDefault();">
+              <label for="notice-keyword" class="sr-only">게시물 검색</label>
+              <input type="text" id="notice-keyword" placeholder="게시물 검색" />
+              <button type="submit">검색</button>
+            </form>
+          </div>
+
+          <!-- Board List -->
+          <section class="board-list">
+            <table>
+              <colgroup>
+                <col style="width:80px" />
+                <col />
+                <col style="width:120px" />
+                <col style="width:140px" />
+                <col style="width:100px" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>번호</th>
+                  <th>제목</th>
+                  <th>작성자</th>
+                  <th>작성일</th>
+                  <th>조회수</th>
+                </tr>
+              </thead>
+              <tbody id="noticeListBody">
+                <tr><td colspan="5" style="padding: 30px; text-align: center; color: #888;">데이터를 불러오는 중입니다...</td></tr>
+              </tbody>
+            </table>
+          </section>
+
+          <!-- Pagination -->
+          <nav class="pagination">
+            <button type="button" class="page-btn" disabled>&lt;&lt;</button>
+            <button type="button" class="page-btn" disabled>&lt;</button>
+            <button type="button" class="page-btn is-active">1</button>
+            <button type="button" class="page-btn">2</button>
+            <button type="button" class="page-btn">3</button>
+            <button type="button" class="page-btn">&gt;</button>
+            <button type="button" class="page-btn">&gt;&gt;</button>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notice Detail Section (Added) -->
+    <section class="section-content" id="notice-detail">
+      <div
+        class="subheading-banner"
+        style="background-image: url('images/Subheading6.png')"
+      >
+        <h2 data-i18n="notice_title">공지사항</h2>
+      </div>
+      <div class="container">
+        <div class="board-view-wrap">
+          <div class="board-view-header">
+            <h3 id="notice-detail-title"></h3>
+            <div class="board-view-meta">
+              <span id="notice-detail-author"></span>
+              <span id="notice-detail-date"></span>
+              <span id="notice-detail-views"></span>
+            </div>
+          </div>
+          <div class="board-view-content" id="notice-detail-content"></div>
+          <div class="board-view-footer">
+            <button class="btn-list" onclick="navigateTo('notice-list')" data-i18n="btn_list">목록</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Support Section -->
     <section class="section-content" id="support">
       <div
@@ -1670,7 +1760,7 @@
           <!-- 공지사항 -->
           <div
             class="feature-block cursor-pointer"
-            onclick="showAlert('alert_notice')"
+            onclick="navigateTo('notice-list')"
             role="button"
             tabindex="0"
           >
@@ -1685,9 +1775,14 @@
                 신제품 출시 정보, 전시회 참가 소식, 그리고 중요 유지보수 안내
                 등을 가장 빠르게 전달해 드립니다.
               </p>
-              <p data-i18n="notice_desc_3">
-                ※<strong>내용 보완예정</strong>입니다.
-              </p>
+              <button
+                class="hero-btn"
+                style="margin-top: 15px; font-size: 1rem; padding: 10px 25px"
+                onclick="navigateTo('notice-list'); event.stopPropagation();"
+                data-i18n="btn_notice"
+              >
+                📢 공지사항 바로가기
+              </button>
             </div>
           </div>
 
@@ -1965,7 +2060,7 @@
             <a href="#" onclick="navigateTo('contact'); return false;" data-i18n="contact_title"
               >제품 문의 및 자료요청</a
             >
-            <a href="#" onclick="navigateTo('support', 'notice'); return false;" data-i18n="notice_title"
+            <a href="#" onclick="navigateTo('notice-list'); return false;" data-i18n="notice_title"
               >공지사항</a
             >
             <a
@@ -2391,6 +2486,7 @@
           contact_desc_2: "온라인 문의 양식을 통해 질문을 남기시거나, 본사 고객센터로 직접 연락 주시면 담당자가 친절하게 안내해 드리겠습니다.",
           btn_contact: "📝 문의 및 자료요청 바로가기",
           notice_title: "공지사항",
+          btn_notice: "📢 공지사항 바로가기",
           notice_desc_1: "동서화학의 최신 소식과 이벤트를 확인하세요.",
           notice_desc_2: "신제품 출시 정보, 전시회 참가 소식, 그리고 중요 유지보수 안내 등을 가장 빠르게 전달해 드립니다.",
           contact_info_title: "문의 & 연락처",
@@ -2436,6 +2532,8 @@
           msds_list_title: "MSDS/카탈로그 전체목록",
           msds_list_desc: "※ 제품명을 검색하거나 목록에서 확인하실 수 있습니다.",
           msds_list_help: "※ 문제가 있는 경우, 고객지원 페이지의 '제품 문의 및 자료요청' 기능을 이용해 주세요.",
+          notice_list_title: "공지사항 목록",
+          notice_list_desc: "동서화학의 최신 소식과 이벤트를 확인하세요.",
           // Added for full localization
           menu_msds: "MSDS",
           ph_name: "성명을 입력하세요",
@@ -2595,6 +2693,7 @@
           contact_desc_2: "Leave a question via the online inquiry form or contact our customer center directly for kind assistance.",
           btn_contact: "📝 Go to Inquiry",
           notice_title: "Notice",
+          btn_notice: "📢 Go to Notice",
           notice_desc_1: "Check out the latest news and events.",
           notice_desc_2: "We deliver new product launch information, exhibition news, and important maintenance notices fastest.",
           contact_info_title: "Contact Info",
@@ -2640,6 +2739,8 @@
           msds_list_title: "MSDS/Catalog List",
           msds_list_desc: "※ You can search for product names or check them in the list.",
           msds_list_help: "※ If you have any issues, please use the 'Product Inquiry & Request' function on the Support page.",
+          notice_list_title: "Notice List",
+          notice_list_desc: "Check out the latest news and events from Dongsuh Chemical.",
           // Added for full localization
           menu_msds: "MSDS",
           ph_name: "Enter your name",

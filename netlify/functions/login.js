@@ -18,6 +18,11 @@ exports.handler = async (event) => {
     return { statusCode: 200, headers, body: "" };
   }
 
+  console.log('--- Debugging login.js ---');
+  console.log('ADMIN_PASSWORD_HASH (from process.env):', process.env.ADMIN_PASSWORD_HASH ? process.env.ADMIN_PASSWORD_HASH.substring(0, 10) + '...' : 'Not Set');
+  console.log('JWT_SECRET (from process.env):', process.env.JWT_SECRET ? process.env.JWT_SECRET.substring(0, 10) + '...' : 'Not Set');
+  console.log('--- End Debugging login.js ---');
+
   if (event.httpMethod !== "POST") {
     return {
       statusCode: 405,

@@ -20,7 +20,6 @@ exports.handler = async (event) => {
     return { statusCode: 405, headers, body: "Method Not Allowed" };
   }
 
-  // --- JWT 인증 시작 ---
   try {
     const authHeader = event.headers.authorization;
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -42,7 +41,6 @@ exports.handler = async (event) => {
       body: JSON.stringify({ error: "유효하지 않거나 만료된 토큰입니다." }),
     };
   }
-  // --- JWT 인증 끝 ---
 
   try {
     const { id, title, author_name, is_notice, content } = JSON.parse(
@@ -60,11 +58,11 @@ exports.handler = async (event) => {
     const sql = neon(process.env.DATABASE_URL);
 
     await sql`
-      UPDATE msds_posts 
+      UPDATE notice_posts 
       SET title = ${title}, 
           content = ${content}, 
           author_name = ${author_name}, 
-          is_notice = ${is_notice === undefined ? false : is_notice},
+          is_notice = ${is_notice === undefined ? true : is_notice},
           updated_at = NOW()
       WHERE id = ${id}
     `;
@@ -75,7 +73,7 @@ exports.handler = async (event) => {
       body: JSON.stringify({ message: "Success" }),
     };
   } catch (error) {
-    console.error("Error updating MSDS post:", error);
+    console.error("Error updating Notice post:", error);
     return {
       statusCode: 500,
       headers,
