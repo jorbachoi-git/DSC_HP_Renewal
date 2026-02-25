@@ -375,4 +375,13 @@ document.addEventListener("DOMContentLoaded", () => {
       loadNoticeList(keyword);
     });
   }
+
+  // 5. 더보기 버튼 이벤트 바인딩
+  const btnLoadMore = document.getElementById("btnLoadMore");
+  if (btnLoadMore) {
+    btnLoadMore.addEventListener("click", () => {
+      visibleCount += ITEMS_PER_PAGE;
+      renderPublicList();
+    });
+  }
 });
