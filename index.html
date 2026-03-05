@@ -649,6 +649,32 @@
         font-size: 0.8rem !important;
         line-height: 1.4 !important;
       }
+      .msds-popup p span {
+        font-size: 0.8rem !important;
+      }
+
+      /* PC/노트북 화면에서 팝업 크기 확대 (약 3배) */
+      @media (min-width: 1024px) {
+        .msds-popup {
+          max-width: 800px !important;
+          padding: 40px !important;
+        }
+        .msds-popup h2 {
+          font-size: 2.2rem !important;
+          margin-bottom: 25px !important;
+        }
+        .msds-popup p {
+          font-size: 1.4rem !important;
+          line-height: 1.6 !important;
+        }
+        .msds-popup p span {
+          font-size: 1.3rem !important;
+        }
+        .msds-popup-btn {
+          font-size: 1.2rem !important;
+          padding: 15px 30px !important;
+        }
+      }
       /* 제품 상세 모달 텍스트 크기 축소 (80%) */
       #productModal #modalDescription,
       #productModal .modal-grid ul li {
@@ -1947,6 +1973,14 @@
                 문의와 답변 내용을 확인하실 수 있습니다.
               </div>
             </div>
+            <div class="board-header" style="margin-bottom: 10px;">
+              <div class="board-total">Total <span id="public-total-count">0건</span></div>
+              <form id="publicSearchForm" class="board-search" onsubmit="event.preventDefault();">
+                <label for="public-keyword" class="sr-only">게시물 검색</label>
+                <input type="text" id="public-keyword" placeholder="게시물 검색" />
+                <button type="submit">검색</button>
+              </form>
+            </div>
             <div class="table-responsive">
               <table class="inquiry-table">
                 <thead>
@@ -1961,14 +1995,9 @@
                 </tbody>
               </table>
             </div>
-            <!-- 더보기 버튼 -->
-            <div
-              id="loadMoreContainer"
-              class="load-more-container"
-              style="display: none"
-            >
-              <button id="btnLoadMore" class="btn-load-more" data-i18n="btn_load_more">더보기 ▾</button>
-            </div>
+            <!-- 페이지네이션 -->
+            <nav class="pagination" id="publicPagination" style="margin-top: 20px;">
+            </nav>
           </section>
         </div>
       </div>

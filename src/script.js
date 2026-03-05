@@ -57,14 +57,16 @@ document.getElementById("inquiryForm").addEventListener("submit", async (e) => {
 
 // 2. 공개 목록 조회 및 더보기 기능
 let allInquiries = [];
-let visibleCount = 5;
-const ITEMS_PER_PAGE = 5;
+let filteredInquiries = [];
+let currentInquiryPage = 1;
+const INQUIRY_PAGE_SIZE = 5;
 
 async function loadPublicList() {
   try {
     const response = await fetch(`${API_BASE}/get-public-list`);
     allInquiries = await response.json();
-    visibleCount = ITEMS_PER_PAGE;
+    filteredInquiries = allInquiries;
+    currentInquiryPage = 1;
     renderPublicList();
   } catch (error) {
     console.error("List load error:", error);
@@ -75,16 +77,27 @@ async function loadPublicList() {
 
 function renderPublicList() {
   const container = document.getElementById("publicList");
-  const loadMoreContainer = document.getElementById("loadMoreContainer");
+  const totalCountEl = document.getElementById("public-total-count");
+  const paginationEl = document.getElementById("publicPagination");
 
-  if (allInquiries.length === 0) {
+  if (filteredInquiries.length === 0) {
     container.innerHTML =
       '<tr><td colspan="3" style="text-align:center;color:#999;padding:20px;">등록된 문의가 없습니다</td></tr>';
-    if (loadMoreContainer) loadMoreContainer.style.display = "none";
+    if (totalCountEl) totalCountEl.textContent = "0건";
+    if (paginationEl) paginationEl.innerHTML = "";
     return;
   }
 
-  const visibleItems = allInquiries.slice(0, visibleCount);
+  if (totalCountEl) totalCountEl.textContent = `${filteredInquiries.length}건`;
+
+  const totalPages = Math.ceil(filteredInquiries.length / INQUIRY_PAGE_SIZE);
+  if (currentInquiryPage < 1) currentInquiryPage = 1;
+  if (currentInquiryPage > totalPages) currentInquiryPage = totalPages;
+
+  const start = (currentInquiryPage - 1) * INQUIRY_PAGE_SIZE;
+  const end = start + INQUIRY_PAGE_SIZE;
+  const visibleItems = filteredInquiries.slice(start, end);
+
   container.innerHTML = visibleItems
     .map(
       (q) => `
@@ -115,11 +128,52 @@ function renderPublicList() {
     )
     .join("");
 
-  if (visibleCount < allInquiries.length) {
-    loadMoreContainer.style.display = "block";
-  } else {
-    loadMoreContainer.style.display = "none";
+  renderInquiryPagination(totalPages);
+}
+
+function renderInquiryPagination(totalPages) {
+  const paginationEl = document.getElementById("publicPagination");
+  if (!paginationEl) return;
+
+  let html = "";
+
+  // 이전 버튼
+  html += `<button type="button" class="page-btn" ${currentInquiryPage === 1 ? "disabled" : ""} onclick="changeInquiryPage(1)">&lt;&lt;</button>`;
+  html += `<button type="button" class="page-btn" ${currentInquiryPage === 1 ? "disabled" : ""} onclick="changeInquiryPage(${currentInquiryPage - 1})">&lt;</button>`;
+
+  // 페이지 번호
+  for (let i = 1; i <= totalPages; i++) {
+    const activeClass = i === currentInquiryPage ? "is-active" : "";
+    html += `<button type="button" class="page-btn ${activeClass}" onclick="changeInquiryPage(${i})">${i}</button>`;
   }
+
+  // 다음 버튼
+  html += `<button type="button" class="page-btn" ${currentInquiryPage === totalPages ? "disabled" : ""} onclick="changeInquiryPage(${currentInquiryPage + 1})">&gt;</button>`;
+  html += `<button type="button" class="page-btn" ${currentInquiryPage === totalPages ? "disabled" : ""} onclick="changeInquiryPage(${totalPages})">&gt;&gt;</button>`;
+
+  paginationEl.innerHTML = html;
+}
+
+window.changeInquiryPage = function (page) {
+  if (page < 1) return;
+  currentInquiryPage = page;
+  renderPublicList();
+};
+
+function searchPublicList(keyword) {
+  if (!keyword || keyword.trim() === "") {
+    filteredInquiries = allInquiries;
+  } else {
+    const lowerKeyword = keyword.toLowerCase();
+    filteredInquiries = allInquiries.filter((q) => {
+      return (
+        (q.message && q.message.toLowerCase().includes(lowerKeyword)) ||
+        (q.name && q.name.toLowerCase().includes(lowerKeyword))
+      );
+    });
+  }
+  currentInquiryPage = 1;
+  renderPublicList();
 }
 
 window.handleInlineVerify = async function (e, id) {
@@ -376,12 +430,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 5. 더보기 버튼 이벤트 바인딩
-  const btnLoadMore = document.getElementById("btnLoadMore");
-  if (btnLoadMore) {
-    btnLoadMore.addEventListener("click", () => {
-      visibleCount += ITEMS_PER_PAGE;
-      renderPublicList();
+  // 5. 공개 문의 검색 기능 바인딩
+  const publicSearchForm = document.getElementById("publicSearchForm");
+  if (publicSearchForm) {
+    publicSearchForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const keyword = document.getElementById("public-keyword").value;
+      searchPublicList(keyword);
     });
   }
 });
