@@ -59,7 +59,7 @@ document.getElementById("inquiryForm").addEventListener("submit", async (e) => {
 let allInquiries = [];
 let filteredInquiries = [];
 let currentInquiryPage = 1;
-const INQUIRY_PAGE_SIZE = 5;
+const INQUIRY_PAGE_SIZE = 10;
 
 async function loadPublicList() {
   try {

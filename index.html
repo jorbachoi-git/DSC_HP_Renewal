@@ -81,7 +81,7 @@
       .form-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 20px;
+        gap: 10px;
       }
 
       /* 문의 내용(textarea)을 한 줄 전체로 설정 */
@@ -97,22 +97,23 @@
 
       /* 문의 내용 입력창 높이 확대 */
       .form-group textarea {
-        min-height: 200px;
+        min-height: 160px;
       }
 
-      /* 입력창 높이 및 폰트 크기 확대 (시니어 배려) */
+      /* 입력창 높이 및 폰트 크기 조정 (UI 개선) */
       .form-group input {
-        height: 50px; /* 기존 대비 약 2배 확대 */
-        font-size: 18px; /* 약 14pt 크기 */
-        padding: 0 20px;
+        height: 40px;
+        font-size: 15px;
+        padding: 0 15px;
       }
       .form-group textarea {
-        font-size: 18px;
+        font-size: 15px;
       }
 
-      /* Label 폰트 크기 확대 (요청: 24pt 정도) */
+      /* Label 폰트 크기 조정 */
       .form-group label {
-        font-size: 18px;
+        font-size: 15px;
+        margin-bottom: 4px;
       }
 
       @media (max-width: 768px) {
@@ -332,9 +333,9 @@
       .form-footer {
         display: flex;
         flex-direction: column;
-        gap: 15px;
-        margin-top: 20px;
-        margin-bottom: 20px; /* 버튼 하단 여백 추가 */
+        gap: 10px;
+        margin-top: 15px;
+        margin-bottom: 15px; /* 버튼 하단 여백 추가 */
       }
 
       .form-footer .password-group {
