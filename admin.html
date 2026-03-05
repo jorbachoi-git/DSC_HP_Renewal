@@ -229,6 +229,33 @@
         border: 1px solid #eee;
         margin-bottom: 20px;
       }
+      /* 게시판 헤더 스타일 (검색창, Total) - index.html 스타일 적용 */
+      .board-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .board-total {
+        font-weight: bold;
+        color: #555;
+      }
+      .board-total span {
+        color: #008b8b;
+      }
+      .board-search {
+        display: flex;
+        gap: 5px;
+      }
+      .board-search input {
+        padding: 6px 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        min-width: 200px;
+      }
     </style>
   </head>
   <body>
@@ -283,6 +310,13 @@
         <!-- 탭 1: 미답변 문의 목록 -->
         <div id="tab-inquiries" class="tab-content active">
           <h2 style="color: #008b8b; margin-bottom: 20px">미답변 문의 목록</h2>
+          <div class="board-header">
+            <div class="board-total">Total <span id="pending-total-count">0건</span></div>
+            <form id="pendingSearchForm" class="board-search" onsubmit="event.preventDefault();">
+              <input type="text" id="pending-keyword" placeholder="내용, 작성자 검색" />
+              <button type="submit" class="btn-inline" style="padding: 6px 12px;">검색</button>
+            </form>
+          </div>
           <div class="table-container">
             <table class="inquiry-table">
               <thead>
@@ -299,6 +333,13 @@
           </div>
 
           <h2 style="color: #008b8b; margin: 40px 0 20px">기답변 문의 목록</h2>
+          <div class="board-header">
+            <div class="board-total">Total <span id="answered-total-count">0건</span></div>
+            <form id="answeredSearchForm" class="board-search" onsubmit="event.preventDefault();">
+              <input type="text" id="answered-keyword" placeholder="내용, 작성자 검색" />
+              <button type="submit" class="btn-inline" style="padding: 6px 12px;">검색</button>
+            </form>
+          </div>
           <div class="table-container">
             <table class="inquiry-table">
               <thead>
@@ -319,6 +360,13 @@
         <div id="tab-msds" class="tab-content">
           <h2 style="color: #008b8b; margin-bottom: 20px">MSDS 게시글 관리</h2>
 
+          <div class="board-header">
+            <div class="board-total">Total <span id="msds-total-count">0건</span></div>
+            <form id="msdsSearchForm" class="board-search" onsubmit="event.preventDefault();">
+              <input type="text" id="msds-keyword" placeholder="제목, 작성자 검색" />
+              <button type="submit" class="btn-inline" style="padding: 6px 12px;">검색</button>
+            </form>
+          </div>
           <!-- MSDS 목록 (수정 선택용) -->
           <div class="table-container" style="margin-bottom: 30px">
             <table class="inquiry-table" style="margin-bottom: 0">
@@ -503,6 +551,13 @@
         <div id="tab-notices" class="tab-content">
           <h2 style="color: #008b8b; margin-bottom: 20px">공지사항 관리</h2>
 
+          <div class="board-header">
+            <div class="board-total">Total <span id="notice-total-count">0건</span></div>
+            <form id="noticeSearchForm" class="board-search" onsubmit="event.preventDefault();">
+              <input type="text" id="notice-keyword" placeholder="제목, 작성자 검색" />
+              <button type="submit" class="btn-inline" style="padding: 6px 12px;">검색</button>
+            </form>
+          </div>
           <div class="table-container" style="margin-bottom: 30px">
             <table class="inquiry-table" style="margin-bottom: 0">
               <thead>
@@ -681,6 +736,7 @@
     <script>
       const API_BASE = "/.netlify/functions";
       let adminToken = null;
+      let allAdminInquiries = []; // 문의 목록 클라이언트 필터링을 위한 저장소
 
       // 페이지 로드 시 토큰 확인
       document.addEventListener("DOMContentLoaded", () => {
@@ -688,6 +744,29 @@
         if (adminToken) {
           showAdminPanel();
         }
+
+        // 검색 폼 이벤트 리스너 등록
+        document.getElementById("pendingSearchForm").addEventListener("submit", (e) => {
+          e.preventDefault();
+          renderPendingInquiries();
+        });
+
+        document.getElementById("answeredSearchForm").addEventListener("submit", (e) => {
+          e.preventDefault();
+          renderAnsweredInquiries();
+        });
+
+        document.getElementById("msdsSearchForm").addEventListener("submit", (e) => {
+          e.preventDefault();
+          const keyword = document.getElementById("msds-keyword").value;
+          loadMsdsAdminList(keyword);
+        });
+
+        document.getElementById("noticeSearchForm").addEventListener("submit", (e) => {
+          e.preventDefault();
+          const keyword = document.getElementById("notice-keyword").value;
+          loadNoticeAdminList(keyword);
+        });
       });
 
       // Admin 로그인
@@ -800,19 +879,40 @@
         try {
           const response = await fetchAdminAPI("get-public-list?getAll=true");
           if (!response.ok) throw new Error("Failed to load inquiries");
-          const inquiries = await response.json();
-
-          const pending = inquiries.filter((q) => !q.reply);
-          const answered = inquiries.filter((q) => q.reply);
-
-          renderInquiries(pending, "pendingListBody", false);
-          renderInquiries(answered, "answeredListBody", true);
+          allAdminInquiries = await response.json();
+          
+          renderPendingInquiries();
+          renderAnsweredInquiries();
         } catch (error) {
           console.error("Error:", error);
         }
       }
 
-      function renderInquiries(inquiries, tbodyId, isAnswered) {
+      // 미답변 문의 렌더링 (검색 필터 적용)
+      function renderPendingInquiries() {
+        const keyword = document.getElementById("pending-keyword").value.toLowerCase();
+        const pending = allAdminInquiries.filter(q => !q.reply && (
+          (q.message && q.message.toLowerCase().includes(keyword)) || 
+          (q.name && q.name.toLowerCase().includes(keyword))
+        ));
+        
+        document.getElementById("pending-total-count").textContent = `${pending.length}건`;
+        renderInquiriesTable(pending, "pendingListBody", false);
+      }
+
+      // 기답변 문의 렌더링 (검색 필터 적용)
+      function renderAnsweredInquiries() {
+        const keyword = document.getElementById("answered-keyword").value.toLowerCase();
+        const answered = allAdminInquiries.filter(q => q.reply && (
+          (q.message && q.message.toLowerCase().includes(keyword)) || 
+          (q.name && q.name.toLowerCase().includes(keyword))
+        ));
+
+        document.getElementById("answered-total-count").textContent = `${answered.length}건`;
+        renderInquiriesTable(answered, "answeredListBody", true);
+      }
+
+      function renderInquiriesTable(inquiries, tbodyId, isAnswered) {
         const tbody = document.getElementById(tbodyId);
         tbody.innerHTML = "";
 
@@ -906,12 +1006,14 @@
       }
 
       // MSDS 관리자 목록 조회
-      async function loadMsdsAdminList() {
+      async function loadMsdsAdminList(keyword = "") {
         const tbody = document.getElementById("msdsAdminListBody");
         tbody.innerHTML =
           '<tr><td colspan="5" style="padding:20px;">로딩 중...</td></tr>';
         try {
-          const response = await fetchAdminAPI("get-msds-list");
+          let url = "get-msds-list";
+          if (keyword) url += `?keyword=${encodeURIComponent(keyword)}`;
+          const response = await fetchAdminAPI(url);
           if (!response.ok) throw new Error("MSDS 목록 로드 실패");
           const posts = await response.json();
 
@@ -920,6 +1022,8 @@
               '<tr><td colspan="5" style="padding:20px;">등록된 게시글이 없습니다.</td></tr>';
             return;
           }
+
+          document.getElementById("msds-total-count").textContent = `${posts.length}건`;
 
           tbody.innerHTML = posts
             .map(
@@ -1069,12 +1173,14 @@
         });
 
       // --- 공지사항 관리 로직 (Added) ---
-      async function loadNoticeAdminList() {
+      async function loadNoticeAdminList(keyword = "") {
         const tbody = document.getElementById("noticeAdminListBody");
         tbody.innerHTML =
           '<tr><td colspan="5" style="padding:20px;">로딩 중...</td></tr>';
         try {
-          const response = await fetchAdminAPI("get-notice-list");
+          let url = "get-notice-list";
+          if (keyword) url += `?keyword=${encodeURIComponent(keyword)}`;
+          const response = await fetchAdminAPI(url);
           if (!response.ok) throw new Error("목록 로드 실패");
           const notices = await response.json();
 
@@ -1084,146 +1190,7 @@
             return;
           }
 
-          tbody.innerHTML = notices
-            .map(
-              (post, index) => `
-            <tr>
-              <td>${post.id} <span style="color:#888; font-size:0.85em;">(${notices.length - index})</span></td>
-              <td style="text-align:left; padding-left:10px;">
-                <span style="color:red; font-weight:bold;">[공지]</span> ${sanitizeHTML(post.title)}
-              </td>
-              <td>${sanitizeHTML(post.author_name)}</td>
-              <td>${new Date(post.created_at).toLocaleDateString("ko-KR")}</td>
-              <td>
-                <div class="action-btn-group">
-                  <button class="btn-inline" onclick="editNoticePost(${post.id})">수정</button>
-                  <button class="btn-inline btn-danger" onclick="deleteNoticePost(${post.id})">삭제</button>
-                </div>
-              </td>
-            </tr>
-          `,
-            )
-            .join("");
-        } catch (error) {
-          if (error.message !== "Unauthorized") {
-            tbody.innerHTML = `<tr><td colspan="5" style="color:red;">${error.message}</td></tr>`;
-          }
-        }
-      }
-
-      async function editNoticePost(id) {
-        try {
-          const response = await fetchAdminAPI(
-            `get-notice-detail?id=${id}&skipIncrement=true`,
-          );
-          if (!response.ok) throw new Error("데이터를 불러오지 못했습니다.");
-          const post = await response.json();
-
-          document.getElementById("noticeId").value = post.id;
-          document.getElementById("noticeTitle").value = post.title;
-          document.getElementById("noticeAuthor").value = post.author_name;
-          document.getElementById("noticeContent").value = post.content;
-          document.getElementById("btnSaveNotice").textContent =
-            "공지사항 수정";
-          document
-            .getElementById("noticeForm")
-            .scrollIntoView({ behavior: "smooth" });
-        } catch (error) {
-          if (error.message !== "Unauthorized")
-            showCustomAlert(`오류: ${error.message}`);
-        }
-      }
-
-      function resetNoticeForm() {
-        document.getElementById("noticeForm").reset();
-        document.getElementById("noticeId").value = "";
-        document.getElementById("noticeAuthor").value = "관리자";
-        document.getElementById("btnSaveNotice").textContent = "공지사항 등록";
-      }
-
-      function deleteNoticePost(id) {
-        showCustomConfirm(
-          "정말로 이 공지사항을 삭제하시겠습니까?",
-          async () => {
-            try {
-              const response = await fetchAdminAPI("delete-notice-post", {
-                method: "POST",
-                body: JSON.stringify({ id }),
-              });
-              if (response.ok) {
-                showCustomAlert("삭제되었습니다.", () => {
-                  loadNoticeAdminList();
-                  resetNoticeForm();
-                });
-              } else {
-                const result = await response.json();
-                showCustomAlert(`삭제 실패: ${result.error}`);
-              }
-            } catch (error) {
-              if (error.message !== "Unauthorized")
-                showCustomAlert(`오류: ${error.message}`);
-            }
-          },
-        );
-      }
-
-      document
-        .getElementById("noticeForm")
-        .addEventListener("submit", async (e) => {
-          e.preventDefault();
-          const id = document.getElementById("noticeId").value;
-          const actionText = id ? "수정" : "등록";
-          const endpoint = id ? "update-notice-post" : "create-notice-post";
-
-          const bodyData = {
-            title: document.getElementById("noticeTitle").value,
-            author_name: document.getElementById("noticeAuthor").value,
-            is_notice: true, // 공지사항 탭에서는 항상 true
-            content: document.getElementById("noticeContent").value,
-          };
-          if (id) bodyData.id = id;
-
-          showCustomConfirm(
-            `공지사항을 ${actionText}하시겠습니까?`,
-            async () => {
-              try {
-                const response = await fetchAdminAPI(endpoint, {
-                  method: "POST",
-                  body: JSON.stringify(bodyData),
-                });
-                if (response.ok) {
-                  showCustomAlert(`성공적으로 ${actionText}되었습니다.`, () => {
-                    resetNoticeForm();
-                    loadNoticeAdminList();
-                  });
-                } else {
-                  const result = await response.json();
-                  showCustomAlert(`실패: ${result.error}`);
-                }
-              } catch (error) {
-                if (error.message !== "Unauthorized")
-                  showCustomAlert(`오류: ${error.message}`);
-              }
-            },
-          );
-        });
-
-      // --- 공지사항 관리 로직 (Added - Separate Table) ---
-      async function loadNoticeAdminList() {
-        const tbody = document.getElementById("noticeAdminListBody");
-        tbody.innerHTML =
-          '<tr><td colspan="5" style="padding:20px;">로딩 중...</td></tr>';
-        try {
-          // 별도 공지사항 API 호출
-          const response = await fetchAdminAPI("get-notice-list");
-          if (!response.ok) throw new Error("목록 로드 실패");
-          const notices = await response.json();
-
-          if (!notices || notices.length === 0) {
-            tbody.innerHTML =
-              '<tr><td colspan="5" style="padding:20px;">등록된 공지사항이 없습니다.</td></tr>';
-            return;
-          }
+          document.getElementById("notice-total-count").textContent = `${notices.length}건`;
 
           tbody.innerHTML = notices
             .map(

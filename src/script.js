@@ -59,7 +59,7 @@ document.getElementById("inquiryForm").addEventListener("submit", async (e) => {
 let allInquiries = [];
 let filteredInquiries = [];
 let currentInquiryPage = 1;
-const INQUIRY_PAGE_SIZE = 10;
+const INQUIRY_PAGE_SIZE = 8;
 
 async function loadPublicList() {
   try {
@@ -103,8 +103,11 @@ function renderPublicList() {
       (q) => `
       <tr onclick="toggleInquiryDetail(${q.id})" style="cursor: pointer;" class="inquiry-row" data-inquiry-id="${q.id}">
         <td class="text-left">
-            <div class="truncate-text" title="${sanitizeHTML(q.message)}">
-                ${sanitizeHTML(q.message)}
+            <div class="inquiry-message-wrapper">
+                <span class="truncate-text">
+                    ${sanitizeHTML(q.message)}
+                </span>
+                ${q.reply ? '<span class="badge-answered">답변도착</span>' : '<span class="badge-new">접수완료</span>'}
             </div>
         </td>
         <td>${maskName(q.name)}</td>

@@ -81,7 +81,12 @@
       .form-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 10px;
+        gap: 6px;
+      }
+
+      /* 그리드 내부 폼 그룹 마진 제거 (간격은 gap으로 제어) */
+      .form-grid .form-group {
+        margin-bottom: 0 !important;
       }
 
       /* 문의 내용(textarea)을 한 줄 전체로 설정 */
@@ -113,7 +118,7 @@
       /* Label 폰트 크기 조정 */
       .form-group label {
         font-size: 15px;
-        margin-bottom: 4px;
+        margin-bottom: 2px;
       }
 
       @media (max-width: 768px) {
@@ -213,7 +218,40 @@
         text-align: left;
         color: #555;
       }
+      /* 문의 내용과 뱃지를 감싸는 래퍼 (Flexbox) */
+      .inquiry-message-wrapper {
+        display: flex;
+        align-items: center;
+      }
+      .inquiry-message-wrapper .truncate-text {
+        flex: 1;
+        min-width: 0; /* Flexbox 내에서 말줄임표 작동을 위해 필수 */
+      }
       /* 더보기 버튼 스타일 */
+      /* 문의 상태 뱃지 스타일 */
+      .badge-new {
+        display: inline-block;
+        padding: 2px 6px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        color: #fff;
+        background-color: #ff9800; /* 주황색 */
+        border-radius: 4px;
+        margin-left: 5px;
+        vertical-align: middle;
+      }
+      .badge-answered {
+        display: inline-block;
+        padding: 2px 6px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        color: #fff;
+        background-color: #4fc3f7; /* 엷은 파랑색 */
+        border-radius: 4px;
+        margin-left: 5px;
+        vertical-align: middle;
+      }
+
       .load-more-container {
         text-align: center;
         margin-top: 20px;
@@ -333,9 +371,9 @@
       .form-footer {
         display: flex;
         flex-direction: column;
-        gap: 10px;
-        margin-top: 15px;
-        margin-bottom: 15px; /* 버튼 하단 여백 추가 */
+        gap: 6px;
+        margin-top: 0;
+        margin-bottom: 10px; /* 버튼 하단 여백 추가 */
       }
 
       .form-footer .password-group {
@@ -647,11 +685,11 @@
         margin-bottom: 8px !important;
       }
       .msds-popup p {
-        font-size: 0.8rem !important;
+        font-size: 1.0rem !important;
         line-height: 1.4 !important;
       }
       .msds-popup p span {
-        font-size: 0.8rem !important;
+        font-size: 1.0rem !important;
       }
 
       /* PC/노트북 화면에서 팝업 크기 확대 (약 3배) */
