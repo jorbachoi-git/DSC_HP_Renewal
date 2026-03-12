@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Sitemap: https://www.dsspray.co.kr/sitemap.xml
+
+User-agent: Yeti
+Allow: /
+Disallow: /admin.html
