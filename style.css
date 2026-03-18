@@ -1020,6 +1020,29 @@ footer .logo img {
   border: 1px solid #d0d0d0;
 }
 
+.msds-notice-box {
+  background-color: #f0f8f8;
+  border: 1px solid #008b8b;
+  padding: 15px 20px;
+  border-radius: 6px;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+.msds-notice-box div[data-i18n="msds_list_desc"]:first-child {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.msds-notice-box .help-text {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed #ccc;
+}
+
 .board-header {
   display: flex;
   justify-content: space-between;

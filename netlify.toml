@@ -7,12 +7,20 @@
   functions = "netlify/functions"
   publish = "."
 
-# API 함수 호출을 위한 단축 경로 설정 (선택 사항)
+# API 함수 호출을 위한 단축 경로 설정
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
 
+# admin.html은 리다이렉트에서 제외 (실제 파일 우선)
+[[redirects]]
+  from = "/admin"
+  to = "/admin.html"
+  status = 200
+
+# 기타 경로는 index.html로 리다이렉트 (History API 대응)
+# 단, 실제 파일이 있는 경우는 해당 파일이 우선 제공됩니다.
 [[redirects]]
   from = "/*"
   to = "/index.html"
