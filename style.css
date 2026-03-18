@@ -1028,19 +1028,21 @@ footer .logo img {
   margin-bottom: 25px;
   line-height: 1.6;
 }
-
-.msds-notice-box div[data-i18n="msds_list_desc"]:first-child {
-  font-size: 1.15rem;
+.msds-notice-box div[data-i18n=msds_list_desc] {
+  font-size: 1.1rem;
   font-weight: 500;
   color: #333;
+  margin-bottom: 5px;
 }
-
 .msds-notice-box .help-text {
   font-size: 0.9rem;
   color: #666;
   margin-top: 8px;
   padding-top: 8px;
   border-top: 1px dashed #ccc;
+}
+.msds-notice-box .help-text div {
+  margin-top: 4px;
 }
 
 .board-header {
