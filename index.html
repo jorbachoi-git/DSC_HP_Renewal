@@ -1443,6 +1443,23 @@
             <h3 data-i18n="prod_filling_title">충전서비스</h3>
             <p data-i18n="prod_filling_desc">맞춤형 에어졸 제조</p>
           </div>
+          <!-- 신제품 추가 -->
+          <div
+            id="prod-oil-stain"
+            class="product-card"
+            onclick="showProductDetail('oil_stain')"
+            onkeydown="if(event.key === 'Enter' || event.key === ' ') showProductDetail('oil_stain')"
+            role="button"
+            tabindex="0"
+            style="border: 2px solid #008b8b;"
+          >
+            <div style="position: relative;">
+              <img src="images/prod_oil_stain.png" alt="동서 오일 스테인 스프레이" loading="lazy" />
+              <div style="position: absolute; top: 10px; right: 10px; background: #008b8b; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">NEW</div>
+            </div>
+            <h3 data-i18n="prod_oil_stain_title">동서 오일 스테인 스프레이</h3>
+            <p data-i18n="prod_oil_stain_desc">목재 보호 및 채색 솔루션</p>
+          </div>
         </div>
       </div>
     </section>
@@ -2532,6 +2549,8 @@
           prod_rust_desc: "강력한 녹 방지 솔루션",
           prod_filling_title: "충전서비스",
           prod_filling_desc: "맞춤형 에어졸 제조",
+          prod_oil_stain_title: "동서 오일 스테인 스프레이",
+          prod_oil_stain_desc: "목재 보호 및 채색 솔루션",
           // Gallery
           section_gallery: "Professional's Choice",
           gallery_title: "아티스트의 선택: 동서화학 X 범민(Beommin)",
@@ -2642,6 +2661,7 @@
           prod_release_desc_long: "금형 및 성형 제품의 <strong>이형 작용</strong>에 우수한 에어졸 제품입니다. 프라스틱이나 고무 부품을 금형에서 손상 없이, 깔끔하게 쉽게 제거할 수 있습니다.",
           prod_rust_desc_long: "금속 표면의 부식을 방지하고 장기간 보관을 가능하게 하는 <strong>고성능 방청제</strong>입니다. 침투력이 우수하여 미세한 틈새까지 보호합니다.",
           prod_filling_desc_long: "동서화학의 전문 에어졸 <strong>프리미엄 충전 서비스</strong>입니다. 고객별 맞춤형 제품 제조 및 충전을 지원합니다.(조색해오신 페인트는 4L이상 부터 주문가능하며, 물량에 따라 조색 서비스도 제공합니다.)<br><br>※ 고객지원 섹션의 <strong style='color: #008b8b;'>[📝 문의 및 자료요청 바로가기]</strong> 버튼을 눌러 요청해 주시거나, 032-574-6345로 전화주세요 !!",
+          prod_oil_stain_desc_long: "목재 내부 깊숙이 침투하여 습기, 부패, 자외선으로부터 목재를 보호하고 자연스러운 색상을 입혀주는 <strong>고성능 오일 스테인 스프레이</strong>입니다. 간편한 스프레이 타입으로 누구나 전문가처럼 시공이 가능합니다.<br><br>현재 상세 페이지 준비 중입니다.",
           
           // Product Features & Applications (HTML Lists)
           prod_dongsuh_features: "<li>선명한 색상과 광택</li><li>빠른 건조 속도</li><li>다양한 재질에 적용 가능</li>",
@@ -2660,7 +2680,9 @@
           prod_rust_apps: "<li>금형 및 기계 부품 보관</li><li>수출용 금속 제품 보호</li>",
           
           prod_filling_features: "<li>소량 다품종 생산 가능</li><li>고객 맞춤형 충전</li><li>철저한 품질 관리</li>",
-          prod_filling_apps: "<li>특수 컬러 락카스프레이</li><li>OEM/ODM 에어졸 생산</li>"
+          prod_filling_apps: "<li>특수 컬러 락카스프레이</li><li>OEM/ODM 에어졸 생산</li>",
+          prod_oil_stain_features: "<li>강력한 목재 보호 성능</li><li>우수한 침투력</li><li>간편한 스프레이 시공</li><li>자연스러운 목재 질감 유지</li>",
+          prod_oil_stain_apps: "<li>야외 데크 및 펜스</li><li>목재 가구 및 조형물</li><li>실내외 건축용 목재</li>"
         },
         en: {
           nav_company: "Company",
@@ -2740,6 +2762,8 @@
           prod_rust_desc: "Powerful Rust Prevention",
           prod_filling_title: "Filling Service",
           prod_filling_desc: "Custom Aerosol Manufacturing",
+          prod_oil_stain_title: "DONGSUH OIL STAIN SPRAY",
+          prod_oil_stain_desc: "Wood Protection & Coloring Solution",
           // Gallery
           section_gallery: "Professional's Choice",
           gallery_title: "Artist's Choice: Dongsuh Chemical X Beommin",
@@ -2999,6 +3023,16 @@
       }
 
       document.addEventListener("DOMContentLoaded", function () {
+        // URL 파라미터 체크 (?product=oil_stain)
+        const urlParams = new URLSearchParams(window.location.search);
+        const productParam = urlParams.get('product');
+        if (productParam) {
+            // 약간의 지연을 주어 페이지 초기 로딩 후 모달이 뜨게 함
+            setTimeout(() => {
+                showProductDetail(productParam);
+            }, 500);
+        }
+
         initSlides();
         initCertificateGallery();
         initCertificateGalleryFull();
