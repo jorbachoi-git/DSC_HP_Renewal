@@ -1235,13 +1235,13 @@
   <body>
     <!-- Oil Stain Release Popup -->
     <div class="msds-popup-overlay" id="oilStainPopupOverlay" style="z-index: 3001;"></div>
-    <div class="msds-popup" id="oilStainPopup" style="z-index: 3002;">
+    <div class="msds-popup" id="oilStainPopup" style="z-index: 3002; top: 50%; left: 50%; transform: translate(-50%, -50%); margin: 0; max-width: 90vw; width: 400px;">
       <h2 data-i18n="popup_ost_title" style="color: #008b8b; font-weight: 800;">🎉 신제품 오일스테인 스프레이 출시!</h2>
       <p style="margin-bottom: 20px;">
         <span data-i18n="popup_ost_desc">국내 유일! 도구 없이, 준비 없이 뿌리기만 하면 끝나는 <strong>고성능 오일스테인 스프레이</strong>가 새롭게 출시되었습니다. 지금 바로 확인해 보세요!</span>
       </p>
       <div style="text-align: center; margin-bottom: 25px;">
-        <button class="btn-submit" onclick="navigateTo('oil-stain-detail'); closeOilStainPopup();" data-i18n="popup_btn_view_ost" style="width: auto; padding: 12px 30px; font-size: 1.1rem; border-radius: 30px;">신제품 자세히 보기 →</button>
+        <button class="btn-submit" onclick="navigateTo('oil-stain-detail'); closeOilStainPopup();" data-i18n="popup_btn_view_ost" style="width: auto; padding: 0 30px; height: 45px; display: inline-flex; align-items: center; justify-content: center; font-size: 1.1rem; border-radius: 30px; line-height: 1;">신제품 자세히 보기 →</button>
       </div>
       <div class="msds-popup-buttons">
         <button
@@ -1263,8 +1263,8 @@
 
     <!-- Filling Service Popup -->
     <div class="msds-popup-overlay" id="fillingPopupOverlay" style="z-index: 2001;"></div>
-    <div class="msds-popup" id="fillingPopup" style="z-index: 2002;">
-      <h2 data-i18n="popup_filling_title">고품질 충전서비스 확대</h2>
+    <div class="msds-popup" id="fillingPopup" style="z-index: 2002; top: 20px; right: 20px; left: auto; transform: none; max-width: 320px;">
+      <h2 data-i18n="popup_filling_title" style="color: #008b8b; font-weight: 800;">고품질 충전서비스 확대</h2>
       <p>
         <span data-i18n="popup_filling_desc"><strong>4L 이상</strong>부터 주문 가능하고, 신속한 납기를 보장합니다. 제품문의 및 자료요청 페이지에서 요청해 주시거나 전화주세요</span><br /><br />
         <span style="font-size: 14px; color: #666"
@@ -1375,7 +1375,7 @@
     <div class="mobile-menu" id="mobileMenu">
       <div class="mobile-menu-header">
         <span class="mobile-menu-title">MENU</span>
-        <button class="mobile-menu-close" onclick="history.back()">✕</button>
+        <button class="mobile-menu-close" onclick="closeMobileMenu(); history.back();">✕</button>
       </div>
       <nav class="mobile-nav-list">
         <!-- 회사소개 (아코디언) -->
@@ -2275,7 +2275,7 @@
     <!-- Layer 2: 오일스테인 스프레이 상세 페이지 (MVP) -->
     <section class="section-content" id="oil-stain-detail">
       <div class="subheading-banner" style="background-image: url('images/BGI_DongSuh2.png')">
-        <h2 data-i18n="ost_detail_title">동서 오일 스테인 스프레이</h2>
+        <h2 data-i18n="ost_detail_title">오일스테인 스프레이</h2>
       </div>
       <div class="container">
         <!-- S0: Hero -->
@@ -2447,8 +2447,8 @@
           <img src="images/OSTN-시공전후.png" alt="Before and After Comparison" style="width: 100%; height: auto; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);" />
           
           <!-- 좌우 라벨 오버레이 추가 -->
-          <div style="position: absolute; top: 50%; left: 25%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); color: white; padding: 10px 25px; border-radius: 30px; font-weight: 800; font-size: clamp(1rem, 3vw, 1.5rem); pointer-events: none;" data-i18n="ost_ba_label_before">시공 전</div>
-          <div style="position: absolute; top: 50%; left: 75%; transform: translate(-50%, -50%); background: rgba(0, 139, 139, 0.8); color: white; padding: 10px 25px; border-radius: 30px; font-weight: 800; font-size: clamp(1rem, 3vw, 1.5rem); pointer-events: none;" data-i18n="ost_ba_label_after">시공 후</div>
+          <div style="position: absolute; top: 50%; left: 25%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); color: white; padding: clamp(5px, 1.5vw, 10px) clamp(12px, 3vw, 25px); border-radius: 30px; font-weight: 800; font-size: clamp(0.85rem, 3vw, 1.5rem); pointer-events: none; white-space: nowrap;" data-i18n="ost_ba_label_before">시공 전</div>
+          <div style="position: absolute; top: 50%; left: 75%; transform: translate(-50%, -50%); background: rgba(0, 139, 139, 0.8); color: white; padding: clamp(5px, 1.5vw, 10px) clamp(12px, 3vw, 25px); border-radius: 30px; font-weight: 800; font-size: clamp(0.85rem, 3vw, 1.5rem); pointer-events: none; white-space: nowrap;" data-i18n="ost_ba_label_after">시공 후</div>
         </div>
 
         <!-- S6: Color Chart -->
