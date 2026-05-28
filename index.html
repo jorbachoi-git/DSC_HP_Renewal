@@ -3735,9 +3735,11 @@
           }
           
           const fillingExpiry = localStorage.getItem('fillingPopupExpiry');
+          /* 충전 서비스 팝업 비활성화 (요청에 따름)
           if (!fillingExpiry || now > parseInt(fillingExpiry)) {
             showFillingPopup();
           }
+          */
         }, 2000);
 
         // 연락처 입력 필드 자동 하이픈 적용
