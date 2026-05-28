@@ -846,6 +846,363 @@
           font-size: 0.75rem;
         }
       }
+
+      /* --- 오일스테인 상세 페이지 스타일 --- */
+      #oil-stain-detail {
+        background-color: #fff;
+      }
+      .ost-hero {
+        padding: 60px 0 0 0;
+        background-color: #FDF6EC;
+        text-align: center;
+        border-radius: 20px;
+        margin-bottom: 40px;
+        position: relative;
+        overflow: hidden;
+      }
+      .ost-hero h2, .ost-hero p, .ost-hero .ost-badge {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      .ost-badge {
+        display: inline-block;
+        padding: 8px 25px;
+        background-color: #008b8b;
+        color: white;
+        border-radius: 50px;
+        font-size: 25px;
+        font-weight: 800;
+        margin-bottom: 25px;
+        white-space: nowrap;
+        box-shadow: 0 4px 10px rgba(0, 139, 139, 0.2);
+        letter-spacing: -0.5px;
+      }
+      .ost-hero h2 {
+        font-size: 2.2rem;
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 15px;
+        color: #333;
+      }
+      .ost-hero p {
+        font-size: clamp(0.9rem, 2.5vw, 1.15rem);
+        color: #008b8b;
+        font-weight: 700;
+        margin-bottom: 30px;
+        display: block;
+      }
+      .ost-hero img {
+        width: 100%;
+        height: auto;
+        margin: 0 auto;
+        display: block;
+        filter: drop-shadow(0 10px 30px rgba(0,0,0,0.15));
+      }
+
+      /* 4중 보호 그리드 스타일 */
+      .ost-protection-wrapper {
+        background-color: #fcfcfc;
+        padding: clamp(30px, 5vw, 60px) clamp(15px, 3vw, 40px);
+        border-radius: 30px;
+        border: 1px solid #f0f0f0;
+        margin-bottom: 50px;
+        box-shadow: inset 0 2px 10px rgba(0,0,0,0.02);
+      }
+      .ost-protection-title {
+        font-size: clamp(1.4rem, 4vw, 2rem);
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 10px;
+        color: #333;
+        position: relative;
+      }
+      .ost-protection-subtitle {
+        font-size: clamp(0.9rem, 2.5vw, 1.15rem);
+        color: #008b8b;
+        text-align: center;
+        font-weight: 700;
+        margin-bottom: clamp(30px, 5vw, 50px);
+        display: block;
+      }
+      .ost-protection-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: clamp(15px, 3vw, 30px);
+        width: 100%;
+      }
+      .ost-protection-item {
+        background: #fff;
+        padding: clamp(20px, 4vw, 35px);
+        border-radius: 25px;
+        text-align: center;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+        border: 1px solid #eee;
+        transition: all 0.3s ease;
+      }
+      .ost-protection-item:hover {
+        transform: translateY(-5px);
+        border-color: #008b8b;
+      }
+      .ost-protection-icon {
+        width: clamp(50px, 8vw, 70px);
+        height: clamp(50px, 8vw, 70px);
+        margin: 0 auto 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .ost-protection-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+      .ost-protection-item h4 {
+        font-size: clamp(1rem, 2.5vw, 1.25rem);
+        font-weight: 800;
+        color: #333;
+        margin-bottom: 8px;
+        word-break: keep-all;
+      }
+      .ost-protection-item p {
+        font-size: clamp(0.8rem, 2vw, 0.95rem);
+        color: #777;
+        line-height: 1.5;
+        margin-bottom: 0;
+        word-break: keep-all;
+      }
+
+      .ost-section-title {
+        font-size: clamp(1.5rem, 5vw, 2.2rem);
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 40px;
+        color: #333;
+        line-height: 1.3;
+      }
+      
+      .ost-comparison {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(15px, 3vw, 30px);
+        margin-bottom: 60px;
+      }
+      .ost-comp-card {
+        padding: clamp(20px, 4vw, 40px);
+        border-radius: 20px;
+        background: #f8f9fa;
+        display: flex;
+        flex-direction: column;
+      }
+      .ost-comp-card.highlight {
+        background: #FDF6EC;
+        border: 2px solid #008b8b;
+        box-shadow: 0 10px 25px rgba(0, 139, 139, 0.1);
+      }
+      .ost-comp-card h4 {
+        font-size: clamp(1.1rem, 3vw, 1.6rem);
+        font-weight: 800;
+        margin-bottom: clamp(15px, 3vw, 25px);
+        text-align: center;
+        color: #222;
+      }
+      .ost-comp-img-wrapper {
+        height: clamp(150px, 25vw, 250px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: clamp(20px, 4vw, 40px);
+        background: rgba(255,255,255,0.5);
+        border-radius: 15px;
+      }
+      .ost-comp-img {
+        max-width: 90%;
+        max-height: 90%;
+        width: auto;
+        height: auto;
+        display: block;
+        opacity: 0.95;
+        filter: drop-shadow(0 5px 15px rgba(0,0,0,0.05));
+      }
+      .ost-comp-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .ost-comp-list li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: clamp(10px, 2vw, 18px) 0;
+        border-bottom: 1px solid #eee;
+        font-size: clamp(0.9rem, 2.2vw, 1.15rem);
+        line-height: 1.4;
+      }
+      .ost-comp-list li:last-child {
+        border-bottom: none;
+      }
+      .ost-comp-label {
+        color: #777;
+        font-weight: 500;
+        flex-shrink: 0;
+        margin-right: 10px;
+      }
+      .ost-comp-value {
+        color: #333;
+        font-weight: 700;
+        text-align: right;
+        word-break: keep-all;
+      }
+      .highlight .ost-comp-value {
+        color: #008b8b;
+      }
+
+      .ost-steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-bottom: 60px;
+      }
+      .ost-step-card {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding: clamp(20px, 4vw, 35px);
+        background: #fff;
+        border: 1px solid #eee;
+        border-radius: 20px;
+        position: relative;
+        transition: all 0.3s ease;
+      }
+      .ost-step-card:hover {
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        border-color: #008b8b;
+      }
+      .ost-step-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+        justify-content: center;
+      }
+      .ost-step-header h4 {
+        font-size: 1.15rem;
+        font-weight: 800;
+        margin-bottom: 0 !important;
+        color: #333;
+      }
+      .ost-step-num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        background: #008b8b;
+        color: white;
+        border-radius: 50%;
+        font-weight: 800;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+      }
+      .ost-step-list {
+        list-style: disc;
+        padding-left: 20px;
+        text-align: left;
+        margin-bottom: 20px;
+        flex-grow: 1; /* 텍스트 영역이 남은 공간을 차지하여 이미지를 하단으로 밀어냄 */
+      }
+      .ost-step-list li {
+        font-size: 0.9rem;
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 8px;
+        word-break: keep-all;
+      }
+      .ost-step-list li::marker {
+        color: #008b8b;
+        font-size: 1.1rem;
+      }
+      .ost-step-icon {
+        width: 100%;
+        max-width: 100px;
+        height: auto;
+        margin: 0 auto;
+        display: block;
+        margin-top: auto; /* 리스트 영역이 늘어나도 이미지는 항상 하단 고정 */
+      }
+
+      .ost-cta {
+        background: #008b8b;
+        color: white;
+        padding: 60px 20px;
+        text-align: center;
+        border-radius: 20px;
+        margin-bottom: 40px;
+      }
+      .ost-cta h3 {
+        font-size: 1.8rem;
+        font-weight: 800;
+        margin-bottom: 15px;
+      }
+      .ost-cta p {
+        margin-bottom: 30px;
+        opacity: 0.9;
+      }
+      .ost-btn-group {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+      }
+      .ost-btn-white {
+        background: white;
+        color: #008b8b;
+        padding: 15px 30px;
+        border-radius: 30px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform 0.2s;
+      }
+      .ost-btn-outline {
+        border: 2px solid white;
+        color: white;
+        padding: 13px 30px;
+        border-radius: 30px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform 0.2s;
+      }
+      .ost-btn-white:hover, .ost-btn-outline:hover {
+        transform: translateY(-3px);
+      }
+
+      .ost-usage-icon {
+        width: 100%;
+        max-width: clamp(150px, 20vw, 250px); /* 기존 100px 대비 약 2.5~3배 확대 */
+        height: auto;
+        margin: 10px auto 0;
+        display: block;
+        margin-top: auto;
+        filter: drop-shadow(0 5px 15px rgba(0,0,0,0.05));
+      }
+      .ost-ba-label {
+        display: block;
+        font-size: clamp(0.9rem, 2.5vw, 1.15rem);
+        color: #008b8b;
+        text-align: center;
+        font-weight: 700;
+        margin-bottom: 15px;
+      }
+      .ost-ba-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 60px;
+      }
+
+      @media (max-width: 768px) {
+        .ost-hero h2 { font-size: 1.8rem; }
+        .ost-comparison, .ost-steps { grid-template-columns: 1fr; }
+        .ost-btn-group { flex-direction: column; }
+      }
     </style>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script id="tailwind-config">
@@ -876,27 +1233,27 @@
         </style>
   </head>
   <body>
-    <!-- MSDS Popup -->
-    <div class="msds-popup-overlay" id="msdsPopupOverlay"></div>
-    <div class="msds-popup" id="msdsPopup">
-      <h2 data-i18n="popup_msds_title">📋 MSDS 안내</h2>
-      <p>
-        <span data-i18n="popup_msds_desc">MSDS 및 제품 카탈로그는 자료실에서 다운로드 받을 수 있습니다. 또는 제품문의 및 자료요청 페이지에서 요청해주시면 e-mail로 답변드리겠습니다.</span><br /><br />
-        <span style="font-size: 14px; color: #666"
-          data-i18n="popup_contact">문의전화 : 032-571-6010</span
-        >
+    <!-- Oil Stain Release Popup -->
+    <div class="msds-popup-overlay" id="oilStainPopupOverlay" style="z-index: 3001;"></div>
+    <div class="msds-popup" id="oilStainPopup" style="z-index: 3002;">
+      <h2 data-i18n="popup_ost_title" style="color: #008b8b; font-weight: 800;">🎉 신제품 오일스테인 스프레이 출시!</h2>
+      <p style="margin-bottom: 20px;">
+        <span data-i18n="popup_ost_desc">국내 유일! 도구 없이, 준비 없이 뿌리기만 하면 끝나는 <strong>고성능 오일스테인 스프레이</strong>가 새롭게 출시되었습니다. 지금 바로 확인해 보세요!</span>
       </p>
+      <div style="text-align: center; margin-bottom: 25px;">
+        <button class="btn-submit" onclick="navigateTo('oil-stain-detail'); closeOilStainPopup();" data-i18n="popup_btn_view_ost" style="width: auto; padding: 12px 30px; font-size: 1.1rem; border-radius: 30px;">신제품 자세히 보기 →</button>
+      </div>
       <div class="msds-popup-buttons">
         <button
           class="msds-popup-btn msds-popup-btn-secondary"
-          onclick="closeMsdsPopup24h();"
+          onclick="closeOilStainPopup24h();"
           data-i18n="popup_btn_24h"
         >
           24시간 닫기
         </button>
         <button
           class="msds-popup-btn msds-popup-btn-primary"
-          onclick="closeMsdsPopup();"
+          onclick="closeOilStainPopup();"
           data-i18n="popup_btn_close"
         >
           닫기
@@ -971,6 +1328,7 @@
           <div class="nav-item">
             <a href="#products" onclick="navigateTo('products'); return false;" data-i18n="nav_products">제품소개</a>
             <div class="dropdown-menu">
+              <a href="#oil-stain-detail" onclick="navigateTo('oil-stain-detail'); return false;" data-i18n="menu_oil_stain">오일스테인 스프레이</a>
               <a href="#prod-dongsuh" onclick="navigateTo('products', 'prod-dongsuh'); return false;" data-i18n="prod_dongsuh_title">동서 락카</a>
               <a href="#prod-ds" onclick="navigateTo('products', 'prod-ds'); return false;" data-i18n="prod_ds_title">DS 락카</a>
               <a href="#prod-zinc" onclick="navigateTo('products', 'prod-zinc'); return false;" data-i18n="prod_zinc_title">아연(ZINC SILVER)</a>
@@ -1052,6 +1410,7 @@
             <span class="arrow-icon" onclick="toggleMobileSubmenu('sub-products', this.parentElement)" style="padding: 10px;">▼</span>
           </div>
           <div id="sub-products" class="mobile-nav-sub">
+            <a onclick="navigateTo('oil-stain-detail'); closeMobileMenu()" data-i18n="menu_oil_stain">오일스테인 스프레이</a>
             <a
               onclick="navigateTo('products', 'prod-dongsuh'); closeMobileMenu()" data-i18n="prod_dongsuh_title"
               >동서 락카</a
@@ -1371,6 +1730,22 @@
       </div>
       <div class="container">
         <div class="product-grid">
+          <!-- 신제품 추가 -->
+          <div
+            id="prod-oil-stain"
+            class="product-card"
+            onclick="showProductDetail('oil_stain')"
+            onkeydown="if(event.key === 'Enter' || event.key === ' ') showProductDetail('oil_stain')"
+            role="button"
+            tabindex="0"
+          >
+            <div style="position: relative; overflow: hidden; border-radius: 4px; margin-bottom: 15px;">
+              <img src="images/OSTN-prod-image.png" alt="오일스테인 스프레이" loading="lazy" style="object-fit: contain; margin-bottom: 0; transform: scale(1.2);" />
+              <div style="position: absolute; top: 10px; right: 10px; background: #008b8b; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">NEW</div>
+            </div>
+            <h3 data-i18n="prod_oil_stain_title">오일스테인 스프레이</h3>
+            <p data-i18n="prod_oil_stain_desc">프리미엄 목재보호 스프레이</p>
+          </div>
           <div
             id="prod-dongsuh"
             class="product-card"
@@ -1442,23 +1817,6 @@
             <img src="images/prod_06.png" alt="충전서비스" loading="lazy" />
             <h3 data-i18n="prod_filling_title">충전서비스</h3>
             <p data-i18n="prod_filling_desc">맞춤형 에어졸 제조</p>
-          </div>
-          <!-- 신제품 추가 -->
-          <div
-            id="prod-oil-stain"
-            class="product-card"
-            onclick="showProductDetail('oil_stain')"
-            onkeydown="if(event.key === 'Enter' || event.key === ' ') showProductDetail('oil_stain')"
-            role="button"
-            tabindex="0"
-            style="border: 2px solid #008b8b;"
-          >
-            <div style="position: relative;">
-              <img src="images/prod_oil_stain.png" alt="동서 오일 스테인 스프레이" loading="lazy" />
-              <div style="position: absolute; top: 10px; right: 10px; background: #008b8b; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">NEW</div>
-            </div>
-            <h3 data-i18n="prod_oil_stain_title">동서 오일 스테인 스프레이</h3>
-            <p data-i18n="prod_oil_stain_desc">목재 보호 및 채색 솔루션</p>
           </div>
         </div>
       </div>
@@ -1914,6 +2272,211 @@
       </div>
     </section>
 
+    <!-- Layer 2: 오일스테인 스프레이 상세 페이지 (MVP) -->
+    <section class="section-content" id="oil-stain-detail">
+      <div class="subheading-banner" style="background-image: url('images/BGI_DongSuh2.png')">
+        <h2 data-i18n="ost_detail_title">동서 오일 스테인 스프레이</h2>
+      </div>
+      <div class="container">
+        <!-- S0: Hero -->
+        <div class="ost-hero">
+          <div class="ost-badge">국내 유일, 뿌리는 오일스테인</div>
+          <h2 data-i18n="ost_hero_title">도구 없이, 준비 없이,<br>뿌리면 끝.</h2>
+          <p data-i18n="ost_hero_subtitle">오일스테인 스프레이 — 실외 목재 전용 에어졸</p>
+          <img src="images/OSTN_3D_Image.png" alt="Oil Stain Spray Can" />
+        </div>
+
+        <!-- S1: 왜 스프레이인가 -->
+        <h3 class="ost-section-title" data-i18n="ost_why_title">왜 스프레이인가?</h3>
+        <div class="ost-comparison">
+          <div class="ost-comp-card">
+            <h4 data-i18n="ost_comp_traditional">기존 붓 도포 (타사)</h4>
+            <div class="ost-comp-img-wrapper">
+              <img src="images/OSTN-기존방식-아이콘.png" alt="Traditional Method" class="ost-comp-img" />
+            </div>
+            <ul class="ost-comp-list">
+              <li><span class="ost-comp-label" data-i18n="ost_label_tools">준비물</span><span class="ost-comp-value" data-i18n="ost_val_tools_trad">붓, 트레이, 장갑</span></li>
+              <li><span class="ost-comp-label" data-i18n="ost_label_time">작업 시간</span><span class="ost-comp-value" data-i18n="ost_val_time_trad">4시간 이상</span></li>
+              <li><span class="ost-comp-label" data-i18n="ost_label_quality">마감 품질</span><span class="ost-comp-value" data-i18n="ost_val_quality_trad">붓 자국 발생</span></li>
+              <li><span class="ost-comp-label" data-i18n="ost_label_gap">틈새 작업</span><span class="ost-comp-value" data-i18n="ost_val_gap_trad">작업 불가능 구역</span></li>
+              <li><span class="ost-comp-label" data-i18n="ost_label_storage">보관</span><span class="ost-comp-value" data-i18n="ost_val_storage_trad">공기 접촉 시 굳음</span></li>
+            </ul>
+          </div>
+          <div class="ost-comp-card highlight">
+            <h4 data-i18n="ost_comp_spray">동서 오일스테인 스프레이</h4>
+            <div class="ost-comp-img-wrapper">
+              <img src="images/OSTN-새로운방식-아이콘.png" alt="Spray Method" class="ost-comp-img" />
+            </div>
+            <ul class="ost-comp-list">
+              <li><span class="ost-comp-label" data-i18n="ost_label_tools">준비물</span><span class="ost-comp-value" data-i18n="ost_val_tools_spray">캔 하나</span></li>
+              <li><span class="ost-comp-label" data-i18n="ost_label_time">작업 시간</span><span class="ost-comp-value" data-i18n="ost_val_time_spray">약 30분</span></li>
+              <li><span class="ost-comp-label" data-i18n="ost_label_quality">마감 품질</span><span class="ost-comp-value" data-i18n="ost_val_quality_spray">균일한 안개분사</span></li>
+              <li><span class="ost-comp-label" data-i18n="ost_label_gap">틈새 작업</span><span class="ost-comp-value" data-i18n="ost_val_gap_spray">구석까지 침투</span></li>
+              <li><span class="ost-comp-label" data-i18n="ost_label_storage">보관</span><span class="ost-comp-value" data-i18n="ost_val_storage_spray">장기 보관 가능</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- S2: 목재를 지키는 4중 보호 -->
+        <div class="ost-protection-wrapper">
+          <h3 class="ost-protection-title">목재를 지키는 4중 보호</h3>
+          <span class="ost-protection-subtitle">아마인유+친환경 용제: 프리미엄 원료</span>
+          <div class="ost-protection-grid">
+            <div class="ost-protection-item">
+              <div class="ost-protection-icon">
+                <img src="images/OSTN-UV-ICON.png" alt="UV Protection" />
+              </div>
+              <h4>UV탈변색방지</h4>
+              <p>강한 햇빛으로부터 목재의 변색과 갈라짐을 방지하고 수명을 연장합니다.</p>
+            </div>
+            <div class="ost-protection-item">
+              <div class="ost-protection-icon">
+                <img src="images/OSTN-water-protection-icon.png" alt="Waterproof" />
+              </div>
+              <h4>방수</h4>
+              <p>나노 입자가 표면에 막을 형성하여 수분 침투를 완벽하게 차단합니다.</p>
+            </div>
+            <div class="ost-protection-item">
+              <div class="ost-protection-icon">
+                <img src="images/OSTN-방부-icon.png" alt="Preservation" />
+              </div>
+              <h4>방부(항균·방충)</h4>
+              <p>특수 항균 성분이 습한 환경에서도 목재가 썩지 않도록 보호합니다.</p>
+            </div>
+            <div class="ost-protection-item">
+              <div class="ost-protection-icon">
+                <img src="images/OSTN-내구성-icon.png" alt="Durability" />
+              </div>
+              <h4>내구성</h4>
+              <p>목재 고유의 결을 살리면서도 깊이 있는 색감을 오랫동안 유지합니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- S3: 특장점 통합 섹션 -->
+        <div class="ost-feature-grid" style="margin-bottom: 60px; align-items: center;">
+          <div class="ost-feature-img" style="flex: 1;">
+            <img src="images/OSTN-bg-image05.png" alt="Strong Protection" style="width: 100%; height: auto; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);" />
+          </div>
+          <div class="ost-feature-text" style="flex: 1.2; padding: clamp(25px, 5vw, 50px); padding-left: clamp(20px, 5vw, 50px); text-align: left;">
+            <ul style="list-style: none; padding: 0; margin: 0;">
+              <li style="margin-bottom: 25px;">
+                <h4 style="color: #008b8b; font-weight: 700; font-size: clamp(0.9rem, 2.5vw, 1.15rem); margin-bottom: 6px;" data-i18n="ost_water_title">비가 와도 끄떡없는 강력한 방수·발수</h4>
+                <p style="color: #666; font-size: 0.85rem; line-height: 1.6;" data-i18n="ost_water_desc">나노 입자 기술이 목재 표면에 강력한 보호막을 형성하여 물방울을 튕겨냅니다. 목재 부패의 원인인 습기를 완벽히 차단합니다.</p>
+              </li>
+              <li>
+                <h4 style="color: #008b8b; font-weight: 700; font-size: clamp(0.9rem, 2.5vw, 1.15rem); margin-bottom: 6px;" data-i18n="ost_pene_title">겉만 번지르르한 칠이 아닙니다.</h4>
+                <p style="color: #666; font-size: 0.85rem; line-height: 1.6;" data-i18n="ost_pene_desc">동서 오일스테인은 목재 섬유 조직 깊숙이 침투하여 내부부터 보호합니다. 들뜨거나 벗겨지는 현상이 없으며 자연스러운 목재의 결을 살려줍니다.</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- S3.5: 이런 곳에 사용하세요 -->
+        <h3 class="ost-section-title" data-i18n="ost_usage_title">이런 곳에 사용하세요</h3>
+        <p class="ost-protection-subtitle" style="margin-top: -30px; margin-bottom: 10px;" data-i18n="ost_usage_subtitle">실외 목재 구조물의 부분 보수·터치업</p>
+        <p class="text-center" style="font-size: 0.85rem; color: #777; margin-bottom: 40px; line-height: 1.6;" data-i18n="ost_usage_note">
+          ※ 표면이 페인트 또는 코팅된 곳에는 사용을 피하세요.<br>
+          ※ 페인트는 덮고, 오일스테인은 스며듭니다. (목재내부로 침투하여 보호)
+        </p>
+        <div class="ost-steps" style="margin-bottom: 80px;">
+          <div class="ost-step-card">
+            <div class="ost-step-header">
+              <h4 data-i18n="ost_usage_item1">실외 원목제품</h4>
+            </div>
+            <img src="images/OSTN-chair-icon.png" alt="Usage 1 Icon" class="ost-usage-icon" style="transform: scale(1.3);" />
+          </div>
+          <div class="ost-step-card">
+            <div class="ost-step-header">
+              <h4 data-i18n="ost_usage_item2">목재 소품 인테리어 가구</h4>
+            </div>
+            <img src="images/OSTN-table-icon.png" alt="Usage 2 Icon" class="ost-usage-icon" style="transform: scale(1.3);" />
+          </div>
+          <div class="ost-step-card">
+            <div class="ost-step-header">
+              <h4 data-i18n="ost_usage_item3">목재 펜션 및 전원주택</h4>
+            </div>
+            <img src="images/OSTN-house-icon.png" alt="Usage 3 Icon" class="ost-usage-icon" />
+          </div>
+        </div>
+
+        <!-- S4: 3단계 사용법 -->
+        <h3 class="ost-section-title" data-i18n="ost_step_title">3단계 사용법</h3>
+        <p class="ost-protection-subtitle" style="margin-top: -30px;" data-i18n="ost_step_subtitle">2번 분사로 30분 완성</p>
+        <div class="ost-steps">
+          <div class="ost-step-card">
+            <div class="ost-step-header">
+              <div class="ost-step-num">1</div>
+              <h4 data-i18n="ost_step1_title">표면청소 & 먼지제거</h4>
+            </div>
+            <ul class="ost-step-list" data-i18n="ost_step1_desc">
+              <li>목재 표면의 먼지, 이물질을 제거하세요.</li>
+              <li>환기가 충분한 공간을 확보하세요.</li>
+              <li>기온 5°C 이상 / 습도 85% 이하 환경에서 사용하세요.</li>
+            </ul>
+            <img src="images/OSTN-clean-step-icon.png" alt="Step 1 Icon" class="ost-step-icon" />
+          </div>
+          <div class="ost-step-card">
+            <div class="ost-step-header">
+              <div class="ost-step-num">2</div>
+              <h4 data-i18n="ost_step2_title">1차 도포</h4>
+            </div>
+            <ul class="ost-step-list" data-i18n="ost_step2_desc">
+              <li>사용 전 제품을 충분히 흔들어 고르게 섞은 후, 약 20~30cm 거리에서 분사하세요.</li>
+              <li>사용 전 반드시 동일한 조건에서 테스트 후 사용하세요.</li>
+              <li>페인트 또는 코팅된 곳에는 사용을 피하십시오. (오일스테인은 목재에 스며들어 보호하는 제품임)</li>
+            </ul>
+            <img src="images/OSTN-spray-step-icon.png" alt="Step 2 Icon" class="ost-step-icon" />
+          </div>
+          <div class="ost-step-card">
+            <div class="ost-step-header">
+              <div class="ost-step-num">3</div>
+              <h4 data-i18n="ost_step3_title">2차 도포</h4>
+            </div>
+            <ul class="ost-step-list" data-i18n="ost_step3_desc">
+              <li>30분 후 1차와 동일하게 한 번 더 도포하면, 깊이 스며들어 보호 효과가 높습니다.</li>
+              <li>잔량이 남은 제품은 거꾸로 세워 2~3초간 분사 후 보관하면, 노즐 막힘을 방지해 줍니다.</li>
+            </ul>
+            <img src="images/OSTN-spray-step-icon.png" alt="Step 3 Icon" class="ost-step-icon" />
+          </div>
+        </div>
+
+        <!-- S5: Before & After -->
+        <h3 class="ost-section-title" data-i18n="ost_ba_title">확실한 변화, 시공 전후 비교</h3>
+        <div class="ost-ba-single-container" style="margin-bottom: 60px; position: relative;">
+          <img src="images/OSTN-시공전후.png" alt="Before and After Comparison" style="width: 100%; height: auto; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);" />
+          
+          <!-- 좌우 라벨 오버레이 추가 -->
+          <div style="position: absolute; top: 50%; left: 25%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); color: white; padding: 10px 25px; border-radius: 30px; font-weight: 800; font-size: clamp(1rem, 3vw, 1.5rem); pointer-events: none;" data-i18n="ost_ba_label_before">시공 전</div>
+          <div style="position: absolute; top: 50%; left: 75%; transform: translate(-50%, -50%); background: rgba(0, 139, 139, 0.8); color: white; padding: 10px 25px; border-radius: 30px; font-weight: 800; font-size: clamp(1rem, 3vw, 1.5rem); pointer-events: none;" data-i18n="ost_ba_label_after">시공 후</div>
+        </div>
+
+        <!-- S6: Color Chart -->
+        <h3 class="ost-section-title" data-i18n="ost_color_title">자연을 닮은 7가지 색상</h3>
+        <img src="images/OSTN-7-color-icon.png" alt="7 Natural Colors" class="ost-color-full-img" />
+
+        <!-- S7: Quality -->
+        <div style="margin-top: 80px;">
+          <h3 class="ost-section-title" data-i18n="ost_quality_title">믿을 수 있는 품질</h3>
+          <ul class="ost-quality-list" style="list-style: none; padding: 0; text-align: center;">
+            <li style="color: #008b8b; font-weight: 700; font-size: clamp(1rem, 2.5vw, 1.2rem); margin-bottom: 15px;" data-i18n="ost_quality_1">50년 전통의 동서화학 제조기술</li>
+            <li style="color: #008b8b; font-weight: 700; font-size: clamp(1rem, 2.5vw, 1.2rem); margin-bottom: 15px;" data-i18n="ost_quality_2">환경표지인증 오일스테인 사용</li>
+            <li style="color: #008b8b; font-weight: 700; font-size: clamp(1rem, 2.5vw, 1.2rem); margin-bottom: 15px;" data-i18n="ost_quality_3">안전 확인 대상 생활화학제품 승인</li>
+          </ul>
+        </div>
+
+        <!-- S8: CTA -->
+        <div class="ost-cta">
+          <h3 data-i18n="ost_cta_title">제품이 궁금하신가요?</h3>
+          <p data-i18n="ost_cta_subtitle">색상 선택부터 대량 구매 문의까지 전문 팀이 답변해 드립니다.</p>
+          <div class="ost-btn-group">
+            <a href="#contact" onclick="navigateTo('contact'); return false;" class="ost-btn-white" data-i18n="ost_btn_inquiry">제품 문의하기</a>
+            <a href="#" class="ost-btn-outline" onclick="alert('준비 중입니다.'); return false;" data-i18n="ost_btn_buy">구매하기 (준비 중)</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Contact Section -->
     <section class="section-content" id="contact">
       <div
@@ -2114,6 +2677,11 @@
           <div class="footer-section">
             <h4 data-i18n="nav_products">제품소개</h4>
             <a
+              href="#oil-stain-detail"
+              onclick="navigateTo('oil-stain-detail'); return false;" data-i18n="menu_oil_stain"
+              >오일스테인 스프레이</a
+            >
+            <a
               href="#"
               onclick="navigateTo('products', 'prod-dongsuh'); return false;" data-i18n="prod_dongsuh_title"
               >동서 락카</a
@@ -2220,9 +2788,14 @@
             <ul id="modalApplications"></ul>
           </div>
         </div>
-        <button class="btn" onclick="navigateTo('msds-list')" data-i18n="modal_btn_view">
-          자료실 보기
-        </button>
+        <div id="modalButtons" style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+          <button id="btnGoToDetail" class="btn" onclick="navigateTo('oil-stain-detail')" data-i18n="btn_view_detail" style="display: none; background-color: #008b8b; color: white;">
+            오일스테인 스프레이 자세히 보기 →
+          </button>
+          <button class="btn" onclick="navigateTo('msds-list')" data-i18n="modal_btn_view">
+            자료실 보기
+          </button>
+        </div>
       </div>
     </div>
 
@@ -2457,6 +3030,12 @@
         document.getElementById("modalFeatures").innerHTML = translations[currentLang][featuresKey] || "<li>정보 없음</li>";
         document.getElementById("modalApplications").innerHTML = translations[currentLang][appsKey] || "<li>정보 없음</li>";
         
+        // 오일 스테인 전용 버튼 노출 제어
+        const detailBtn = document.getElementById("btnGoToDetail");
+        if (detailBtn) {
+            detailBtn.style.display = (productId === 'oil_stain') ? 'block' : 'none';
+        }
+
         document.getElementById("productModal").classList.add("active");
       }
 
@@ -2549,8 +3128,8 @@
           prod_rust_desc: "강력한 녹 방지 솔루션",
           prod_filling_title: "충전서비스",
           prod_filling_desc: "맞춤형 에어졸 제조",
-          prod_oil_stain_title: "동서 오일 스테인 스프레이",
-          prod_oil_stain_desc: "목재 보호 및 채색 솔루션",
+          prod_oil_stain_title: "오일스테인 스프레이",
+          prod_oil_stain_desc: "프리미엄 목재보호 스프레이",
           // Gallery
           section_gallery: "Professional's Choice",
           gallery_title: "아티스트의 선택: 동서화학 X 범민(Beommin)",
@@ -2681,8 +3260,63 @@
           
           prod_filling_features: "<li>소량 다품종 생산 가능</li><li>고객 맞춤형 충전</li><li>철저한 품질 관리</li>",
           prod_filling_apps: "<li>특수 컬러 락카스프레이</li><li>OEM/ODM 에어졸 생산</li>",
-          prod_oil_stain_features: "<li>강력한 목재 보호 성능</li><li>우수한 침투력</li><li>간편한 스프레이 시공</li><li>자연스러운 목재 질감 유지</li>",
-          prod_oil_stain_apps: "<li>야외 데크 및 펜스</li><li>목재 가구 및 조형물</li><li>실내외 건축용 목재</li>"
+          prod_oil_stain_features: "<li>UV 탈색 방지</li><li>방수·발수 성능</li><li>항균·방충 효과</li><li>강력한 내구성</li>",
+          prod_oil_stain_apps: "<li>야외 데크 및 펜스</li><li>목조 정자 및 시설물</li><li>외벽 사이딩</li><li>방부목 구조물</li>",
+          prod_oil_stain_desc_long: "목재 내부 깊숙이 침투하여 습기, 부패, 자외선으로부터 목재를 보호하고 자연스러운 색상을 입혀주는 <strong>고성능 오일 스테인 스프레이</strong>입니다. 붓과 트레이 없이 캔 하나로 누구나 전문가처럼 시공이 가능합니다.<br><br>아래 [자세히 보기] 버튼을 클릭하시면 상세한 제품 특징과 사용법을 확인하실 수 있습니다.",
+          btn_view_detail: "오일스테인 스프레이 자세히 보기 →",
+          
+          ost_detail_title: "오일스테인 스프레이",
+          ost_hero_badge: "국내 유일, 뿌리는 오일스테인",
+          ost_hero_title: "도구 없이, 준비 없이,<br>뿌리면 끝.",
+          ost_hero_subtitle: "오일스테인 스프레이 — 실외 목재 전용 에어졸",
+          ost_btn_inquiry: "제품 문의하기",
+          ost_btn_colors: "색상 보기 ↓",
+          
+          ost_why_title: "왜 스프레이인가?",
+          ost_comp_traditional: "기존 붓 도포 (타사)",
+          ost_comp_spray: "오일스테인 스프레이",
+          ost_label_tools: "준비물",
+          ost_label_time: "작업 시간",
+          ost_label_quality: "마감 품질",
+          ost_label_gap: "틈새 작업",
+          ost_label_storage: "보관",
+          
+          ost_val_tools_trad: "붓, 트레이, 장갑, 비닐",
+          ost_val_tools_spray: "캔 하나",
+          ost_val_time_trad: "4시간 이상",
+          ost_val_time_spray: "약 30분",
+          ost_val_quality_trad: "붓 자국 발생 위험",
+          ost_val_quality_spray: "균일한 안개분사",
+          ost_val_gap_trad: "붓이 닿지 않는 곳 발생",
+          ost_val_gap_spray: "구석까지 자동 침투",
+          ost_val_storage_trad: "개봉 후 굳을 수 있음",
+          ost_val_storage_spray: "밀봉 에어졸, 장기 보관",
+          
+          ost_step_title: "3단계 사용법",
+          ost_step_subtitle: "2번 분사로 30분 완성",
+          ost_step1_title: "표면청소 & 먼지제거",
+          ost_step1_desc: "<li>목재 표면의 먼지, 이물질을 제거하세요.</li><li>환기가 충분한 공간을 확보하세요.</li><li>기온 5°C 이상 / 습도 85% 이하 환경에서 사용하세요.</li>",
+          ost_step2_title: "1차 도포",
+          ost_step2_desc: "<li>사용 전 제품을 충분히 흔들어 고르게 섞은 후, 약 20~30cm 거리에서 분사하세요.</li><li>사용 전 반드시 동일한 조건에서 테스트 후 사용하세요.</li><li>페인트 또는 코팅된 곳에는 사용을 피하십시오. (오일스테인은 목재에 스며들어 보호하는 제품임)</li>",
+          ost_step3_title: "2차 도포",
+          ost_step3_desc: "<li>30분 후 1차와 동일하게 한 번 더 도포하면, 깊이 스며들어 보호 효과가 높습니다.</li><li>잔량이 남은 제품은 거꾸로 세워 2~3초간 분사 후 보관하면, 노즐 막힘을 방지해 줍니다.</li>",
+          ost_color_title: "자연을 닮은 7가지 색상",
+          
+          ost_usage_title: "이런 곳에 사용하세요",
+          ost_usage_subtitle: "실외 목재 구조물의 부분 보수·터치업",
+          ost_usage_item1: "실외 원목제품",
+          ost_usage_item2: "목재 소품 인테리어 가구",
+          ost_usage_item3: "목재 펜션 및 전원주택",
+          ost_usage_note: "※ 표면이 페인트 또는 코팅된 곳에는 사용을 피하세요.<br>※ 페인트는 덮고, 오일스테인은 스며듭니다. (목재내부로 침투하여 보호)",
+          ost_quality_title: "믿을 수 있는 품질",
+          ost_quality_1: "50년 전통의 동서화학 제조기술",
+          ost_quality_2: "환경표지인증 오일스테인 사용",
+          ost_quality_3: "안전 확인 대상 생활화학제품 승인",
+          
+          ost_cta_title: "제품이 궁금하신가요?",
+          ost_cta_subtitle: "색상 선택부터 대량 구매 문의까지 전문 팀이 답변해 드립니다.",
+          ost_btn_buy: "구매하기 (준비 중)",
+          menu_oil_stain: "오일스테인 스프레이",
         },
         en: {
           nav_company: "Company",
@@ -2762,8 +3396,8 @@
           prod_rust_desc: "Powerful Rust Prevention",
           prod_filling_title: "Filling Service",
           prod_filling_desc: "Custom Aerosol Manufacturing",
-          prod_oil_stain_title: "DONGSUH OIL STAIN SPRAY",
-          prod_oil_stain_desc: "Wood Protection & Coloring Solution",
+          prod_oil_stain_title: "OIL STAIN SPRAY",
+          prod_oil_stain_desc: "Premium Wood Protection Spray",
           // Gallery
           section_gallery: "Professional's Choice",
           gallery_title: "Artist's Choice: Dongsuh Chemical X Beommin",
@@ -2890,9 +3524,60 @@
           
           prod_rust_features: "<li>Forms strong protective film</li><li>Excellent water displacement</li><li>Long-term rust prevention</li>",
           prod_rust_apps: "<li>Storage of molds and machine parts</li><li>Protection of export metal products</li>",
-          
-          prod_filling_features: "<li>Small batch production available</li><li>Custom filling</li><li>Strict quality control</li>",
-          prod_filling_apps: "<li>Special color lacquer spray</li><li>OEM/ODM aerosol production</li>"
+          prod_oil_stain_features: "<li>UV protection</li><li>Water repellent</li><li>Antibacterial/Insect-proof</li><li>High durability</li>",
+          prod_oil_stain_apps: "<li>Outdoor decks and fences</li><li>Wooden pavilions</li><li>Wall siding</li><li>Preserved wood structures</li>",
+          prod_oil_stain_desc_long: "<strong>High-performance oil stain spray</strong> that penetrates deep into the wood to protect it from moisture, decay, and UV rays while adding natural color. Anyone can apply it like a professional with just one can, no brushes or trays needed.<br><br>Click the [View Details] button below for more features and instructions.",
+          btn_view_detail: "View Oil Stain Spray Details →",
+
+          ost_detail_title: "Oil Stain Spray",
+          ost_hero_badge: "Korea's First, Sprayable Oil Stain",
+          ost_hero_title: "No Tools, No Prep,<br>Just Spray and Done.",
+          ost_hero_subtitle: "Linseed Oil + Eco-friendly Solvent: Premium Formula",
+          ost_btn_inquiry: "Product Inquiry",
+          ost_btn_colors: "View Colors ↓",
+
+          ost_why_title: "Why Spray?",
+          ost_comp_traditional: "Traditional Brush (Others)",
+          ost_comp_spray: "Oil Stain Spray",
+          ost_label_tools: "Tools",
+          ost_label_time: "Work Time",
+          ost_label_quality: "Finish Quality",
+          ost_label_gap: "Tight Gaps",
+          ost_label_storage: "Storage",
+
+          ost_val_tools_trad: "Brush, Tray, Gloves, Tapes",
+          ost_val_tools_spray: "Just One Can",
+          ost_val_time_trad: "4+ Hours",
+          ost_val_time_spray: "Approx. 30 Mins",
+          ost_val_quality_trad: "Risk of Brush Marks",
+          ost_val_quality_spray: "Uniform Mist Finish",
+          ost_val_gap_trad: "Hard to reach areas",
+          ost_val_gap_spray: "Auto-penetrates corners",
+          ost_val_storage_trad: "May dry up after opening",
+          ost_val_storage_spray: "Sealed, Long-term storage",
+
+          ost_step_title: "3-Step Instructions",
+          ost_step_subtitle: "Complete in 30 minutes with 2 sprays",
+          ost_step1_title: "1. Surface Prep & Cleaning",
+          ost_step1_desc: "- Remove dust and debris from the surface.<br>- Ensure adequate ventilation.<br>- Use in temp > 5°C / humidity < 85%.",
+          ost_step2_title: "1st Coat",
+          ost_step2_desc: "- Shake well before use to mix contents thoroughly, then spray from 20-30cm.<br>- Always test on a small area under the same conditions before full application.<br>- Avoid using on painted or coated surfaces. (Oil stain is designed to penetrate and protect raw wood.)",
+          ost_step3_title: "2nd Coat",
+          ost_step3_desc: "Apply one more coat. Fully settles inside wood in 24 hours.",
+          ost_usage_title: "Where to Use",
+          ost_usage_subtitle: "Partial repair & touch-up for outdoor wood",
+          ost_usage_item1: "Outdoor wood products",
+          ost_usage_item2: "Interior props & furniture",
+          ost_usage_item3: "Log cabins & country houses",
+          ost_usage_note: "※ Avoid using on painted or coated surfaces.<br>※ Paint covers, while oil stain penetrates. (Deep protection from within)",
+          ost_quality_title: "Trusted Quality",
+          ost_quality_1: "50 Years of DSC Manufacturing Expertise",
+          ost_quality_2: "Eco-labeled Oil Stain Formula",
+          ost_quality_3: "Certified Household Chemical Product",
+          ost_cta_title: "Have Questions?",
+          ost_cta_subtitle: "From color selection to bulk orders, our team is here to help.",
+          ost_btn_buy: "Buy Now (Coming Soon)",
+          menu_oil_stain: "Oil Stain Spray",
         },
       };
 
@@ -2923,20 +3608,20 @@
         });
       }
 
-      function showMsdsPopup() {
-        document.getElementById("msdsPopupOverlay").classList.add("active");
-        document.getElementById("msdsPopup").classList.add("active");
+      function showOilStainPopup() {
+        document.getElementById("oilStainPopupOverlay").classList.add("active");
+        document.getElementById("oilStainPopup").classList.add("active");
       }
 
-      function closeMsdsPopup() {
-        document.getElementById("msdsPopupOverlay").classList.remove("active");
-        document.getElementById("msdsPopup").classList.remove("active");
+      function closeOilStainPopup() {
+        document.getElementById("oilStainPopupOverlay").classList.remove("active");
+        document.getElementById("oilStainPopup").classList.remove("active");
       }
 
-      function closeMsdsPopup24h() {
+      function closeOilStainPopup24h() {
         const expiryTime = new Date().getTime() + (24 * 60 * 60 * 1000);
-        localStorage.setItem('msdsPopupExpiry', expiryTime);
-        closeMsdsPopup();
+        localStorage.setItem('oilStainPopupExpiry', expiryTime);
+        closeOilStainPopup();
       }
 
       function showFillingPopup() {
@@ -3026,8 +3711,13 @@
         // URL 파라미터 체크 (?product=oil_stain)
         const urlParams = new URLSearchParams(window.location.search);
         const productParam = urlParams.get('product');
-        if (productParam) {
-            // 약간의 지연을 주어 페이지 초기 로딩 후 모달이 뜨게 함
+        if (productParam === 'oil_stain') {
+            // 오일스테인 제품은 전용 상세 페이지로 바로 이동
+            setTimeout(() => {
+                navigateTo('oil-stain-detail');
+            }, 500);
+        } else if (productParam) {
+            // 기타 제품은 기존처럼 모달 팝업
             setTimeout(() => {
                 showProductDetail(productParam);
             }, 500);
@@ -3038,10 +3728,10 @@
         initCertificateGalleryFull();
         updateFileSizes();
         setTimeout(function () {
-          const expiry = localStorage.getItem('msdsPopupExpiry');
+          const expiry = localStorage.getItem('oilStainPopupExpiry');
           const now = new Date().getTime();
           if (!expiry || now > parseInt(expiry)) {
-            showMsdsPopup();
+            showOilStainPopup();
           }
           
           const fillingExpiry = localStorage.getItem('fillingPopupExpiry');
@@ -3075,9 +3765,9 @@
       });
 
       document
-        .getElementById("msdsPopupOverlay")
+        .getElementById("oilStainPopupOverlay")
         .addEventListener("click", function () {
-          closeMsdsPopup();
+          closeOilStainPopup();
         });
       
       document
@@ -3093,7 +3783,7 @@
             closeModal();
           }
         });
-    </script>
-    <script src="src/script.js"></script>
-  </body>
-</html>
+      </script>
+      <script src="src/script.js"></script>
+      </body>
+      </html>
